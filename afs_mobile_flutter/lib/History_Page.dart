@@ -28,7 +28,7 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 10,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           actions: [
