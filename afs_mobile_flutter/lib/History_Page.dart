@@ -1,5 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+//import 'package:afs_mobile_flutter/custom_sidebar_drawer.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:foldable_sidebar/foldable_sidebar.dart';
 
 class HomePage extends StatefulWidget {
   final List<String> list = List.generate(10, (index) => "Text $index");
@@ -7,8 +10,9 @@ class HomePage extends StatefulWidget {
   @override
   HomePageState createState() => HomePageState();
 }
-class HomePageState extends State<HomePage> {
 
+class HomePageState extends State<HomePage> {
+  FSBStatus? _fsbStatus;
   Widget openPopUp() {
     return PopupMenuButton(
       itemBuilder: (context) {
@@ -20,10 +24,11 @@ class HomePageState extends State<HomePage> {
       },
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 10,
       child: Scaffold(
         appBar: AppBar(
           actions: [
@@ -72,6 +77,31 @@ class HomePageState extends State<HomePage> {
             ChatsTab(),
           ],
         ),
+        //     FoldableSidebarBuilder(
+        //   drawerBackgroundColor: Colors.cyan[100],
+        //   drawer: CustomSidebarDrawer(
+        //     drawerClose: () {
+        //       setState(() {
+        //         _fsbStatus = FSBStatus.FSB_CLOSE;
+        //       });
+        //     },
+        //   ),
+        //   screenContents: HomePage(),
+        //   status: _fsbStatus,
+        // ),
+        floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.red[400],
+            child: Icon(
+              Icons.menu,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              setState(() {
+                _fsbStatus = _fsbStatus == FSBStatus.FSB_OPEN
+                    ? FSBStatus.FSB_CLOSE
+                    : FSBStatus.FSB_OPEN;
+              });
+            }),
       ),
     );
   }
@@ -90,32 +120,42 @@ class ChatsTab extends StatelessWidget {
             SingleChatWidget(
               chatTitle: "Saffar Khan - Zohran",
               chatMessage: 'Rs 9,000/-',
-              ),
-            Divider(color: Colors.black,),
+            ),
+            Divider(
+              color: Colors.black,
+            ),
             SingleChatWidget(
               chatTitle: "Asad - Saif",
               chatMessage: 'Rs 12,000/-',
             ),
-            Divider(color: Colors.black,),
+            Divider(
+              color: Colors.black,
+            ),
             SingleChatWidget(
               chatTitle: "Pawan - Hassan",
               chatMessage: 'Rs 7,000/-',
             ),
-            Divider(color: Colors.black,),
+            Divider(
+              color: Colors.black,
+            ),
             SingleChatWidget(
               chatTitle: "Hasnain - Zohran",
               chatMessage: 'Rs 6,000/-',
             ),
-            Divider(color: Colors.black,),
+            Divider(
+              color: Colors.black,
+            ),
             SingleChatWidget(
               chatTitle: "Abbas - Rizwan",
               chatMessage: 'Rs 8,000/-',
             ),
-            Divider(color: Colors.black,),
+            Divider(
+              color: Colors.black,
+            ),
             SingleChatWidget(
               chatTitle: "Zohran - Tehmoor",
               chatMessage: 'Rs 10,000/-',
-              ),
+            ),
           ],
         ),
       ),
@@ -126,7 +166,7 @@ class ChatsTab extends StatelessWidget {
 //Search bar Function
 class Search extends SearchDelegate {
   String selectedResult = "";
-  List<String> recentList = ["Saffar", "Asad","Saif","Zohran","Abbas"];
+  List<String> recentList = ["Saffar", "Asad", "Saif", "Zohran", "Abbas"];
   final List<String> listExample;
   Search(this.listExample);
 

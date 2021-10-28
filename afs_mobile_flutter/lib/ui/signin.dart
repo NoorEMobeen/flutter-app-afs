@@ -1,3 +1,4 @@
+import 'package:afs_mobile_flutter/dashboard_Receiver.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/constants/constants.dart';
 import 'package:afs_mobile_flutter/ui/widgets/custom_shape.dart';
@@ -237,10 +238,10 @@ class _SignInScreenState extends State<SignInScreen> {
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       onPressed: () {
-        print("Routing to your account");
-        Scaffold.of(context)
-            // ignore: deprecated_member_use
-            .showSnackBar(SnackBar(content: Text('Login Successful')));
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => DashboardReceiver()),
+        );
       },
       textColor: Colors.white,
       padding: EdgeInsets.all(0.0),
