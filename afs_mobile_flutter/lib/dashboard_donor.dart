@@ -23,7 +23,7 @@ class _DashboardDonorState extends State<DashboardDonor> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Colors.orange[400],
+          backgroundColor: Colors.red[400],
           title: Text("Active Posts"),
           centerTitle: true,
         ),
