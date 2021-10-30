@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:afs_mobile_flutter/myCardWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/custom_sidebar_drawer.dart';
@@ -24,7 +26,8 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.orange[400],
-          title: Text("Receiver Dashboard"),
+          title: Text("Active Fund Requests"),
+          centerTitle: true,
         ),
         body: FoldableSidebarBuilder(
           drawerBackgroundColor: Colors.cyan[100],
@@ -59,9 +62,16 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.white,
-        body: MyCardWidget(),
+        body: Center(
+            child: Container(
+          margin: const EdgeInsets.fromLTRB(0, 40, 0, 30),
+          height: 600,
+          child: MyCardWidget(),
+        )),
       ),
+      // MyCardWidget(),
     );
+
     // return Container(
     //   color: Colors.black.withAlpha(50),
     //   child: Center(

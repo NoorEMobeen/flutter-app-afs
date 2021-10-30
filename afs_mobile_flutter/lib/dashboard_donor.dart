@@ -24,7 +24,8 @@ class _DashboardDonorState extends State<DashboardDonor> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.orange[400],
-          title: Text("Donor's Dashboard"),
+          title: Text("Active Posts"),
+          centerTitle: true,
         ),
         body: FoldableSidebarBuilder(
           drawerBackgroundColor: Colors.cyan[100],
