@@ -1,5 +1,4 @@
 import 'dart:html';
-
 import 'package:afs_mobile_flutter/myCardWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/custom_sidebar_drawer.dart';

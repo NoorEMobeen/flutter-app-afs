@@ -12,11 +12,14 @@ class MyCardWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Card(
+            color: Colors.grey[900],
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
+              side: BorderSide(color: Colors.blueGrey, width: 1),
+              borderRadius: BorderRadius.circular(10),
             ),
-            color: Colors.pink,
-            elevation: 0,
+            margin: EdgeInsets.all(20.0),
+            elevation: 8,
+            shadowColor: Colors.green,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -24,7 +27,9 @@ class MyCardWidget extends StatelessWidget {
                   leading: Icon(Icons.person, size: 60),
                   title: Text('FSC Year Fees',
                       style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold)),
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold)),
                   subtitle: Text(
                       'I want to raise funds of 50,000 for the FSC 2nd year completion of study.',
                       style: TextStyle(color: Colors.white)),
