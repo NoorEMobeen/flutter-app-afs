@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'package:afs_mobile_flutter/myCardWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/custom_sidebar_drawer.dart';
@@ -24,7 +23,7 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Colors.orange[400],
+          backgroundColor: Colors.red[400],
           title: Text("Active Fund Requests"),
           centerTitle: true,
         ),

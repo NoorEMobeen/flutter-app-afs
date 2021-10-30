@@ -9,9 +9,14 @@ import 'package:flutter/material.dart';
 class CustomSidebarDrawer extends StatefulWidget {
   final Function drawerClose;
 
-  const CustomSidebarDrawer({Key? key, required this.drawerClose})
-      : super(key: key);
+  CustomSidebarDrawer(
+      {
+        //Key? key,
+        required this.drawerClose}
+      );
+//      : super(key: key);
 
+  // ignore: empty_constructor_bodies
   @override
   _CustomSidebarDrawerState createState() => _CustomSidebarDrawerState();
 }

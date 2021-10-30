@@ -26,7 +26,7 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     return new Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Colors.orange[400],
+          backgroundColor: Colors.red[400],
           title: Text("User Profile"),
           centerTitle: true,
         ),
