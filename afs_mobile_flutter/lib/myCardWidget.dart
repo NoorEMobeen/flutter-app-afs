@@ -5,14 +5,16 @@ class MyCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData mediaQuery = MediaQuery.of(context);
     return Container(
-      width: 400,
+      width: mediaQuery.size.width * 0.60,
+      height: mediaQuery.size.height,
       padding: new EdgeInsets.all(10.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        //mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Card(
-            color: Colors.grey[900],
+            color: Colors.grey,
             shape: RoundedRectangleBorder(
               side: BorderSide(color: Colors.blueGrey, width: 1),
               borderRadius: BorderRadius.circular(10),
