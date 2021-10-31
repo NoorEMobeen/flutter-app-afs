@@ -12,16 +12,13 @@ class Profile extends StatefulWidget {
   ProfileState createState() => ProfileState();
 }
 
-class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
+class ProfileState extends State<Profile> {
   FSBStatus? _fsbStatus;
 
   //FSBStatus? _fsbStatus;
   final FocusNode myFocusNode = FocusNode();
 
-  @override
   void initState() {
-    // ignore: todo
-    // TODO: implement initState
     super.initState();
   }
 
@@ -56,7 +53,6 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     );
   }
 
-  @override
   void dispose() {
     // Clean up the controller when the Widget is disposed
     var myFocusNode;
@@ -68,7 +64,7 @@ class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var _status;
+    bool _status = true;
     return Container(
       child: Scaffold(
           appBar: AppBar(
@@ -173,7 +169,7 @@ class ProfilePage extends StatelessWidget {
                                       mainAxisSize: MainAxisSize.min,
                                       children: <Widget>[
                                         new Text(
-                                          'Parsonal Information',
+                                          'Personal Information',
                                           style: TextStyle(
                                               fontSize: 18.0,
                                               fontWeight: FontWeight.bold),
@@ -186,6 +182,7 @@ class ProfilePage extends StatelessWidget {
                                       children: <Widget>[
                                         _status
                                             ? _getEditIcon()
+                                            // ignore: dead_code
                                             : new Container(),
                                       ],
                                     )
@@ -360,7 +357,10 @@ class ProfilePage extends StatelessWidget {
                                     ),
                                   ],
                                 )),
-                            !_status ? _getActionButtons() : new Container(),
+                            !_status
+                                // ignore: dead_code
+                                ? _getActionButtons()
+                                : new Container(),
                           ],
                         ),
                       ),

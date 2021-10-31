@@ -26,9 +26,6 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // return DefaultTabController(
-    //   length: 2,
-
     return Scaffold(
       // appBar: AppBar(
       //   actions: [
@@ -104,12 +101,10 @@ class HomePageState extends State<HomePage> {
             });
           }),
     );
-    //);
   }
 }
 
 class History extends StatelessWidget {
-  // const History({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
