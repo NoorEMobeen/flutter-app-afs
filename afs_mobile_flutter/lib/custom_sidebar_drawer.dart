@@ -52,7 +52,7 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ProfilePage()),
+                MaterialPageRoute(builder: (context) => Profile()),
               );
             },
             leading: Icon(Icons.person),
