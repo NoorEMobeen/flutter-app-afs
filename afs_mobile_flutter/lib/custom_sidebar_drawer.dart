@@ -11,9 +11,8 @@ class CustomSidebarDrawer extends StatefulWidget {
 
   CustomSidebarDrawer(
       {
-        //Key? key,
-        required this.drawerClose}
-      );
+      //Key? key,
+      required this.drawerClose});
 //      : super(key: key);
 
   // ignore: empty_constructor_bodies
@@ -53,7 +52,7 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile()),
+                MaterialPageRoute(builder: (context) => ProfilePage()),
               );
             },
             leading: Icon(Icons.person),

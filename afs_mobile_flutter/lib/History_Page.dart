@@ -28,141 +28,141 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     // return DefaultTabController(
     //   length: 2,
-      child: return Scaffold(
-        // appBar: AppBar(
-        //   actions: [
-        //     // Widget for the search
-        //     IconButton(
-        //       onPressed: () {
-        //         showSearch(context: context, delegate: Search(widget.list));
-        //       },
-        //       icon: Icon(Icons.search),
-        //     ),
-        //     // Widget for implementing the three-dot menu
-        //     PopupMenuButton(
-        //       shape: RoundedRectangleBorder(
-        //         borderRadius: BorderRadius.circular(20),
-        //       ),
-        //       itemBuilder: (context) {
-        //         return [
-        //           // In this case, we need 5 popupmenuItems one for each option.
-        //           const PopupMenuItem(child: Text('Settings')),
-        //         ];
-        //       },
-        //     ),
-        //   ],
-        //   backgroundColor: Colors.red[400],
-        //   title: const Text('HISTORY'),
-        //   centerTitle: true,
-        //   // bottom: const TabBar(
-        //   //   indicatorSize: TabBarIndicatorSize.tab,
-        //   //   indicatorColor: Colors.white,
-        //   //   tabs: [
-        //   //     Tab(
-        //   //       child:
-        //   //           Text('TRANSACTIONS', style: TextStyle(color: Colors.white)),
-        //   //     ),
-        //   //     Tab(
-        //   //       child: Text('DONATIONS', style: TextStyle(color: Colors.white)),
-        //   //     ),
-        //   //   ],
-        //   //   labelColor: Colors.white,
-        //   // ),
-        // ),
 
-        // ! THE DESIGNED BODY
-        // body: const TabBarView(
-        //   children: [
-        //     ChatsTab(),
-        //     ChatsTab(),
-        //   ],
-        // ),
-        body: FoldableSidebarBuilder(
-          drawerBackgroundColor: Colors.cyan[100],
-          drawer: CustomSidebarDrawer(
-            drawerClose: () {
-              setState(() {
-                _fsbStatus = FSBStatus.FSB_CLOSE;
-              });
-            },
-          ),
-          screenContents: History(),
-          status: _fsbStatus,
+    return Scaffold(
+      // appBar: AppBar(
+      //   actions: [
+      //     // Widget for the search
+      //     IconButton(
+      //       onPressed: () {
+      //         showSearch(context: context, delegate: Search(widget.list));
+      //       },
+      //       icon: Icon(Icons.search),
+      //     ),
+      //     // Widget for implementing the three-dot menu
+      //     PopupMenuButton(
+      //       shape: RoundedRectangleBorder(
+      //         borderRadius: BorderRadius.circular(20),
+      //       ),
+      //       itemBuilder: (context) {
+      //         return [
+      //           // In this case, we need 5 popupmenuItems one for each option.
+      //           const PopupMenuItem(child: Text('Settings')),
+      //         ];
+      //       },
+      //     ),
+      //   ],
+      //   backgroundColor: Colors.red[400],
+      //   title: const Text('HISTORY'),
+      //   centerTitle: true,
+      //   // bottom: const TabBar(
+      //   //   indicatorSize: TabBarIndicatorSize.tab,
+      //   //   indicatorColor: Colors.white,
+      //   //   tabs: [
+      //   //     Tab(
+      //   //       child:
+      //   //           Text('TRANSACTIONS', style: TextStyle(color: Colors.white)),
+      //   //     ),
+      //   //     Tab(
+      //   //       child: Text('DONATIONS', style: TextStyle(color: Colors.white)),
+      //   //     ),
+      //   //   ],
+      //   //   labelColor: Colors.white,
+      //   // ),
+      // ),
+
+      // ! THE DESIGNED BODY
+      // body: const TabBarView(
+      //   children: [
+      //     ChatsTab(),
+      //     ChatsTab(),
+      //   ],
+      // ),
+      body: FoldableSidebarBuilder(
+        drawerBackgroundColor: Colors.cyan[100],
+        drawer: CustomSidebarDrawer(
+          drawerClose: () {
+            setState(() {
+              _fsbStatus = FSBStatus.FSB_CLOSE;
+            });
+          },
         ),
-        floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.red[400],
-            child: Icon(
-              Icons.menu,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              setState(() {
-                _fsbStatus = _fsbStatus == FSBStatus.FSB_OPEN
-                    ? FSBStatus.FSB_CLOSE
-                    : FSBStatus.FSB_OPEN;
-              });
-            }),
-
-      );
+        screenContents: History(),
+        status: _fsbStatus,
+      ),
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.red[400],
+          child: Icon(
+            Icons.menu,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            setState(() {
+              _fsbStatus = _fsbStatus == FSBStatus.FSB_OPEN
+                  ? FSBStatus.FSB_CLOSE
+                  : FSBStatus.FSB_OPEN;
+            });
+          }),
+    );
     //);
   }
 }
 
-class History extends StatelessWidget{
+class History extends StatelessWidget {
   // const History({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 2,
-    child: Scaffold(
-     appBar: AppBar(
-       actions: [
-         // Widget for the search
-         IconButton(
-           onPressed: () {
-             var widget;
-             showSearch(context: context, delegate: Search(widget.list));
-           },
-           icon: Icon(Icons.search),
-         ),
-         // Widget for implementing the three-dot menu
-         PopupMenuButton(
-           shape: RoundedRectangleBorder(
-             borderRadius: BorderRadius.circular(20),
-           ),
-           itemBuilder: (context) {
-             return [
-               // In this case, we need 5 popupmenuItems one for each option.
-               const PopupMenuItem(child: Text('Settings')),
-             ];
-           },
-         ),
-       ],
-       backgroundColor: Colors.red[400],
-       title: const Text('HISTORY'),
-       centerTitle: true,
-       bottom: const TabBar(
-         indicatorSize: TabBarIndicatorSize.tab,
-         indicatorColor: Colors.white,
-         tabs: [
-           Tab(
-             child:
-             Text('TRANSACTIONS', style: TextStyle(color: Colors.white)),
-           ),
-           Tab(
-             child: Text('DONATIONS', style: TextStyle(color: Colors.white)),
-           ),
-         ],
-         labelColor: Colors.white,
-       ),
-     ),
-       body: const TabBarView(
-         children: [
-           ChatsTab(),
-           ChatsTab(),
-         ],
-       ),
-    ),
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            // Widget for the search
+            IconButton(
+              onPressed: () {
+                var widget;
+                showSearch(context: context, delegate: Search(widget.list));
+              },
+              icon: Icon(Icons.search),
+            ),
+            // Widget for implementing the three-dot menu
+            PopupMenuButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              itemBuilder: (context) {
+                return [
+                  // In this case, we need 5 popupmenuItems one for each option.
+                  const PopupMenuItem(child: Text('Settings')),
+                ];
+              },
+            ),
+          ],
+          backgroundColor: Colors.red[400],
+          title: const Text('HISTORY'),
+          centerTitle: true,
+          bottom: const TabBar(
+            indicatorSize: TabBarIndicatorSize.tab,
+            indicatorColor: Colors.white,
+            tabs: [
+              Tab(
+                child:
+                    Text('TRANSACTIONS', style: TextStyle(color: Colors.white)),
+              ),
+              Tab(
+                child: Text('DONATIONS', style: TextStyle(color: Colors.white)),
+              ),
+            ],
+            labelColor: Colors.white,
+          ),
+        ),
+        body: const TabBarView(
+          children: [
+            ChatsTab(),
+            ChatsTab(),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -60,9 +60,15 @@ class _DashboardDonorState extends State<DashboardDonor> {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.white,
-        body: MyCardWidget(),
+        body: SingleChildScrollView(
+          child: Center(
+            //margin: const EdgeInsets.fromLTRB(0, 40, 0, 30),
+            child: MyCardWidget(),
+          ),
+        ),
       ),
     );
+
     // return Container(
     //   color: Colors.black.withAlpha(50),
     //   child: Center(

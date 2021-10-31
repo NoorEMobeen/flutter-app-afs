@@ -7,31 +7,39 @@ class MyCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
     return Container(
-      width: mediaQuery.size.width * 0.60,
-      height: mediaQuery.size.height,
+      width: mediaQuery.size.width * 0.90,
       padding: new EdgeInsets.all(10.0),
       child: Column(
-        //mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Card(
-
-            color: Colors.grey,
+            margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 16.0),
+            color: Color.fromRGBO(235, 235, 235, 1),
             shape: RoundedRectangleBorder(
+              side: BorderSide(color: Colors.redAccent, width: 1),
               borderRadius: BorderRadius.circular(15.0),
             ),
-
-            elevation: 0,
+            elevation: 8,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 const ListTile(
-                  leading: Icon(Icons.person, size: 60),
+                  leading: Icon(
+                    Icons.person,
+                    size: 50,
+                  ),
                   title: Text('FSC Year Fees',
                       style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold)),
-                  subtitle: Text(
-                      'I want to raise funds of 50,000 for the FSC 2nd year completion of study.',
-                      style: TextStyle(color: Colors.white)),
+                          color: Colors.black, fontWeight: FontWeight.bold)),
+                  subtitle: Text('Raised: 400 usd',
+                      style: TextStyle(color: Colors.black)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    'I want to raise funds of 50,000 for the FSC 2nd year completion of study.',
+                    style: TextStyle(fontSize: 18, color: Colors.black),
+                  ),
                 ),
                 ButtonTheme(
                   child: ButtonBar(
@@ -40,12 +48,20 @@ class MyCardWidget extends StatelessWidget {
                       FlatButton(
                         child: const Text('Edit',
                             style: TextStyle(color: Colors.white)),
+                        color: Colors.green,
+                        shape: new RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.white70, width: 1),
+                            borderRadius: new BorderRadius.circular(20.0)),
                         onPressed: () {},
                       ),
                       // ignore: deprecated_member_use
                       FlatButton(
                         child: const Text('Delete',
                             style: TextStyle(color: Colors.white)),
+                        color: Colors.green,
+                        shape: new RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.white70, width: 1),
+                            borderRadius: new BorderRadius.circular(20.0)),
                         onPressed: () {},
                       ),
                     ],
@@ -55,21 +71,33 @@ class MyCardWidget extends StatelessWidget {
             ),
           ),
           Card(
+            margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 16.0),
+            color: Color.fromRGBO(235, 235, 235, 1),
             shape: RoundedRectangleBorder(
+              side: BorderSide(color: Colors.redAccent, width: 1),
               borderRadius: BorderRadius.circular(15.0),
             ),
-            color: Colors.pink,
-            elevation: 0,
+            elevation: 8,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 const ListTile(
-                  leading: Icon(Icons.person, size: 60),
-                  title: Text('5th Class Educational Resources',
-                      style: TextStyle(color: Colors.white)),
-                  subtitle: Text(
-                      'I want to raise funds of 10,000 for the 5th Class student for the resources required for study.',
-                      style: TextStyle(color: Colors.white)),
+                  leading: Icon(
+                    Icons.person,
+                    size: 50,
+                  ),
+                  title: Text('FSC Year Fees',
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.bold)),
+                  subtitle: Text('Raised: 400 usd',
+                      style: TextStyle(color: Colors.black)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    'I want to raise funds of 50,000 for the FSC 2nd year completion of study.',
+                    style: TextStyle(fontSize: 18, color: Colors.black),
+                  ),
                 ),
                 ButtonTheme(
                   child: ButtonBar(
@@ -78,12 +106,20 @@ class MyCardWidget extends StatelessWidget {
                       FlatButton(
                         child: const Text('Edit',
                             style: TextStyle(color: Colors.white)),
+                        color: Colors.green,
+                        shape: new RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.white70, width: 1),
+                            borderRadius: new BorderRadius.circular(20.0)),
                         onPressed: () {},
                       ),
                       // ignore: deprecated_member_use
                       FlatButton(
                         child: const Text('Delete',
                             style: TextStyle(color: Colors.white)),
+                        color: Colors.green,
+                        shape: new RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.white70, width: 1),
+                            borderRadius: new BorderRadius.circular(20.0)),
                         onPressed: () {},
                       ),
                     ],
@@ -93,21 +129,33 @@ class MyCardWidget extends StatelessWidget {
             ),
           ),
           Card(
+            margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 16.0),
+            color: Color.fromRGBO(235, 235, 235, 1),
             shape: RoundedRectangleBorder(
+              side: BorderSide(color: Colors.redAccent, width: 1),
               borderRadius: BorderRadius.circular(15.0),
             ),
-            color: Colors.pink,
-            elevation: 0,
+            elevation: 8,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 const ListTile(
-                  leading: Icon(Icons.person, size: 60),
-                  title: Text('5th Class Educational Resources',
-                      style: TextStyle(color: Colors.white)),
-                  subtitle: Text(
-                      'I want to raise funds of 10,000 for the 5th Class student for the resources required for study.',
-                      style: TextStyle(color: Colors.white)),
+                  leading: Icon(
+                    Icons.person,
+                    size: 50,
+                  ),
+                  title: Text('FSC Year Fees',
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.bold)),
+                  subtitle: Text('Raised: 400 usd',
+                      style: TextStyle(color: Colors.black)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    'I want to raise funds of 50,000 for the FSC 2nd year completion of study.',
+                    style: TextStyle(fontSize: 18, color: Colors.black),
+                  ),
                 ),
                 ButtonTheme(
                   child: ButtonBar(
@@ -116,12 +164,20 @@ class MyCardWidget extends StatelessWidget {
                       FlatButton(
                         child: const Text('Edit',
                             style: TextStyle(color: Colors.white)),
+                        color: Colors.green,
+                        shape: new RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.white70, width: 1),
+                            borderRadius: new BorderRadius.circular(20.0)),
                         onPressed: () {},
                       ),
                       // ignore: deprecated_member_use
                       FlatButton(
                         child: const Text('Delete',
                             style: TextStyle(color: Colors.white)),
+                        color: Colors.green,
+                        shape: new RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.white70, width: 1),
+                            borderRadius: new BorderRadius.circular(20.0)),
                         onPressed: () {},
                       ),
                     ],
@@ -131,21 +187,33 @@ class MyCardWidget extends StatelessWidget {
             ),
           ),
           Card(
+            margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 16.0),
+            color: Color.fromRGBO(235, 235, 235, 1),
             shape: RoundedRectangleBorder(
+              side: BorderSide(color: Colors.redAccent, width: 1),
               borderRadius: BorderRadius.circular(15.0),
             ),
-            color: Colors.pink,
-            elevation: 0,
+            elevation: 8,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 const ListTile(
-                  leading: Icon(Icons.person, size: 60),
-                  title: Text('5th Class Educational Resources',
-                      style: TextStyle(color: Colors.white)),
-                  subtitle: Text(
-                      'I want to raise funds of 10,000 for the 5th Class student for the resources required for study.',
-                      style: TextStyle(color: Colors.white)),
+                  leading: Icon(
+                    Icons.person,
+                    size: 50,
+                  ),
+                  title: Text('FSC Year Fees',
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.bold)),
+                  subtitle: Text('Raised: 400 usd',
+                      style: TextStyle(color: Colors.black)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    'I want to raise funds of 50,000 for the FSC 2nd year completion of study.',
+                    style: TextStyle(fontSize: 18, color: Colors.black),
+                  ),
                 ),
                 ButtonTheme(
                   child: ButtonBar(
@@ -154,12 +222,20 @@ class MyCardWidget extends StatelessWidget {
                       FlatButton(
                         child: const Text('Edit',
                             style: TextStyle(color: Colors.white)),
+                        color: Colors.green,
+                        shape: new RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.white70, width: 1),
+                            borderRadius: new BorderRadius.circular(20.0)),
                         onPressed: () {},
                       ),
                       // ignore: deprecated_member_use
                       FlatButton(
                         child: const Text('Delete',
                             style: TextStyle(color: Colors.white)),
+                        color: Colors.green,
+                        shape: new RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.white70, width: 1),
+                            borderRadius: new BorderRadius.circular(20.0)),
                         onPressed: () {},
                       ),
                     ],

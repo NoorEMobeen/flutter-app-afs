@@ -1,3 +1,5 @@
+import 'dart:html';
+//import 'package:afs_mobile_flutter/History_Page.dart';
 import 'package:afs_mobile_flutter/myCardWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/custom_sidebar_drawer.dart';
@@ -23,7 +25,7 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Colors.red[400],
+          backgroundColor: Colors.red,
           title: Text("Active Fund Requests"),
           centerTitle: true,
         ),
@@ -60,14 +62,13 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.white,
-        body: Center(
-            child: Container(
-          margin: const EdgeInsets.fromLTRB(0, 40, 0, 30),
-          height: 600,
-          child: MyCardWidget(),
-        )),
+        body: SingleChildScrollView(
+          child: Center(
+            //margin: const EdgeInsets.fromLTRB(0, 40, 0, 30),
+            child: MyCardWidget(),
+          ),
+        ),
       ),
-      // MyCardWidget(),
     );
 
     // return Container(
