@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:afs_mobile_flutter/custom_sidebar_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:foldable_sidebar/foldable_sidebar.dart';
 
@@ -13,6 +14,7 @@ class Profile extends StatefulWidget {
 
 class ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   FSBStatus? _fsbStatus;
+
   //FSBStatus? _fsbStatus;
   final FocusNode myFocusNode = FocusNode();
 

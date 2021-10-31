@@ -1,4 +1,3 @@
-import 'dart:html';
 //import 'package:afs_mobile_flutter/History_Page.dart';
 import 'package:afs_mobile_flutter/myCardWidget.dart';
 import 'package:flutter/material.dart';
