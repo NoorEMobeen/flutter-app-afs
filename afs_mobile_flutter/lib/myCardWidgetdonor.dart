@@ -29,16 +29,16 @@ class MyCardWidget extends StatelessWidget {
                     Icons.person,
                     size: 50,
                   ),
-                  title: Text('Required: FSC Yearly Fees',
+                  title: Text('Requirement: 50% scholarship FSC',
                       style: TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold)),
-                  subtitle: Text('Raised: 400 usd',
+                  subtitle: Text('Raised: 500 usd',
                       style: TextStyle(color: Colors.black)),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    'I want to raise funds of 50,000 for the FSC 2nd year completion of study.',
+                    'I want to raise funds inorder to complete FSC on 50% scholarship',
                     style: TextStyle(fontSize: 18, color: Colors.black),
                   ),
                 ),
@@ -47,7 +47,7 @@ class MyCardWidget extends StatelessWidget {
                     children: <Widget>[
                       // ignore: deprecated_member_use
                       FlatButton(
-                        child: const Text('Edit',
+                        child: const Text('Profile',
                             style: TextStyle(color: Colors.white)),
                         color: Colors.green,
                         shape: new RoundedRectangleBorder(
@@ -57,7 +57,7 @@ class MyCardWidget extends StatelessWidget {
                       ),
                       // ignore: deprecated_member_use
                       FlatButton(
-                        child: const Text('Delete',
+                        child: const Text('Donate',
                             style: TextStyle(color: Colors.white)),
                         color: Colors.green,
                         shape: new RoundedRectangleBorder(
@@ -88,16 +88,16 @@ class MyCardWidget extends StatelessWidget {
                     Icons.person,
                     size: 50,
                   ),
-                  title: Text('Required: Primary School Funds',
+                  title: Text('Requirement: Primary School Fees',
                       style: TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold)),
-                  subtitle: Text('Raised: 10k',
+                  subtitle: Text('Raised: 20k',
                       style: TextStyle(color: Colors.black)),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    'I raise a funds of 10k, as I want my child to complete the primary school studies on the beneficial resources.',
+                    'I want to raise funds of 20,000 for the completion of primary school studies from class 5 to 8th.',
                     style: TextStyle(fontSize: 18, color: Colors.black),
                   ),
                 ),
@@ -106,7 +106,7 @@ class MyCardWidget extends StatelessWidget {
                     children: <Widget>[
                       // ignore: deprecated_member_use
                       FlatButton(
-                        child: const Text('Edit',
+                        child: const Text('Profile',
                             style: TextStyle(color: Colors.white)),
                         color: Colors.green,
                         shape: new RoundedRectangleBorder(
@@ -116,7 +116,7 @@ class MyCardWidget extends StatelessWidget {
                       ),
                       // ignore: deprecated_member_use
                       FlatButton(
-                        child: const Text('Delete',
+                        child: const Text('Donate',
                             style: TextStyle(color: Colors.white)),
                         color: Colors.green,
                         shape: new RoundedRectangleBorder(
@@ -147,16 +147,16 @@ class MyCardWidget extends StatelessWidget {
                     Icons.person,
                     size: 50,
                   ),
-                  title: Text('Required: Private School Admission',
+                  title: Text('Requirement: College Year Fees',
                       style: TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold)),
-                  subtitle:
-                      Text('Raised: 8k', style: TextStyle(color: Colors.black)),
+                  subtitle: Text('Raised: 30k',
+                      style: TextStyle(color: Colors.black)),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    'Funds of 8000 are required to be raised for the managing admission and books for a primary class student.',
+                    'I want a donation of 30,000 for the FSC 2nd year completion of study.',
                     style: TextStyle(fontSize: 18, color: Colors.black),
                   ),
                 ),
@@ -165,7 +165,7 @@ class MyCardWidget extends StatelessWidget {
                     children: <Widget>[
                       // ignore: deprecated_member_use
                       FlatButton(
-                        child: const Text('Edit',
+                        child: const Text('Profile',
                             style: TextStyle(color: Colors.white)),
                         color: Colors.green,
                         shape: new RoundedRectangleBorder(
@@ -175,7 +175,7 @@ class MyCardWidget extends StatelessWidget {
                       ),
                       // ignore: deprecated_member_use
                       FlatButton(
-                        child: const Text('Delete',
+                        child: const Text('Donate',
                             style: TextStyle(color: Colors.white)),
                         color: Colors.green,
                         shape: new RoundedRectangleBorder(
