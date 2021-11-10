@@ -1,8 +1,10 @@
 //import 'package:afs_mobile_flutter/custom_sidebar_drawer.dart';
 import 'dart:ui';
 import 'package:afs_mobile_flutter/custom_sidebar_drawer.dart';
+import 'package:afs_mobile_flutter/profile_edit_Icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:afs_mobile_flutter/profile_methods.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:foldable_sidebar/foldable_sidebar.dart';
@@ -11,6 +13,8 @@ class Profile extends StatefulWidget {
   @override
   ProfileState createState() => ProfileState();
 }
+
+bool _status = true;
 
 class ProfileState extends State<Profile> {
   FSBStatus? _fsbStatus;
@@ -64,13 +68,12 @@ class ProfileState extends State<Profile> {
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    bool _status = true;
     return Container(
       child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
             backgroundColor: Colors.red[400],
-            title: Text("User Profile"),
+            title: Text("Receiver's Profile"),
             centerTitle: true,
           ),
           body: new Container(
@@ -181,8 +184,7 @@ class ProfilePage extends StatelessWidget {
                                       mainAxisSize: MainAxisSize.min,
                                       children: <Widget>[
                                         _status
-                                            ? _getEditIcon()
-                                            // ignore: dead_code
+                                            ? EditProfileIcon()
                                             : new Container(),
                                       ],
                                     )
@@ -357,10 +359,7 @@ class ProfilePage extends StatelessWidget {
                                     ),
                                   ],
                                 )),
-                            !_status
-                                // ignore: dead_code
-                                ? _getActionButtons()
-                                : new Container(),
+                            !_status ? EditProfile() : new Container(),
                           ],
                         ),
                       ),
@@ -372,77 +371,4 @@ class ProfilePage extends StatelessWidget {
           )),
     );
   }
-}
-
-Widget _getActionButtons() {
-  return Padding(
-    padding: EdgeInsets.only(left: 25.0, right: 25.0, top: 45.0),
-    child: new Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.only(right: 10.0),
-            child: Container(
-                // ignore: deprecated_member_use
-                child: new RaisedButton(
-              child: new Text("Save"),
-              textColor: Colors.white,
-              color: Colors.green,
-              onPressed: () {
-                // setState(() {
-                //   _status = true;
-                //   FocusScope.of(context).requestFocus(new FocusNode());
-                // });
-              },
-              shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(20.0)),
-            )),
-          ),
-          flex: 2,
-        ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.only(left: 10.0),
-            child: Container(
-                // ignore: deprecated_member_use
-                child: new RaisedButton(
-              child: new Text("Cancel"),
-              textColor: Colors.white,
-              color: Colors.red,
-              onPressed: () {
-                //   setState(() {
-                //   //   _status = true;
-                //   //   FocusScope.of(context).requestFocus(new FocusNode());
-                //   // });
-              },
-              shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(20.0)),
-            )),
-          ),
-          flex: 2,
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _getEditIcon() {
-  return new GestureDetector(
-    child: new CircleAvatar(
-      backgroundColor: Colors.red,
-      radius: 14.0,
-      child: new Icon(
-        Icons.edit,
-        color: Colors.white,
-        size: 16.0,
-      ),
-    ),
-    onTap: () {
-      // setState(() {
-      //   _status = false;
-      // });
-    },
-  );
 }
