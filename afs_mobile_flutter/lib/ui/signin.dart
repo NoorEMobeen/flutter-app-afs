@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SignInScreen(),
     );
@@ -278,7 +279,16 @@ class _SignInScreenState extends State<SignInScreen> {
               showProgress = false;
             });
           }
-        } catch (e) {}
+        } catch (e) {
+          Fluttertoast.showToast(
+              msg: "Login Failed",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.blueAccent,
+              textColor: Colors.white,
+              fontSize: 16.0);
+        }
       },
       // Navigator.push(
       //   context,
