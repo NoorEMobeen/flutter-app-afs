@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/constants/constants.dart';
 import 'package:afs_mobile_flutter/ui/widgets/custom_shape.dart';
 import 'package:afs_mobile_flutter/ui/widgets/responsive_ui.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SignInScreen(),
     );
@@ -22,6 +20,12 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  String dropdownvalue = 'Student';
+  var items = [
+    'Student',
+    'Donor',
+  ];
+
   final _auth = FirebaseAuth.instance;
   bool showProgress = false;
   late String email, password, role;
@@ -178,15 +182,39 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Widget roleTextFormField() {
     return Container(
-        child: TextFormField(
-      onChanged: (value) {
-        role = value; // get value from TextField
-      },
-      decoration: InputDecoration(
-        icon: Icon(Icons.person),
-        hintText: "Role",
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          DropdownButton(
+            value: dropdownvalue,
+            icon: Icon(Icons.keyboard_arrow_down),
+            items: items.map((String items) {
+              return DropdownMenuItem(value: items, child: Text(items));
+            }).toList(),
+            // onChanged: (String newValue) {
+            //   setState(() {
+            //     dropdownvalue = newValue;
+            //   });
+            // },
+          ),
+        ],
       ),
-    ));
+    );
+    // return Container(
+    //   child: new Column(
+
+    //     // children: <Widget>[
+    //     //   new Container(
+    //     //     padding: new EdgeInsets.all(16.0),
+    //     //   ),
+    //     //   new DropdownButton(
+    //     //     value: _currentRole,
+    //     //     items: _dropDownMenuItems,
+    //     //     onChanged: changedDropDownItem,
+    //     //   )
+    //     // ],
+    //   ),
+    // );
   }
 
   Widget emailTextFormField() {
@@ -263,31 +291,46 @@ class _SignInScreenState extends State<SignInScreen> {
           print(newUser.toString());
           // ignore: unnecessary_null_comparison
           if (newUser != null) {
-            Fluttertoast.showToast(
-                msg: "Login Successfull",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.blueAccent,
+            final snackbar = SnackBar(
+              content: Text('Login Successful'),
+              action: SnackBarAction(
+                label: 'continue',
                 textColor: Colors.white,
-                fontSize: 16.0);
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => DashboardReceiver()),
+                onPressed: () {},
+              ),
+              duration: Duration(seconds: 1),
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
+              ),
+              backgroundColor: Colors.orange,
             );
+            ScaffoldMessenger.of(context).showSnackBar(snackbar);
+
             setState(() {
               showProgress = false;
             });
           }
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => DashboardReceiver()),
+          );
         } catch (e) {
-          Fluttertoast.showToast(
-              msg: "Login Failed",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.blueAccent,
+          final snackbar = SnackBar(
+            content: Text('Login Failed'),
+            action: SnackBarAction(
+              label: 'Try again',
               textColor: Colors.white,
-              fontSize: 16.0);
+              onPressed: () {},
+            ),
+            duration: Duration(seconds: 1),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24),
+            ),
+            backgroundColor: Colors.orange,
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackbar);
         }
       },
       // Navigator.push(

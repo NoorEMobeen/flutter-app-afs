@@ -16,6 +16,33 @@ class _RequestFormState extends State<RequestForm> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      appBar: new AppBar(
+        leading: new IconButton(
+          icon: new Icon(Icons.menu),
+          onPressed: () => setState(() {
+            _fsbStatus = _fsbStatus == FSBStatus.FSB_OPEN
+                ? FSBStatus.FSB_CLOSE
+                : FSBStatus.FSB_OPEN;
+          }),
+        ),
+
+        // leading: Icon(Icons.menu),
+        title: Text('Request Form'),
+        backgroundColor: Colors.redAccent,
+        actions: [
+          PopupMenuButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            itemBuilder: (context) {
+              return [
+                // In this case, we need 5 popupmenuItems one for each option.
+                const PopupMenuItem(child: Text('Settings')),
+              ];
+            },
+          ),
+        ],
+      ),
       body: FoldableSidebarBuilder(
         drawerBackgroundColor: Colors.cyan[100],
         drawer: CustomSidebarDrawer(
@@ -28,19 +55,7 @@ class _RequestFormState extends State<RequestForm> {
         screenContents: Form(),
         status: _fsbStatus,
       ),
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.red[400],
-          child: Icon(
-            Icons.menu,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            setState(() {
-              _fsbStatus = _fsbStatus == FSBStatus.FSB_OPEN
-                  ? FSBStatus.FSB_CLOSE
-                  : FSBStatus.FSB_OPEN;
-            });
-          }),
+
 //       body: SingleChildScrollView(
 //         child: Column(
 //           crossAxisAlignment: CrossAxisAlignment.center,
@@ -143,24 +158,6 @@ class _RequestFormState extends State<RequestForm> {
 class Form extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: Text('New Request'),
-        centerTitle: true,
-        backgroundColor: Colors.red[400],
-        actions: [
-          PopupMenuButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            itemBuilder: (context) {
-              return [
-                // In this case, we need 5 popupmenuItems one for each option.
-                const PopupMenuItem(child: Text('Settings')),
-              ];
-            },
-          ),
-        ],
-      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -185,7 +182,6 @@ class Form extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.redAccent,
-
                   ),
 //                  color: Colors.blue,
                   borderRadius: new BorderRadius.circular(40.0),
@@ -203,8 +199,14 @@ class Form extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.today),
-              title: const Text('Deadline',style: TextStyle(fontWeight: FontWeight.bold),),
-              subtitle: const Text('November 18, 2021',style: TextStyle(fontWeight: FontWeight.bold),),
+              title: const Text(
+                'Deadline',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: const Text(
+                'November 18, 2021',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               //trailing: const Icon(Icons.check_circle, color: Colors.green,),
             ),
             Padding(
@@ -238,8 +240,7 @@ class Form extends StatelessWidget {
                   gradient: LinearGradient(
                     colors: [Colors.orange, Colors.pinkAccent],
                   ),
-                  borderRadius: BorderRadius.circular(20)
-              ),
+                  borderRadius: BorderRadius.circular(20)),
               margin: const EdgeInsets.only(top: 120),
               // ignore: deprecated_member_use
               child: FlatButton(
@@ -258,4 +259,6 @@ class Form extends StatelessWidget {
       ),
     );
   }
+
+  setState(Null Function() param0) {}
 }

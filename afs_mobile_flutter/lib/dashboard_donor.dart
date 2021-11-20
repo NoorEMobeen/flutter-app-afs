@@ -17,10 +17,26 @@ class _DashboardDonorState extends State<DashboardDonor> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.red[400],
-          title: Text("Active Posts"),
-          centerTitle: true,
+          leading: new IconButton(
+            icon: new Icon(Icons.menu),
+            onPressed: () => setState(() {
+              _fsbStatus = _fsbStatus == FSBStatus.FSB_OPEN
+                  ? FSBStatus.FSB_CLOSE
+                  : FSBStatus.FSB_OPEN;
+            }),
+          ),
+
+          // leading: Icon(Icons.menu),
+          title: Text('Receiver Dashboard'),
+          actions: [
+            Icon(Icons.favorite),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Icon(Icons.search),
+            ),
+            Icon(Icons.more_vert),
+          ],
+          backgroundColor: Colors.redAccent,
         ),
         body: FoldableSidebarBuilder(
           drawerBackgroundColor: Colors.cyan[100],
@@ -34,19 +50,6 @@ class _DashboardDonorState extends State<DashboardDonor> {
           screenContents: dashboardDonor(),
           status: _fsbStatus,
         ),
-        floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.red[400],
-            child: Icon(
-              Icons.menu,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              setState(() {
-                _fsbStatus = _fsbStatus == FSBStatus.FSB_OPEN
-                    ? FSBStatus.FSB_CLOSE
-                    : FSBStatus.FSB_OPEN;
-              });
-            }),
       ),
     );
   }

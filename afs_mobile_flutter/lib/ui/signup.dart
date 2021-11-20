@@ -10,6 +10,12 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  String dropdownvalue = 'Student';
+  var items = [
+    'Student',
+    'Donor',
+  ];
+
   late bool checkBoxValue;
   late double _height;
   late double _width;
@@ -142,12 +148,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Widget roleTextFormField() {
     return Container(
-        child: TextFormField(
-      decoration: InputDecoration(
-        icon: Icon(Icons.person),
-        hintText: "User Role",
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          DropdownButton(
+            value: dropdownvalue,
+            icon: Icon(Icons.keyboard_arrow_down),
+            items: items.map((String items) {
+              return DropdownMenuItem(value: items, child: Text(items));
+            }).toList(),
+            // onChanged: (String newValue) {
+            //   setState(() {
+            //     dropdownvalue = newValue;
+            //   });
+            // },
+          ),
+        ],
       ),
-    ));
+    );
   }
 
   Widget firstNameTextFormField() {

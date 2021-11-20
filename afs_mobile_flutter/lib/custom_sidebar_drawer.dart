@@ -38,7 +38,7 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Image.asset(
-                    "assets/images/devs.jpg",
+                    "assets/images/as.png",
                     width: 100,
                     height: 100,
                   ),
