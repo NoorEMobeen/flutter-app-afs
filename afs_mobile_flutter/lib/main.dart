@@ -4,8 +4,14 @@ import 'package:afs_mobile_flutter/constants/constants.dart';
 import 'package:afs_mobile_flutter/ui/signin.dart';
 import 'package:afs_mobile_flutter/ui/signup.dart';
 import 'package:afs_mobile_flutter/ui/splashscreen.dart';
+//import 'package:firebase_core/firebase_core.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override

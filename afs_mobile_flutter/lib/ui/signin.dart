@@ -1,9 +1,10 @@
 import 'package:afs_mobile_flutter/dashboard_Receiver.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/constants/constants.dart';
 import 'package:afs_mobile_flutter/ui/widgets/custom_shape.dart';
 import 'package:afs_mobile_flutter/ui/widgets/responsive_ui.dart';
-//import 'package:afs_mobile_flutter/ui/widgets/textformfield.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignInPage extends StatelessWidget {
   @override
@@ -20,6 +21,10 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  final _auth = FirebaseAuth.instance;
+  bool showProgress = false;
+  late String email, password, role;
+
   double _height = 0;
   double _width = 0;
   double _pixelRatio = 0;
@@ -173,6 +178,9 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget roleTextFormField() {
     return Container(
         child: TextFormField(
+      onChanged: (value) {
+        role = value; // get value from TextField
+      },
       decoration: InputDecoration(
         icon: Icon(Icons.person),
         hintText: "Role",
@@ -183,6 +191,10 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget emailTextFormField() {
     return Container(
         child: TextFormField(
+      keyboardType: TextInputType.emailAddress,
+      onChanged: (value) {
+        email = value; // get value from TextField
+      },
       decoration: InputDecoration(
         icon: Icon(Icons.email),
         hintText: "Email ID",
@@ -194,6 +206,9 @@ class _SignInScreenState extends State<SignInScreen> {
     return Container(
       child: TextFormField(
         obscureText: true,
+        onChanged: (value) {
+          password = value; //get value from textField
+        },
         decoration: InputDecoration(
           icon: Icon(Icons.lock),
           hintText: "Password",
@@ -237,12 +252,39 @@ class _SignInScreenState extends State<SignInScreen> {
     return RaisedButton(
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => DashboardReceiver()),
-        );
+      onPressed: () async {
+        setState(() {
+          showProgress = true;
+        });
+        try {
+          final newUser = await _auth.signInWithEmailAndPassword(
+              email: email, password: password);
+          print(newUser.toString());
+          // ignore: unnecessary_null_comparison
+          if (newUser != null) {
+            Fluttertoast.showToast(
+                msg: "Login Successfull",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.blueAccent,
+                textColor: Colors.white,
+                fontSize: 16.0);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DashboardReceiver()),
+            );
+            setState(() {
+              showProgress = false;
+            });
+          }
+        } catch (e) {}
       },
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => DashboardReceiver()),
+      // );
+
       textColor: Colors.white,
       padding: EdgeInsets.all(0.0),
       child: Container(

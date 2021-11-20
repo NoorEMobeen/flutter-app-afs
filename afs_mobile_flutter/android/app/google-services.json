@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1067401800628",
+    "firebase_url": "https://afsystem-24fe0-default-rtdb.firebaseio.com",
+    "project_id": "afsystem-24fe0",
+    "storage_bucket": "afsystem-24fe0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067401800628:android:d050fe7595fae2cdeca0e1",
+        "android_client_info": {
+          "package_name": "com.example.afs_mobile_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067401800628-vcqbmrvf2evau4j4bqqdlhhkae51qngk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhs9pAenVN7Y9trUBTtHw8DvqnsIUJvI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1067401800628-vcqbmrvf2evau4j4bqqdlhhkae51qngk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

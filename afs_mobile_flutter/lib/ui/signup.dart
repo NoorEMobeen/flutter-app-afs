@@ -123,6 +123,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       child: Form(
         child: Column(
           children: <Widget>[
+            roleTextFormField(),
+            SizedBox(height: _height / 60.0),
             firstNameTextFormField(),
             SizedBox(height: _height / 60.0),
             lastNameTextFormField(),
@@ -136,6 +138,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  Widget roleTextFormField() {
+    return Container(
+        child: TextFormField(
+      decoration: InputDecoration(
+        icon: Icon(Icons.person),
+        hintText: "User Role",
+      ),
+    ));
   }
 
   Widget firstNameTextFormField() {
