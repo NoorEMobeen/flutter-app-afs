@@ -62,6 +62,7 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
 
   Widget dashboardScreen() {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(

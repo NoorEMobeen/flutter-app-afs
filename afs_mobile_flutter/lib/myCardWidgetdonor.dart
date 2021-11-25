@@ -24,10 +24,15 @@ class MyCardWidget extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                const ListTile(
-                  leading: Icon(
-                    Icons.person,
-                    size: 50,
+                ListTile(
+                  leading: CircleAvatar(
+                    radius: 35.0,
+                    child: ClipRRect(
+                      child: Image.asset(
+                        "assets/images/5.png",
+                      ),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
                   ),
                   title: Text('Requirement: 50% scholarship FSC',
                       style: TextStyle(
@@ -95,10 +100,15 @@ class MyCardWidget extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                const ListTile(
-                  leading: Icon(
-                    Icons.person,
-                    size: 50,
+                ListTile(
+                  leading: CircleAvatar(
+                    radius: 35.0,
+                    child: ClipRRect(
+                      child: Image.asset(
+                        "assets/images/6.jpg",
+                      ),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
                   ),
                   title: Text('Requirement: Primary School Fees',
                       style: TextStyle(
@@ -166,10 +176,15 @@ class MyCardWidget extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                const ListTile(
-                  leading: Icon(
-                    Icons.person,
-                    size: 50,
+                ListTile(
+                  leading: CircleAvatar(
+                    radius: 35.0,
+                    child: ClipRRect(
+                      child: Image.asset(
+                        "assets/images/7.jpg",
+                      ),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
                   ),
                   title: Text('Requirement: College Year Fees',
                       style: TextStyle(
@@ -237,10 +252,15 @@ class MyCardWidget extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                const ListTile(
-                  leading: Icon(
-                    Icons.person,
-                    size: 50,
+                ListTile(
+                  leading: CircleAvatar(
+                    radius: 35.0,
+                    child: ClipRRect(
+                      child: Image.asset(
+                        "assets/images/8.jpg",
+                      ),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
                   ),
                   title: Text('Requirement: Tution Fees',
                       style: TextStyle(

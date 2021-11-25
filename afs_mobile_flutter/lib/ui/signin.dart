@@ -20,11 +20,14 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  String dropdownvalue = 'Student';
-  var items = [
-    'Student',
-    'Donor',
-  ];
+  String roleId = "";
+  List<DropdownMenuItem<String>> get dropdownRoles {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Student"), value: "Student"),
+      DropdownMenuItem(child: Text("Donor"), value: "Donor"),
+    ];
+    return menuItems;
+  }
 
   final _auth = FirebaseAuth.instance;
   bool showProgress = false;
@@ -180,41 +183,23 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
+  String selectedValue = "Student";
   Widget roleTextFormField() {
     return Container(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          DropdownButton(
-            value: dropdownvalue,
-            icon: Icon(Icons.keyboard_arrow_down),
-            items: items.map((String items) {
-              return DropdownMenuItem(value: items, child: Text(items));
-            }).toList(),
-            // onChanged: (String newValue) {
-            //   setState(() {
-            //     dropdownvalue = newValue;
-            //   });
-            // },
-          ),
-        ],
-      ),
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            DropdownButton(
+                value: selectedValue,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedValue = newValue!;
+                  });
+                },
+                hint: Text("Enter Role"),
+                items: dropdownRoles),
+          ]),
     );
-    // return Container(
-    //   child: new Column(
-
-    //     // children: <Widget>[
-    //     //   new Container(
-    //     //     padding: new EdgeInsets.all(16.0),
-    //     //   ),
-    //     //   new DropdownButton(
-    //     //     value: _currentRole,
-    //     //     items: _dropDownMenuItems,
-    //     //     onChanged: changedDropDownItem,
-    //     //   )
-    //     // ],
-    //   ),
-    // );
   }
 
   Widget emailTextFormField() {

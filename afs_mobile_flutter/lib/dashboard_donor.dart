@@ -56,6 +56,7 @@ class _DashboardDonorState extends State<DashboardDonor> {
 
   Widget dashboardDonor() {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(

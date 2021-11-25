@@ -9,7 +9,7 @@ import 'package:firebase_core/firebase_core.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   // WidgetsFlutterBinding.ensureInitialized();
-   Firebase.initializeApp().whenComplete(() => runApp(MyApp()));
+  Firebase.initializeApp().whenComplete(() => runApp(MyApp()));
 }
 
 class MyApp extends StatelessWidget {
