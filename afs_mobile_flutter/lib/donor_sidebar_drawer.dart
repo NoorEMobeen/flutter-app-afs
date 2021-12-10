@@ -1,8 +1,6 @@
 import 'package:afs_mobile_flutter/History_Page.dart';
 import 'package:afs_mobile_flutter/UserProfile.dart';
-import 'package:afs_mobile_flutter/dashboard_Receiver.dart';
 import 'package:afs_mobile_flutter/dashboard_donor.dart';
-import 'package:afs_mobile_flutter/requestForm.dart';
 import 'package:afs_mobile_flutter/ui/signin.dart';
 import 'package:flutter/material.dart';
 
@@ -57,22 +55,8 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
             },
             leading: Icon(Icons.person),
             title: Text(
-              "Your Profile",
+              "My Profile",
             ),
-          ),
-          Divider(
-            height: 1,
-            color: Colors.grey,
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => RequestForm()),
-              );
-            },
-            leading: Icon(Icons.request_page),
-            title: Text("Create Request"),
           ),
           Divider(
             height: 1,
@@ -87,20 +71,6 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
             },
             leading: Icon(Icons.history),
             title: Text("History"),
-          ),
-          Divider(
-            height: 1,
-            color: Colors.grey,
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DashboardReceiver()),
-              );
-            },
-            leading: Icon(Icons.dashboard),
-            title: Text("Dashboard Receiever"),
           ),
           Divider(
             height: 1,

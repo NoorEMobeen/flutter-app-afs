@@ -1,6 +1,6 @@
 //import 'package:afs_mobile_flutter/custom_sidebar_drawer.dart';
 import 'dart:ui';
-import 'package:afs_mobile_flutter/custom_sidebar_drawer.dart';
+import 'package:afs_mobile_flutter/receiver_sidebar_drawer.dart';
 import 'package:afs_mobile_flutter/profile_edit_Icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
