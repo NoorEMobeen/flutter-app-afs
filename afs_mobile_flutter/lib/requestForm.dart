@@ -27,7 +27,7 @@ class _RequestFormState extends State<RequestForm> {
         ),
 
         // leading: Icon(Icons.menu),
-        title: Text('Request Form'),
+        title: Text('Fund Request'),
         backgroundColor: Colors.redAccent,
         actions: [
           PopupMenuButton(
@@ -55,107 +55,26 @@ class _RequestFormState extends State<RequestForm> {
         screenContents: Form(),
         status: _fsbStatus,
       ),
-
-//       body: SingleChildScrollView(
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           children: <Widget>[
-//             Padding(
-//               padding: const EdgeInsets.only(top: 60.0),
-//               child: Center(
-//                 child: Text(
-//                   'Request Funds',
-//                   style: TextStyle(
-//                       color: Colors.black,
-//                       fontSize: 28,
-//                       fontWeight: FontWeight.bold),
-//                 ),
-//               ),
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.only(
-//                   left: 15.0, right: 15.0, top: 100, bottom: 20),
-//               child: Container(
-//                 width: MediaQuery.of(context).size.width,
-//                 decoration: BoxDecoration(
-//                   border: Border.all(
-//                     color: Colors.redAccent,
-//
-//                   ),
-// //                  color: Colors.blue,
-//                   borderRadius: new BorderRadius.circular(40.0),
-//                 ),
-//                 child: Padding(
-//                   padding: EdgeInsets.only(left: 15, right: 15, top: 5),
-//                   child: TextFormField(
-//                     decoration: InputDecoration(
-//                       border: InputBorder.none,
-//                       hintText: 'Rs/-',
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//             ListTile(
-//               leading: const Icon(Icons.today),
-//               title: const Text('Deadline',style: TextStyle(fontWeight: FontWeight.bold),),
-//               subtitle: const Text('November 18, 2021',style: TextStyle(fontWeight: FontWeight.bold),),
-//               //trailing: const Icon(Icons.check_circle, color: Colors.green,),
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.only(
-//                   left: 15.0, right: 15.0, top: 20, bottom: 0),
-//               child: Container(
-//                 decoration: BoxDecoration(
-//                   border: Border.all(
-//                     color: Colors.redAccent,
-//                   ),
-//                   borderRadius: new BorderRadius.circular(20.0),
-//                 ),
-//                 child: Padding(
-//                   padding: EdgeInsets.only(left: 15, right: 15, top: 0),
-//                   child: TextFormField(
-//                     minLines: 1,
-//                     maxLines: 5,
-//                     keyboardType: TextInputType.multiline,
-//                     decoration: InputDecoration(
-//                       border: InputBorder.none,
-//                       hintText: 'Enter a Message Here',
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//             Container(
-//               height: 50,
-//               width: 250,
-//               decoration: BoxDecoration(
-//                   gradient: LinearGradient(
-//                     colors: [Colors.orange, Colors.pinkAccent],
-//                   ),
-//                   borderRadius: BorderRadius.circular(20)
-//               ),
-//               margin: const EdgeInsets.only(top: 120),
-//               // ignore: deprecated_member_use
-//               child: FlatButton(
-//                 onPressed: () {
-//                   Navigator.push(
-//                       context, MaterialPageRoute(builder: (_) => HomePage()));
-//                 },
-//                 child: Text(
-//                   'Request',
-//                   style: TextStyle(color: Colors.white, fontSize: 25),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
     );
   }
 }
 
+// ignore: must_be_immutable
 class Form extends StatelessWidget {
+  DateTime selectedDate = DateTime.now();
+
+  _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2021),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
+  }
+
   Widget build(BuildContext context) {
     return new Scaffold(
       body: SingleChildScrollView(
@@ -166,7 +85,7 @@ class Form extends StatelessWidget {
               padding: const EdgeInsets.only(top: 60.0),
               child: Center(
                 child: Text(
-                  'Request Funds',
+                  'Funds Request',
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 28,
@@ -175,53 +94,100 @@ class Form extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 100, bottom: 20),
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 50),
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: Colors.redAccent,
+                    color: Colors.black,
                   ),
-//                  color: Colors.blue,
-                  borderRadius: new BorderRadius.circular(40.0),
+                  //color: Colors.blue,
+                  borderRadius: new BorderRadius.circular(20.0),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.only(left: 15, right: 15, top: 5),
+                  padding: EdgeInsets.only(left: 15, right: 15, top: 20),
                   child: TextFormField(
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'Rs/-',
+                      hintText: 'Title',
                     ),
                   ),
                 ),
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.today),
-              title: const Text(
-                'Deadline',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              subtitle: const Text(
-                'November 18, 2021',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              //trailing: const Icon(Icons.check_circle, color: Colors.green,),
-            ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 20, bottom: 0),
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black,
+                  ),
+                  // color: Colors.blue,
+                  borderRadius: new BorderRadius.circular(30.0),
+                ),
+                child: Padding(
+                  padding:
+                      EdgeInsets.only(left: 15, right: 15, top: 2, bottom: 10),
+                  child: TextFormField(
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Requested amount',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  // ignore: deprecated_member_use
+                  RaisedButton(
+                    onPressed: () => _selectDate(context),
+                    child: Text('Select date',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                  ),
+
+                  Text(
+                      "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  // ignore: deprecated_member_use
+                ],
+              ),
+            ),
+            // ListTile(
+            //   leading: const Icon(Icons.today),
+            //   title: const Text(
+            //     'Deadline',
+            //     style: TextStyle(fontWeight: FontWeight.bold),
+            //   ),
+            //   subtitle: const Text(
+            //     'November 18, 2021',
+            //     style: TextStyle(fontWeight: FontWeight.bold),
+            //   ),
+            //   //trailing: const Icon(Icons.check_circle, color: Colors.green,),
+            // ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20),
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: Colors.redAccent,
+                    color: Colors.black,
                   ),
-                  borderRadius: new BorderRadius.circular(20.0),
+                  borderRadius: new BorderRadius.circular(30.0),
                 ),
                 child: Padding(
                   padding: EdgeInsets.only(left: 15, right: 15, top: 0),
                   child: TextFormField(
+                    style: TextStyle(fontWeight: FontWeight.bold),
                     minLines: 1,
                     maxLines: 5,
                     keyboardType: TextInputType.multiline,
@@ -235,13 +201,13 @@ class Form extends StatelessWidget {
             ),
             Container(
               height: 50,
-              width: 250,
+              width: 170,
               decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [Colors.orange, Colors.pinkAccent],
                   ),
                   borderRadius: BorderRadius.circular(20)),
-              margin: const EdgeInsets.only(top: 120),
+              margin: const EdgeInsets.only(top: 50),
               // ignore: deprecated_member_use
               child: FlatButton(
                 onPressed: () {
@@ -250,7 +216,7 @@ class Form extends StatelessWidget {
                 },
                 child: Text(
                   'Request',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
             ),

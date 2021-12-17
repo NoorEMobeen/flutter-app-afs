@@ -1,9 +1,11 @@
 import 'package:afs_mobile_flutter/dashboard_Receiver.dart';
+import 'package:afs_mobile_flutter/dashboard_donor.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/constants/constants.dart';
 import 'package:afs_mobile_flutter/ui/widgets/custom_shape.dart';
 import 'package:afs_mobile_flutter/ui/widgets/responsive_ui.dart';
+//import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class SignInPage extends StatelessWidget {
   @override
@@ -33,6 +35,7 @@ class _SignInScreenState extends State<SignInScreen> {
   bool showProgress = false;
   late String email, password, role;
 
+  bool isLoading = false;
   double _height = 0;
   double _width = 0;
   double _pixelRatio = 0;
@@ -64,7 +67,11 @@ class _SignInScreenState extends State<SignInScreen> {
               forgetPassTextRow(),
               SizedBox(height: _height / 12),
               button(),
-              signUpTextRow(),
+              isLoading
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : signUpTextRow(),
             ],
           ),
         ),
@@ -158,6 +165,7 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
+  late final spinkit;
   late final String hint;
   late final TextEditingController? textEditingController;
   late final TextInputType keyboardType;
@@ -263,16 +271,23 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Widget button() {
     // ignore: deprecated_member_use
-    return RaisedButton(
+    return
+        // ignore: deprecated_member_use
+        RaisedButton(
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       onPressed: () async {
+        if (isLoading) return;
+        setState(() => isLoading = true);
+        await Future.delayed(Duration(seconds: 1));
         setState(() {
-          showProgress = true;
+          isLoading = false;
         });
+
         try {
           final newUser = await _auth.signInWithEmailAndPassword(
               email: email, password: password);
+
           print(newUser.toString());
           // ignore: unnecessary_null_comparison
           if (newUser != null) {
@@ -296,10 +311,17 @@ class _SignInScreenState extends State<SignInScreen> {
               showProgress = false;
             });
           }
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => DashboardReceiver()),
-          );
+          if (selectedValue == "Student") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DashboardReceiver()),
+            );
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DashboardDonor()),
+            );
+          }
         } catch (e) {
           final snackbar = SnackBar(
             content: Text('Login Failed'),
@@ -318,11 +340,6 @@ class _SignInScreenState extends State<SignInScreen> {
           ScaffoldMessenger.of(context).showSnackBar(snackbar);
         }
       },
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => DashboardReceiver()),
-      // );
-
       textColor: Colors.white,
       padding: EdgeInsets.all(0.0),
       child: Container(
