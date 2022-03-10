@@ -1,7 +1,10 @@
+import 'package:afs_mobile_flutter/History_Page.dart';
 import 'package:afs_mobile_flutter/UserProfile.dart';
 import 'package:afs_mobile_flutter/dashboard_Receiver.dart';
 import 'package:afs_mobile_flutter/requestForm.dart';
+import 'package:afs_mobile_flutter/student_form.dart';
 import 'package:afs_mobile_flutter/ui/signin.dart';
+import 'package:afs_mobile_flutter/receiver_account';
 import 'package:flutter/material.dart';
 
 class CustomSidebarDrawer extends StatefulWidget {
@@ -50,6 +53,20 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
             onTap: () {
               Navigator.push(
                 context,
+                MaterialPageRoute(builder: (context) => DashboardReceiver()),
+              );
+            },
+            leading: Icon(Icons.dashboard),
+            title: Text("Dashboard Receiever"),
+          ),
+          Divider(
+            height: 1,
+            color: Colors.grey,
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
                 MaterialPageRoute(builder: (context) => Profile()),
               );
             },
@@ -80,11 +97,39 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => DashboardReceiver()),
+                MaterialPageRoute(builder: (context) => HomePage()),
               );
             },
-            leading: Icon(Icons.dashboard),
-            title: Text("Dashboard Receiever"),
+            leading: Icon(Icons.history),
+            title: Text("History & Transaction"),
+          ),
+          Divider(
+            height: 1,
+            color: Colors.grey,
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => StudentForm()),
+              );
+            },
+            leading: Icon(Icons.info),
+            title: Text("Student Form"),
+          ),
+          Divider(
+            height: 1,
+            color: Colors.grey,
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ReceiverAccounts()),
+              );
+            },
+            leading: Icon(Icons.account_box),
+            title: Text("Accounts"),
           ),
           Divider(
             height: 1,

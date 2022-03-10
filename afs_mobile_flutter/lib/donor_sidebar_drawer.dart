@@ -1,6 +1,7 @@
 import 'package:afs_mobile_flutter/History_Page.dart';
 import 'package:afs_mobile_flutter/UserProfile.dart';
 import 'package:afs_mobile_flutter/dashboard_donor.dart';
+import 'package:afs_mobile_flutter/donor_accounts.dart';
 import 'package:afs_mobile_flutter/ui/signin.dart';
 import 'package:flutter/material.dart';
 
@@ -50,6 +51,20 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
             onTap: () {
               Navigator.push(
                 context,
+                MaterialPageRoute(builder: (context) => DashboardDonor()),
+              );
+            },
+            leading: Icon(Icons.dashboard),
+            title: Text("Donor Dashboard"),
+          ),
+          Divider(
+            height: 1,
+            color: Colors.grey,
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
                 MaterialPageRoute(builder: (context) => Profile()),
               );
             },
@@ -70,7 +85,7 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
               );
             },
             leading: Icon(Icons.history),
-            title: Text("History"),
+            title: Text("History & Transaction"),
           ),
           Divider(
             height: 1,
@@ -80,11 +95,11 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => DashboardDonor()),
+                MaterialPageRoute(builder: (context) => DonorAccounts()),
               );
             },
-            leading: Icon(Icons.dashboard),
-            title: Text("Donor Dashboard"),
+            leading: Icon(Icons.account_balance),
+            title: Text("Accounts"),
           ),
           Divider(
             height: 1,

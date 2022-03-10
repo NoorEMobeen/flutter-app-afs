@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/donor_sidebar_drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -79,54 +78,6 @@ class HomePageState extends State<HomePage> {
             labelColor: Colors.white,
           ),
         ),
-        // appBar: AppBar(
-        //   actions: [
-        //     // Widget for the search
-        //     IconButton(
-        //       onPressed: () {
-        //         showSearch(context: context, delegate: Search(widget.list));
-        //       },
-        //       icon: Icon(Icons.search),
-        //     ),
-        //     // Widget for implementing the three-dot menu
-        //     PopupMenuButton(
-        //       shape: RoundedRectangleBorder(
-        //         borderRadius: BorderRadius.circular(20),
-        //       ),
-        //       itemBuilder: (context) {
-        //         return [
-        //           // In this case, we need 5 popupmenuItems one for each option.
-        //           const PopupMenuItem(child: Text('Settings')),
-        //         ];
-        //       },
-        //     ),
-        //   ],
-        //   backgroundColor: Colors.red[400],
-        //   title: const Text('HISTORY'),
-        //   centerTitle: true,
-        //   // bottom: const TabBar(
-        //   //   indicatorSize: TabBarIndicatorSize.tab,
-        //   //   indicatorColor: Colors.white,
-        //   //   tabs: [
-        //   //     Tab(
-        //   //       child:
-        //   //           Text('TRANSACTIONS', style: TextStyle(color: Colors.white)),
-        //   //     ),
-        //   //     Tab(
-        //   //       child: Text('DONATIONS', style: TextStyle(color: Colors.white)),
-        //   //     ),
-        //   //   ],
-        //   //   labelColor: Colors.white,
-        //   // ),
-        // ),
-
-        // ! THE DESIGNED BODY
-        // body: const TabBarView(
-        //   children: [
-        //     ChatsTab(),
-        //     ChatsTab(),
-        //   ],
-        // ),
         body: FoldableSidebarBuilder(
           drawerBackgroundColor: Colors.cyan[100],
           drawer: CustomSidebarDrawer(

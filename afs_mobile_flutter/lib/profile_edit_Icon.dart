@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 class EditProfileIcon extends StatefulWidget {
   @override
@@ -8,8 +7,7 @@ class EditProfileIcon extends StatefulWidget {
 
 // ignore: camel_case_types
 class _EditIconState extends State<EditProfileIcon> {
-  // ignore: unused_field
-  bool _status = true;
+  set _status(bool _status) {}
 
   @override
   Widget build(BuildContext context) {

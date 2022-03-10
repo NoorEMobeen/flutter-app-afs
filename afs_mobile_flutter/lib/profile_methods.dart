@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 class EditProfile extends StatefulWidget {
   @override
@@ -29,7 +28,7 @@ class _getActionState extends State<EditProfile> {
                 color: Colors.green,
                 onPressed: () {
                   setState(() {
-                    _status = true;
+                    _status = false;
                     FocusScope.of(context).requestFocus(new FocusNode());
                   });
                 },
@@ -50,7 +49,7 @@ class _getActionState extends State<EditProfile> {
                 color: Colors.red,
                 onPressed: () {
                   setState(() {
-                    _status = true;
+                    _status = false;
                     FocusScope.of(context).requestFocus(new FocusNode());
                   });
                 },

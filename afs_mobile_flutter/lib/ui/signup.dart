@@ -1,8 +1,10 @@
+import 'package:afs_mobile_flutter/ui/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/constants/constants.dart';
 import 'package:afs_mobile_flutter/ui/widgets/custom_shape.dart';
 import 'package:afs_mobile_flutter/ui/widgets/customappbar.dart';
 import 'package:afs_mobile_flutter/ui/widgets/responsive_ui.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -11,6 +13,10 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   String dropdownvalue = 'Student';
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  get user => _auth.currentUser;
+  late String email, password;
   var items = [
     'Student',
     'Donor',
@@ -156,7 +162,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             icon: Icon(Icons.keyboard_arrow_down),
             items: items.map((String items) {
               return DropdownMenuItem(value: items, child: Text(items));
-            }).toList(),
+            }).toList(), onChanged: (String? value) {  },
             // onChanged: (String newValue) {
             //   setState(() {
             //     dropdownvalue = newValue;
@@ -191,6 +197,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget emailTextFormField() {
     return Container(
         child: TextFormField(
+      keyboardType: TextInputType.emailAddress,
+      onChanged: (value) {
+        email = value; // get value from TextField
+      },
       decoration: InputDecoration(
         icon: Icon(Icons.email),
         hintText: "Email ID",
@@ -212,6 +222,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Container(
       child: TextFormField(
         obscureText: true,
+        onChanged: (value) {
+          password = value; //get value from textField
+        },
         decoration: InputDecoration(
           icon: Icon(Icons.lock),
           hintText: "Password",
@@ -251,6 +264,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       onPressed: () {
+        signUp(email: email, password: password).then((result) {
+          if (result == null) {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => SignInScreen()));
+          } else {
+            // ignore: deprecated_member_use
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text(
+                result,
+                style: TextStyle(fontSize: 16),
+              ),
+            ));
+          }
+        });
         print("Routing to your account");
       },
       textColor: Colors.white,
@@ -272,6 +299,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  Future signUp({required String email, required String password}) async {
+    try {
+      await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return null;
+    } on FirebaseAuthException catch (e) {
+      return e.message;
+    }
   }
 
   Widget signInTextRow() {

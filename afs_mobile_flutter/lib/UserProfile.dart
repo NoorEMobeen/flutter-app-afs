@@ -1,9 +1,6 @@
 //import 'package:afs_mobile_flutter/custom_sidebar_drawer.dart';
-import 'dart:ui';
 import 'package:afs_mobile_flutter/receiver_sidebar_drawer.dart';
-import 'package:afs_mobile_flutter/profile_edit_Icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:afs_mobile_flutter/profile_methods.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -14,10 +11,10 @@ class Profile extends StatefulWidget {
   ProfileState createState() => ProfileState();
 }
 
-bool _status = true;
-
 class ProfileState extends State<Profile> {
   FSBStatus? _fsbStatus;
+
+  // bool _enabled = false;
 
   //FSBStatus? _fsbStatus;
   final FocusNode myFocusNode = FocusNode();
@@ -29,7 +26,8 @@ class ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar:  AppBar(
+        
         leading: new IconButton(
           icon: new Icon(Icons.menu),
           onPressed: () => setState(() {
@@ -42,7 +40,6 @@ class ProfileState extends State<Profile> {
         // leading: Icon(Icons.menu),
         title: Text('User Profile'),
         actions: [
-          Icon(Icons.favorite),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Icon(Icons.search),
@@ -74,7 +71,10 @@ class ProfileState extends State<Profile> {
   }
 }
 
+// ignore: must_be_immutable
 class ProfilePage extends StatelessWidget {
+  bool _status = false;
+
   @override
   Widget build(BuildContext context) {
     //FSBStatus? _fsbStatus;
@@ -91,27 +91,6 @@ class ProfilePage extends StatelessWidget {
                   color: Colors.white,
                   child: new Column(
                     children: <Widget>[
-                      Padding(
-                          padding: EdgeInsets.only(left: 20.0, top: 20.0),
-                          child: new Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              new Icon(
-                                Icons.arrow_back_ios,
-                                color: Colors.black,
-                                size: 22.0,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 25.0),
-                                child: new Text('PROFILE',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20.0,
-                                        fontFamily: 'sans-serif-light',
-                                        color: Colors.black)),
-                              )
-                            ],
-                          )),
                       Padding(
                         padding: EdgeInsets.only(top: 20.0),
                         child:
@@ -181,14 +160,26 @@ class ProfilePage extends StatelessWidget {
                                   ],
                                 ),
                                 new Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    _status
-                                        ? EditProfileIcon()
-                                        : new Container(),
-                                  ],
-                                )
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      new GestureDetector(
+                                        child: new CircleAvatar(
+                                          backgroundColor: Colors.red,
+                                          radius: 14.0,
+                                          child: new Icon(
+                                            Icons.edit,
+                                            color: Colors.white,
+                                            size: 16.0,
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          setState(() {
+                                            _status = true;
+                                          });
+                                        },
+                                      )
+                                    ])
                               ],
                             )),
                         Padding(
@@ -308,7 +299,7 @@ class ProfilePage extends StatelessWidget {
                                 Expanded(
                                   child: Container(
                                     child: new Text(
-                                      'Pin Code',
+                                      'Family members',
                                       style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.bold),
@@ -319,7 +310,7 @@ class ProfilePage extends StatelessWidget {
                                 Expanded(
                                   child: Container(
                                     child: new Text(
-                                      'State',
+                                      'Earnings',
                                       style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.bold),
@@ -341,7 +332,7 @@ class ProfilePage extends StatelessWidget {
                                     padding: EdgeInsets.only(right: 10.0),
                                     child: new TextField(
                                       decoration: const InputDecoration(
-                                          hintText: "Enter Pin Code"),
+                                          hintText: "Enter family members"),
                                       enabled: !_status,
                                     ),
                                   ),
@@ -350,7 +341,7 @@ class ProfilePage extends StatelessWidget {
                                 Flexible(
                                   child: new TextField(
                                     decoration: const InputDecoration(
-                                        hintText: "Enter State"),
+                                        hintText: "Enter per/month earning"),
                                     enabled: !_status,
                                   ),
                                   flex: 2,
