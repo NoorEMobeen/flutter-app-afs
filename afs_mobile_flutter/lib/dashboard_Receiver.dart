@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:convert';
 import 'dart:math';
 //import 'package:afs_mobile_flutter/student_form.dart';
@@ -8,6 +10,7 @@ import 'package:foldable_sidebar/foldable_sidebar.dart';
 import 'package:afs_mobile_flutter/Person.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 //import 'package:afs_mobile_flutter/ui/widgets/custom_shape.dart';
 class DashboardReceiver extends StatefulWidget {
@@ -16,8 +19,6 @@ class DashboardReceiver extends StatefulWidget {
 }
 
 class _DashboardReceiverState extends State<DashboardReceiver> {
-  late String name, title, aStatus, reqFund, colFund, deadline;
-
   FSBStatus? _fsbStatus;
   final String url = 'http://192.168.10.55:5000/requests/active';
   getUserData() async {
@@ -29,89 +30,24 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
     var data = jsonDecode(response.body);
 
     List<Person> users = [];
-
-    for (var u in data.values) {
-      Person user = Person(u["FullName"], u["RequestTitle"], u["RequestAmount"],
-          u["ReasonDetail"], u["status"], u["DeadlineTime"]);
-
-      users.add(user);
+    for (var v in data.values) {
+      for (var u in v.values) {
+        Person user = Person(
+            u["FullName"],
+            u["RequestTitle"],
+            u["RequestAmount"],
+            u["created_at"],
+            u["published_at"],
+            u["status"],
+            u["DeadlineTime"],
+            u["ReasonDetail"]);
+        users.add(user);
+      }
     }
-    print(users);
+    print(users[0].title);
     debugPrint(users.length.toString());
     return users;
   }
-
-  // ignore: non_constant_identifier_names
-  // Widget personDetailCard(Person) {
-  //   return Column(
-  //     // padding: const EdgeInsets.all(10.0),
-  //     children: <Widget>[
-  //       GestureDetector(
-  //         child: Card(
-  //           shape: RoundedRectangleBorder(
-  //             borderRadius: BorderRadius.vertical(
-  //               bottom: Radius.circular(20),
-  //             ),
-  //           ),
-  //           color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
-  //           child: Padding(
-  //             padding: const EdgeInsets.all(8.0),
-  //             child: Row(
-  //               children: <Widget>[
-  //                 Padding(
-  //                   padding: const EdgeInsets.all(8.0),
-  //                   child: Container(
-  //                       width: 50.0,
-  //                       height: 50.0,
-  //                       decoration: new BoxDecoration(
-  //                           shape: BoxShape.circle,
-  //                           image: new DecorationImage(
-  //                               fit: BoxFit.cover,
-  //                               image: AssetImage(Person.profileImg)))),
-  //                 ),
-  //                 Column(
-  //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //                   children: <Widget>[
-  //                     // Text(
-  //                     //   Person.name,
-  //                     //   style: TextStyle(color: Colors.white, fontSize: 19),
-  //                     // ),
-  //                     Text(
-  //                       Person.title,
-  //                       style: TextStyle(color: Colors.white, fontSize: 19),
-  //                     ),
-  //                     Text(
-  //                       Person.status,
-  //                       style: TextStyle(color: Colors.green, fontSize: 16),
-  //                     ),
-  //                     Text(
-  //                       'Requested Funds: ' + Person.reqAmount,
-  //                       style: TextStyle(
-  //                           color: Colors.white,
-  //                           fontSize: 15,
-  //                           fontWeight: FontWeight.bold),
-  //                     ),
-  //                     Text(
-  //                       'Collected: ' + Person.reqAmount,
-  //                       style: TextStyle(
-  //                           color: Colors.white,
-  //                           fontSize: 15,
-  //                           fontWeight: FontWeight.bold),
-  //                     ),
-  //                     Text(Person.deadline,
-  //                         style: TextStyle(color: Colors.red, fontSize: 13)),
-  //                   ],
-  //                 )
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //         onTap: () => Navigator.push(
-  //             context, MaterialPageRoute(builder: (context) => StudentForm())),
-  //       ),
-  //     ],
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -137,9 +73,9 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
 
           // leading: Icon(Icons.menu),
           title: Text('Receiver Dashboard'),
-          actions: [
-            Icon(Icons.more_vert),
-          ],
+          // actions: [
+          //   Icon(Icons.more_vert),
+          // ],
           backgroundColor: Colors.redAccent,
         ),
         body: FoldableSidebarBuilder(
@@ -151,14 +87,6 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
               });
             },
           ),
-          // screenContents: Center(
-          //     child: ElevatedButton(
-          //   child: Text('Click Me'),
-          //   onPressed: () {
-          //     //getUser();
-          //     getUserData();
-          //   },
-          // )),
           screenContents: dashboardScreen(),
           status: _fsbStatus,
         ),
@@ -167,97 +95,229 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
   }
 
   Widget dashboardScreen() {
+    // Colors.primaries[Random().nextInt(Colors.primaries.length)]
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 10),
-            child: Column(
-              children: <Widget>[
-                GestureDetector(
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        bottom: Radius.circular(20),
-                      ),
-                    ),
-                    color: Colors
-                        .primaries[Random().nextInt(Colors.primaries.length)],
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              FutureBuilder(
-                                future: getUserData(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.data == null) {
-                                    return Container(
-                                      child: Center(
-                                        child: Text("loading one"),
+          backgroundColor: Colors.white,
+          body: Column(children: <Widget>[
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white10,
+                    border: Border.all(
+                      color: Colors.black12,
+                    )),
+                child: FutureBuilder(
+                    future: getUserData(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Center(child: Text('Error in loading Items'));
+                      } else if (snapshot.hasData) {
+                        List<Person> persons = snapshot.data! as List<Person>;
+                        return persons.length > 0
+                            ? ListView.builder(
+                                padding: EdgeInsets.all(16.0),
+                                itemCount: persons.length,
+                                itemBuilder: (context, i) {
+                                  return Center(
+                                    child: Card(
+                                      clipBehavior: Clip.antiAlias,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(20),
+                                            bottomRight: Radius.circular(20)),
                                       ),
-                                    );
-                                  } else {
-                                    // print(snapshot.data);
+                                      color: Colors.primaries[Random()
+                                          .nextInt(Colors.primaries.length)],
+                                      child: Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          padding: EdgeInsets.all(16.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: <Widget>[
+                                              ListTile(
+                                                title: Text(
+                                                  '${persons.elementAt(i).title}',
+                                                  style: GoogleFonts.rubik(
+                                                    textStyle: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white,
+                                                      fontSize: 19,
+                                                    ),
+                                                  ),
+                                                ),
+                                                subtitle: Text(
+                                                  'Request amount: ${persons.elementAt(i).reqAmount}',
+                                                  style: GoogleFonts.lato(
+                                                    textStyle: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
+                                              ),
 
-                                    List<Person> persons =
-                                        (snapshot.data! as List<Person>);
-                                    return ListView.builder(
-                                        itemCount: persons.length,
-                                        itemBuilder: (context, i) {
-                                          print(persons[i].name);
-                                          return ListTile(
-                                            // title: Text(persons[i].name),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(16.0),
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Text(
+                                                      '${persons.elementAt(i).name}',
+                                                      style: GoogleFonts.rubik(
+                                                        textStyle: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.white,
+                                                          fontSize: 15,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 50),
+                                                    Text(
+                                                        '${persons.elementAt(i).status}',
+                                                        style:
+                                                            GoogleFonts.ptSerif(
+                                                          textStyle: TextStyle(
+                                                              color: Colors
+                                                                  .lightGreen,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        )),
+                                                  ],
+                                                ),
+                                              ),
 
-                                            title: Text(
-                                              persons[i].title,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 19),
-                                            ),
-                                            subtitle: Text(
-                                              persons[i].status,
-                                              style: TextStyle(
-                                                  color: Colors.green,
-                                                  fontSize: 16),
-                                            ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(16.0),
+                                                child: Center(
+                                                  child: Text(
+                                                    '${persons.elementAt(i).description}',
+                                                    style: GoogleFonts.rubik(
+                                                      textStyle: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white,
+                                                        fontSize: 19,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              ButtonBar(
+                                                alignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  FlatButton(
+                                                    onPressed: () {},
+                                                    child: Text(
+                                                      'Pause',
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 15),
+                                                    ),
+                                                  ),
+                                                  FlatButton(
+                                                    onPressed: () {},
+                                                    child: Text(
+                                                      'Cancel',
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 15),
+                                                    ),
+                                                  ),
+                                                  FlatButton(
+                                                    onPressed: () {},
+                                                    child: Text(
+                                                      'Stop',
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 15),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              // Text(.com
+                                              //   '${persons.elementAt(i).name}',
+                                              //   style: TextStyle(
+                                              //       color: Colors.white,
+                                              //       fontSize: 19),
+                                              // ),
+                                              // SizedBox(height: 5),
 
-                                            trailing: Text(
-                                              'Requested Funds: ' +
-                                                  persons[i].reqAmount,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            leading: Text(
-                                              'Collected: ' +
-                                                  persons[i].collectAmount,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            //  Text(Person.deadline,
-                                            //       style: TextStyle(color: Colors.red, fontSize: 13)),
-                                          );
-                                        });
-                                  }
+                                              // SizedBox(height: 5),
+                                              // //  Row(children: <Widget>[
+                                              // Text(
+                                              //     '${persons.elementAt(i).status}',
+                                              //     style: GoogleFonts.ptSerif(
+                                              //       textStyle: TextStyle(
+                                              //           color:
+                                              //               Colors.lightGreen,
+                                              //           fontSize: 17,
+                                              //           fontWeight:
+                                              //               FontWeight.bold),
+                                              //     )),
+                                              // SizedBox(height: 5),
+                                              // Text(
+                                              //     'created_at: ${persons.elementAt(i).createdAt}',
+                                              //     style: GoogleFonts.ptSerif(
+                                              //       textStyle: TextStyle(
+                                              //           color: Colors.white,
+                                              //           fontSize: 17),
+                                              //     )),
+
+                                              // SizedBox(height: 5),
+
+                                              // Text(
+                                              //   'Published_at: ${persons.elementAt(i).publishedAt}',
+                                              //   style: GoogleFonts.lato(
+                                              //     textStyle: TextStyle(
+                                              //         color: Colors.white,
+                                              //         fontSize: 18,
+                                              //         fontWeight:
+                                              //             FontWeight.bold),
+                                              //   ),
+                                              // ),
+
+                                              // // SizedBox(height: 5),
+                                              // // Text(
+                                              // //     'Collected: ${persons.elementAt(i).collectAmount}',
+                                              // //     style: TextStyle(
+                                              // //         color: Colors.white,
+                                              // //         fontSize: 15,
+                                              // //         fontWeight:
+                                              // //             FontWeight.bold)
+                                              // //             ),
+                                              // SizedBox(height: 5),
+                                              // Text(
+                                              //   'Deadline: ${persons.elementAt(i).deadline}',
+                                              //   style: GoogleFonts.lato(
+                                              //     textStyle: TextStyle(
+                                              //         color: Colors.red,
+                                              //         fontSize: 16),
+                                              //   ),
+                                              // ),
+                                            ],
+                                          )),
+                                    ),
+                                  );
                                 },
                               )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            )),
-      ),
+                            : const Center(child: Text('No items'));
+                      }
+                      return Center(child: Text('No items'));
+                    }),
+              ),
+            ),
+          ])),
     );
   }
 }

@@ -35,6 +35,7 @@ dependencies:
   dio: ^4.0.4
   webview_flutter: ^2.0.13
   http: ^0.13.4
+  google_fonts: ^2.3.1
 
 
 
