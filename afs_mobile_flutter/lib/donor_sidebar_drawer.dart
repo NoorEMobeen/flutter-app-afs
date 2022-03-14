@@ -1,4 +1,4 @@
-import 'package:afs_mobile_flutter/History_Page.dart';
+import 'package:afs_mobile_flutter/Transaction.dart';
 import 'package:afs_mobile_flutter/UserProfile.dart';
 import 'package:afs_mobile_flutter/dashboard_donor.dart';
 import 'package:afs_mobile_flutter/donor_accounts.dart';
@@ -85,7 +85,7 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
               );
             },
             leading: Icon(Icons.history),
-            title: Text("History & Transaction"),
+            title: Text("Transaction"),
           ),
           Divider(
             height: 1,

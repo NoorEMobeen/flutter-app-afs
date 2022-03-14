@@ -1,9 +1,16 @@
+import 'package:afs_mobile_flutter/ui/transactionData.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/donor_sidebar_drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:foldable_sidebar/foldable_sidebar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:convert';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
+
   final List<String> list = List.generate(10, (index) => "Text $index");
   @override
   HomePageState createState() => HomePageState();
@@ -26,7 +33,7 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 1,
       child: Scaffold(
         appBar: AppBar(
           leading: new IconButton(
@@ -39,7 +46,7 @@ class HomePageState extends State<HomePage> {
           ),
 
           // leading: Icon(Icons.menu),
-          title: Text('History'),
+          title: Text('Transaction'),
           actions: [
             // Widget for the search
             IconButton(
@@ -63,7 +70,7 @@ class HomePageState extends State<HomePage> {
             ),
           ],
           backgroundColor: Colors.redAccent,
-          bottom: const TabBar(
+          /*bottom: const TabBar(
             indicatorSize: TabBarIndicatorSize.tab,
             indicatorColor: Colors.white,
             tabs: [
@@ -71,12 +78,9 @@ class HomePageState extends State<HomePage> {
                 child:
                     Text('TRANSACTIONS', style: TextStyle(color: Colors.white)),
               ),
-              Tab(
-                child: Text('DONATIONS', style: TextStyle(color: Colors.white)),
-              ),
             ],
             labelColor: Colors.white,
-          ),
+          ),*/
         ),
         body: FoldableSidebarBuilder(
           drawerBackgroundColor: Colors.cyan[100],
@@ -87,7 +91,7 @@ class HomePageState extends State<HomePage> {
               });
             },
           ),
-          screenContents: History(),
+          screenContents: Transaction(),
           status: _fsbStatus,
         ),
       ),
@@ -95,16 +99,17 @@ class HomePageState extends State<HomePage> {
   }
 }
 
-class History extends StatelessWidget {
+class Transaction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+
         body: const TabBarView(
           children: [
             ChatsTab(),
-            ChatsTab(),
+            ChatsTab()
           ],
         ),
       ),
@@ -117,55 +122,129 @@ class History extends StatelessWidget {
 class ChatsTab extends StatelessWidget {
   const ChatsTab({Key? key}) : super(key: key);
 
+  final String url = 'http://192.168.10.55:5000/Student/Transaction';
+  getUserData() async {
+    var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
+
+    debugPrint(currentTok);
+    var response = await http.get(Uri.parse(url), headers: {'authorization': currentTok!});
+    var data = jsonDecode(response.body);
+
+    List<TransactionData> users = [];
+    for (var v in data.values) {
+      for (var u in v.values) {
+        TransactionData user = TransactionData(
+            u["from"],
+            u["amount"],
+            u["to"],
+            u["datetime"]);
+        users.add(user);
+      }
+    }
+    print(users[0].datetime);
+    debugPrint(users.length.toString());
+    return users;
+  }
+
   @override
+  /*Widget  build(BuildContext context){
+    return MaterialApp(
+      home: Scaffold(
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+
+                  )),
+                child: FutureBuilder(
+                  //future: getUserData(),
+                  builder: (context,snapshot){
+                    if (snapshot.hasError) {
+                      return Center(child: Text('Error in loading Items'));
+                    }
+                    else if (snapshot.hasData){
+                      List<TransactionData> transData = snapshot.data! as List<TransactionData>;
+                      return transData.length > 0
+                          ? ListView(
+
+                           // return Center(
+                           // child: Card(
+                              clipBehavior: //Clip.antiAlias,
+                              //shape: RoundedRectangleBorder(
+                                //borderRadius: //BorderRadius.only(
+                                //  bottomLeft: Radius.circular(20),
+                                  //  bottomRight: Radius.circular(20))
+                              //),
+                             // color: Colors.primaries[Random()
+                               //   .nextInt(Colors.primaries.length)],
+                              chil Container(
+                                width:
+                                MediaQuery.of(context).size.width,
+                                padding: EdgeInsets.all(16.0),
+                                child: Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                      child: ListView(
+                                        children: const[
+                                          SingleChatWidget(
+                                            chatTitle: '{transData.elementAt(i).from}',
+                                            chatMessage: '{transData.elementAt(i).amount',
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                )),
+                             //   ),
+                              //);
+                       // },
+                      )
+                      : const Center(child: Text('No items'));
+                    }
+                      return Center(child: Text('No items saffar'));
+                  }
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }*/
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          children: const [
-            SingleChatWidget(
-              chatTitle: "Saffar Khan - Zohran",
-              chatMessage: 'Rs 9,000/-',
+        child: FutureBuilder(
+            future: getUserData(),
+            builder: (context, snapshot){
+              if (snapshot.hasError) {
+                return Center(child: Text('Error in loading Items'));
+              }
+              else if (snapshot.hasData) {
+                List<TransactionData> transData = snapshot.data! as List<TransactionData>;
+                return transData.length > 0
+                   ?   ListView.builder(
+                        itemBuilder: (context, i) {
+                          return Center(
+                            child: SingleChatWidget(
+                              chatMessage: 'Rs 9,000/-',
+                              chatTitle: '${transData.elementAt(i).datetime}',
+                            ),
+                          );
+                      },
+                    )
+                    : const Center(child: Text('No items'));
+                  }
+              return Center(child: Text('No items'));
+                }),
             ),
-            Divider(
-              color: Colors.black,
-            ),
-            SingleChatWidget(
-              chatTitle: "Asad - Saif",
-              chatMessage: 'Rs 12,000/-',
-            ),
-            Divider(
-              color: Colors.black,
-            ),
-            SingleChatWidget(
-              chatTitle: "Pawan - Hassan",
-              chatMessage: 'Rs 7,000/-',
-            ),
-            Divider(
-              color: Colors.black,
-            ),
-            SingleChatWidget(
-              chatTitle: "Hasnain - Zohran",
-              chatMessage: 'Rs 6,000/-',
-            ),
-            Divider(
-              color: Colors.black,
-            ),
-            SingleChatWidget(
-              chatTitle: "Abbas - Rizwan",
-              chatMessage: 'Rs 8,000/-',
-            ),
-            Divider(
-              color: Colors.black,
-            ),
-            SingleChatWidget(
-              chatTitle: "Zohran - Tehmoor",
-              chatMessage: 'Rs 10,000/-',
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

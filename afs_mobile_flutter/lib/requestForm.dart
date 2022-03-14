@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'History_Page.dart';
+import 'Transaction.dart';
 import 'package:afs_mobile_flutter/receiver_sidebar_drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:foldable_sidebar/foldable_sidebar.dart';
