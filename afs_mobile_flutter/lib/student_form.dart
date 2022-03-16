@@ -561,7 +561,7 @@ class EducationTabWidget extends State {
                                         },
                                       ),
                                       Text(
-                                        'A',
+                                        'Male',
                                         style: new TextStyle(fontSize: 15.0),
                                       ),
                                       Radio(
@@ -575,7 +575,7 @@ class EducationTabWidget extends State {
                                         },
                                       ),
                                       Text(
-                                        'B',
+                                        'Female',
                                         style: new TextStyle(
                                           fontSize: 15.0,
                                         ),
@@ -591,35 +591,7 @@ class EducationTabWidget extends State {
                                         },
                                       ),
                                       Text(
-                                        'C',
-                                        style: new TextStyle(fontSize: 15.0),
-                                      ),
-                                      Radio(
-                                        value: 4,
-                                        groupValue: id,
-                                        onChanged: (val) {
-                                          setState(() {
-                                            radioButtonItem = 'D';
-                                            id = 4;
-                                          });
-                                        },
-                                      ),
-                                      Text(
-                                        'D',
-                                        style: new TextStyle(fontSize: 15.0),
-                                      ),
-                                      Radio(
-                                        value: 5,
-                                        groupValue: id,
-                                        onChanged: (val) {
-                                          setState(() {
-                                            radioButtonItem = 'Fail';
-                                            id = 5;
-                                          });
-                                        },
-                                      ),
-                                      Text(
-                                        'Fail',
+                                        'Other',
                                         style: new TextStyle(fontSize: 15.0),
                                       ),
                                     ],

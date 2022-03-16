@@ -1,4 +1,3 @@
-import 'package:afs_mobile_flutter/Transaction.dart';
 import 'package:afs_mobile_flutter/UserProfile.dart';
 import 'package:afs_mobile_flutter/dashboard_donor.dart';
 import 'package:afs_mobile_flutter/donor_accounts.dart';
@@ -55,7 +54,7 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
               );
             },
             leading: Icon(Icons.dashboard),
-            title: Text("Donor Dashboard"),
+            title: Text("Dashboard"),
           ),
           Divider(
             height: 1,
@@ -72,20 +71,6 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
             title: Text(
               "My Profile",
             ),
-          ),
-          Divider(
-            height: 1,
-            color: Colors.grey,
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
-            },
-            leading: Icon(Icons.history),
-            title: Text("Transaction"),
           ),
           Divider(
             height: 1,

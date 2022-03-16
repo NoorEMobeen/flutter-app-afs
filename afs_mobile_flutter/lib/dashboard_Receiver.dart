@@ -20,11 +20,12 @@ class DashboardReceiver extends StatefulWidget {
 
 class _DashboardReceiverState extends State<DashboardReceiver> {
   FSBStatus? _fsbStatus;
-  final String url = 'http://192.168.10.55:5000/requests/active';
+  final String url = 'http://10.102.136.97:5000/requests/active';
   getUserData() async {
     var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
 
     debugPrint(currentTok);
+    print("Hello");
     var response =
         await http.get(Uri.parse(url), headers: {'authorization': currentTok!});
     var data = jsonDecode(response.body);
@@ -44,6 +45,7 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
         users.add(user);
       }
     }
+    print("Hello");
     print(users[0].title);
     debugPrint(users.length.toString());
     return users;
@@ -51,8 +53,14 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      // decoration: const BoxDecoration(gradient: LinearGradient(
+      //     // begin: Alignment.topLeft,
+      //     //  end: Alignment.bottomRight,
+      //     colors: [Colors.white, Colors.pinkAccent])),
+      home: Scaffold(
+        backgroundColor: Colors.transparent,
         appBar: AppBar(
           toolbarHeight: 100,
 
@@ -72,7 +80,7 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
           ),
 
           // leading: Icon(Icons.menu),
-          title: Text('Receiver Dashboard'),
+          title: Text('Dashboard'),
           // actions: [
           //   Icon(Icons.more_vert),
           // ],
@@ -96,13 +104,22 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
 
   Widget dashboardScreen() {
     // Colors.primaries[Random().nextInt(Colors.primaries.length)]
-    return MaterialApp(
-      home: Scaffold(
-          backgroundColor: Colors.white,
+    return Container(
+      decoration: const BoxDecoration(gradient: LinearGradient(
+          // begin: Alignment.topLeft,
+          //  end: Alignment.bottomRight,
+          colors: [Colors.white10, Colors.pinkAccent])),
+      // debugShowCheckedModeBanner: false,
+      child: Scaffold(
+          backgroundColor: Colors.transparent,
           body: Column(children: <Widget>[
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
+                    // gradient: LinearGradient(colors: [
+                    //   Colors.orange,
+                    //   Colors.blueGrey,
+                    // ]),
                     color: Colors.white10,
                     border: Border.all(
                       color: Colors.black12,
@@ -123,16 +140,21 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
                                     child: Card(
                                       clipBehavior: Clip.antiAlias,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(20),
-                                            bottomRight: Radius.circular(20)),
+                                        side: BorderSide(
+                                            color: Colors.white70, width: 2),
+                                        borderRadius: BorderRadius.circular(20),
+                                        //  BorderRadius.only(
+
+                                        //     // bottomLeft: Radius.circular(20),
+                                        //     // bottomRight: Radius.circular(20)
+                                        //     ),
                                       ),
                                       color: Colors.primaries[Random()
                                           .nextInt(Colors.primaries.length)],
                                       child: Container(
                                           width:
                                               MediaQuery.of(context).size.width,
-                                          padding: EdgeInsets.all(16.0),
+                                          padding: EdgeInsets.all(10.0),
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -141,17 +163,19 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
                                               ListTile(
                                                 title: Text(
                                                   '${persons.elementAt(i).title}',
-                                                  style: GoogleFonts.rubik(
+                                                  style:
+                                                      GoogleFonts.josefinSans(
                                                     textStyle: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Colors.white,
-                                                      fontSize: 19,
+                                                      fontSize: 20,
                                                     ),
                                                   ),
                                                 ),
                                                 subtitle: Text(
                                                   'Request amount: ${persons.elementAt(i).reqAmount}',
+                                                  textAlign: TextAlign.end,
                                                   style: GoogleFonts.lato(
                                                     textStyle: TextStyle(
                                                         color: Colors.white,
@@ -161,14 +185,75 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
                                                   ),
                                                 ),
                                               ),
+                                              //Expanded(
+                                              const Divider(
+                                                thickness:
+                                                    3, // thickness of the line
+                                                indent: 0,
+                                                // empty space to the leading edge of divider.
+                                                endIndent:
+                                                    0, // empty space to the trailing edge of the divider.
+                                                color: Colors
+                                                    .black, // The color to use when painting the line.
+                                                // The divider's height extent.
+                                              ),
+                                              //),
 
                                               Padding(
                                                 padding:
-                                                    const EdgeInsets.all(16.0),
+                                                    const EdgeInsets.all(10.0),
                                                 child: Row(
                                                   children: <Widget>[
                                                     Text(
                                                       '${persons.elementAt(i).name}',
+                                                      style: GoogleFonts.rubik(
+                                                        textStyle: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.white,
+                                                          fontSize: 17,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 96),
+                                                    Text(
+                                                        '${persons.elementAt(i).status}',
+                                                        style:
+                                                            GoogleFonts.ptSerif(
+                                                          textStyle: TextStyle(
+                                                              color: Colors
+                                                                  .lightGreen,
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        )),
+                                                  ],
+                                                ),
+                                              ),
+
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                child: Center(
+                                                  child: Text(
+                                                    '${persons.elementAt(i).description}',
+                                                    style: GoogleFonts.rubik(
+                                                      textStyle: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 19,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Text(
+                                                      '${persons.elementAt(i).publishedAt}',
                                                       style: GoogleFonts.rubik(
                                                         textStyle: TextStyle(
                                                           fontWeight:
@@ -180,13 +265,13 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
                                                     ),
                                                     SizedBox(width: 50),
                                                     Text(
-                                                        '${persons.elementAt(i).status}',
+                                                        '${persons.elementAt(i).deadline}',
                                                         style:
                                                             GoogleFonts.ptSerif(
                                                           textStyle: TextStyle(
                                                               color: Colors
                                                                   .lightGreen,
-                                                              fontSize: 15,
+                                                              fontSize: 16,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold),
@@ -195,53 +280,118 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
                                                 ),
                                               ),
 
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(16.0),
-                                                child: Center(
-                                                  child: Text(
-                                                    '${persons.elementAt(i).description}',
-                                                    style: GoogleFonts.rubik(
-                                                      textStyle: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.white,
-                                                        fontSize: 19,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
+                                              const Divider(
+                                                thickness:
+                                                    3, // thickness of the line
+                                                indent:
+                                                    0, // empty space to the leading edge of divider.
+                                                endIndent:
+                                                    0, // empty space to the trailing edge of the divider.
+                                                color: Colors
+                                                    .black, // The color to use when painting the line.
+                                                height:
+                                                    20, // The divider's height extent.
                                               ),
-                                              ButtonBar(
-                                                alignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  FlatButton(
-                                                    onPressed: () {},
-                                                    child: Text(
-                                                      'Pause',
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 15),
-                                                    ),
-                                                  ),
-                                                  FlatButton(
-                                                    onPressed: () {},
-                                                    child: Text(
-                                                      'Cancel',
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 15),
-                                                    ),
-                                                  ),
-                                                  FlatButton(
-                                                    onPressed: () {},
-                                                    child: Text(
-                                                      'Stop',
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 15),
-                                                    ),
+                                              Row(
+                                                children: <Widget>[
+                                                  ButtonBar(
+                                                    alignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      Container(
+                                                        // height: 50,
+                                                        // width: 170,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                gradient:
+                                                                    LinearGradient(
+                                                                  colors: [
+                                                                    Colors
+                                                                        .orange,
+                                                                    Colors
+                                                                        .pinkAccent
+                                                                  ],
+                                                                ),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20)),
+                                                        margin: const EdgeInsets
+                                                            .only(top: 10),
+                                                        child: FlatButton(
+                                                          onPressed: () {},
+                                                          child: Text(
+                                                            'Pause',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 15),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        //  height: 50,
+                                                        //  width: 170,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                gradient:
+                                                                    LinearGradient(
+                                                                  colors: [
+                                                                    Colors
+                                                                        .orange,
+                                                                    Colors
+                                                                        .pinkAccent
+                                                                  ],
+                                                                ),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20)),
+                                                        margin: const EdgeInsets
+                                                            .only(top: 10),
+                                                        child: FlatButton(
+                                                          onPressed: () {},
+                                                          child: Text(
+                                                            'Cancel',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 15),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        // height: 50,
+                                                        // width: 170,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                gradient:
+                                                                    LinearGradient(
+                                                                  colors: [
+                                                                    Colors
+                                                                        .orange,
+                                                                    Colors
+                                                                        .pinkAccent
+                                                                  ],
+                                                                ),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20)),
+                                                        margin: const EdgeInsets
+                                                            .only(top: 10),
+                                                        child: FlatButton(
+                                                          onPressed: () {},
+                                                          child: Text(
+                                                            'Stop',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 15),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ],
                                               ),

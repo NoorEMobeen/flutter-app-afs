@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
@@ -17,11 +19,12 @@ class DashboardDonor extends StatefulWidget {
 
 class _DashboardDonorState extends State<DashboardDonor> {
   FSBStatus? _fsbStatus;
-  final String url = 'http://10.102.142.17:5000/requests/active';
+  final String url = 'http://10.102.136.97:5000/requests/active';
   getUserData() async {
     var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
 
     debugPrint(currentTok);
+
     var response =
         await http.get(Uri.parse(url), headers: {'authorization': currentTok!});
     var data = jsonDecode(response.body);
@@ -46,82 +49,12 @@ class _DashboardDonorState extends State<DashboardDonor> {
     return users;
   }
 
-  // ignore: non_constant_identifier_names
-  // Widget personDetailCard(Person) {
-  //   return Column(
-  //     // padding: const EdgeInsets.all(10.0),
-  //     children: <Widget>[
-  //       GestureDetector(
-  //         child: Card(
-  //           shape: RoundedRectangleBorder(
-  //             borderRadius: BorderRadius.vertical(
-  //               bottom: Radius.circular(20),
-  //             ),
-  //           ),
-  //           color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
-  //           child: Padding(
-  //             padding: const EdgeInsets.all(8.0),
-  //             child: Row(
-  //               children: <Widget>[
-  //                 Padding(
-  //                   padding: const EdgeInsets.all(8.0),
-  //                   child: Container(
-  //                       width: 50.0,
-  //                       height: 50.0,
-  //                       decoration: new BoxDecoration(
-  //                           shape: BoxShape.circle,
-  //                           image: new DecorationImage(
-  //                               fit: BoxFit.cover,
-  //                               image: AssetImage(Person.profileImg)))),
-  //                 ),
-  //                 Column(
-  //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //                   children: <Widget>[
-  //                     // Text(
-  //                     //   Person.name,
-  //                     //   style: TextStyle(color: Colors.white, fontSize: 19),
-  //                     // ),
-  //                     Text(
-  //                       Person.title,
-  //                       style: TextStyle(color: Colors.white, fontSize: 19),
-  //                     ),
-  //                     Text(
-  //                       Person.status,
-  //                       style: TextStyle(color: Colors.green, fontSize: 16),
-  //                     ),
-  //                     Text(
-  //                       'Requested Funds: ' + Person.reqAmount,
-  //                       style: TextStyle(
-  //                           color: Colors.white,
-  //                           fontSize: 15,
-  //                           fontWeight: FontWeight.bold),
-  //                     ),
-  //                     Text(
-  //                       'Collected: ' + Person.reqAmount,
-  //                       style: TextStyle(
-  //                           color: Colors.white,
-  //                           fontSize: 15,
-  //                           fontWeight: FontWeight.bold),
-  //                     ),
-  //                     Text(Person.deadline,
-  //                         style: TextStyle(color: Colors.red, fontSize: 13)),
-  //                   ],
-  //                 )
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //         onTap: () => Navigator.push(
-  //             context, MaterialPageRoute(builder: (context) => StudentForm())),
-  //       ),
-  //     ],
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: Colors.transparent,
         appBar: AppBar(
           toolbarHeight: 100,
 
@@ -141,10 +74,10 @@ class _DashboardDonorState extends State<DashboardDonor> {
           ),
 
           // leading: Icon(Icons.menu),
-          title: Text('Donor Dashboard'),
-          actions: [
-            Icon(Icons.more_vert),
-          ],
+          title: Text('Dashboard'),
+          // actions: [
+          //   Icon(Icons.more_vert),
+          // ],
           backgroundColor: Colors.redAccent,
         ),
         body: FoldableSidebarBuilder(
@@ -165,13 +98,21 @@ class _DashboardDonorState extends State<DashboardDonor> {
 
   Widget dashboardScreen() {
     // Colors.primaries[Random().nextInt(Colors.primaries.length)]
-    return MaterialApp(
-      home: Scaffold(
-          backgroundColor: Colors.white,
+    return Container(
+      decoration: const BoxDecoration(gradient: LinearGradient(
+          // begin: Alignment.topLeft,
+          //  end: Alignment.bottomRight,
+          colors: [Colors.white10, Colors.pinkAccent])),
+      child: Scaffold(
+          backgroundColor: Colors.transparent,
           body: Column(children: <Widget>[
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
+                    // gradient: LinearGradient(colors: [
+                    //   Colors.orange,
+                    //   Colors.blueGrey,
+                    // ]),
                     color: Colors.white10,
                     border: Border.all(
                       color: Colors.black12,
@@ -190,10 +131,16 @@ class _DashboardDonorState extends State<DashboardDonor> {
                                 itemBuilder: (context, i) {
                                   return Center(
                                     child: Card(
+                                      clipBehavior: Clip.antiAlias,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(20),
-                                            bottomRight: Radius.circular(20)),
+                                        side: BorderSide(
+                                            color: Colors.white70, width: 2),
+                                        borderRadius: BorderRadius.circular(20),
+                                        //  BorderRadius.only(
+
+                                        //     // bottomLeft: Radius.circular(20),
+                                        //     // bottomRight: Radius.circular(20)
+                                        //     ),
                                       ),
                                       color: Colors.primaries[Random()
                                           .nextInt(Colors.primaries.length)],
@@ -206,17 +153,11 @@ class _DashboardDonorState extends State<DashboardDonor> {
                                                 CrossAxisAlignment.start,
                                             mainAxisSize: MainAxisSize.max,
                                             children: <Widget>[
-                                              // Text(
-                                              //   '${persons.elementAt(i).name}',
-                                              //   style: TextStyle(
-                                              //       color: Colors.white,
-                                              //       fontSize: 19),
-                                              // ),
-                                              // SizedBox(height: 5),
-                                              Center(
-                                                child: Text(
+                                              ListTile(
+                                                title: Text(
                                                   '${persons.elementAt(i).title}',
-                                                  style: GoogleFonts.rubik(
+                                                  style:
+                                                      GoogleFonts.josefinSans(
                                                     textStyle: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -225,70 +166,160 @@ class _DashboardDonorState extends State<DashboardDonor> {
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                              SizedBox(height: 5),
-                                              Text(
-                                                'Required Funds: ${persons.elementAt(i).reqAmount}',
-                                                style: GoogleFonts.lato(
-                                                  textStyle: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-
-                                              SizedBox(height: 5),
-                                              //  Row(children: <Widget>[
-                                              Text(
-                                                  '${persons.elementAt(i).status}',
-                                                  style: GoogleFonts.ptSerif(
-                                                    textStyle: TextStyle(
-                                                        color:
-                                                            Colors.lightGreen,
-                                                        fontSize: 17,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  )),
-                                              SizedBox(height: 5),
-                                              Text(
-                                                  'created_at: ${persons.elementAt(i).createdAt}',
-                                                  style: GoogleFonts.ptSerif(
+                                                subtitle: Text(
+                                                  'Request amount: ${persons.elementAt(i).reqAmount}',
+                                                  textAlign: TextAlign.end,
+                                                  style: GoogleFonts.lato(
                                                     textStyle: TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: 17),
-                                                  )),
-
-                                              SizedBox(height: 5),
-
-                                              Text(
-                                                'Published_at: ${persons.elementAt(i).publishedAt}',
-                                                style: GoogleFonts.lato(
-                                                  textStyle: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold),
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
                                                 ),
                                               ),
-
-                                              // SizedBox(height: 5),
-                                              // Text(
-                                              //     'Collected: ${persons.elementAt(i).collectAmount}',
-                                              //     style: TextStyle(
-                                              //         color: Colors.white,
-                                              //         fontSize: 15,
-                                              //         fontWeight:
-                                              //             FontWeight.bold)
-                                              //             ),
-                                              SizedBox(height: 5),
-                                              Text(
-                                                'Deadline: ${persons.elementAt(i).deadline}',
-                                                style: GoogleFonts.lato(
-                                                  textStyle: TextStyle(
-                                                      color: Colors.red,
-                                                      fontSize: 16),
+                                              const Divider(
+                                                thickness:
+                                                    3, // thickness of the line
+                                                indent: 0,
+                                                // empty space to the leading edge of divider.
+                                                endIndent:
+                                                    0, // empty space to the trailing edge of the divider.
+                                                color: Colors
+                                                    .black, // The color to use when painting the line.
+                                                // The divider's height extent.
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Text(
+                                                      '${persons.elementAt(i).name}',
+                                                      style: GoogleFonts.rubik(
+                                                        textStyle: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.white,
+                                                          fontSize: 17,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 96),
+                                                    Text(
+                                                        '${persons.elementAt(i).status}',
+                                                        style:
+                                                            GoogleFonts.ptSerif(
+                                                          textStyle: TextStyle(
+                                                              color: Colors
+                                                                  .lightGreen,
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        )),
+                                                  ],
                                                 ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                child: Center(
+                                                  child: Text(
+                                                    '${persons.elementAt(i).description}',
+                                                    style: GoogleFonts.rubik(
+                                                      textStyle: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white,
+                                                        fontSize: 19,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Text(
+                                                      '${persons.elementAt(i).publishedAt}',
+                                                      style: GoogleFonts.rubik(
+                                                        textStyle: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.white,
+                                                          fontSize: 15,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 50),
+                                                    Text(
+                                                        '${persons.elementAt(i).deadline}',
+                                                        style:
+                                                            GoogleFonts.ptSerif(
+                                                          textStyle: TextStyle(
+                                                              color: Colors
+                                                                  .lightGreen,
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        )),
+                                                  ],
+                                                ),
+                                              ),
+                                              const Divider(
+                                                thickness:
+                                                    3, // thickness of the line
+                                                indent:
+                                                    0, // empty space to the leading edge of divider.
+                                                endIndent:
+                                                    0, // empty space to the trailing edge of the divider.
+                                                color: Colors
+                                                    .black, // The color to use when painting the line.
+                                                height:
+                                                    20, // The divider's height extent.
+                                              ),
+                                              Row(
+                                                children: <Widget>[
+                                                  ButtonBar(
+                                                    alignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                gradient:
+                                                                    LinearGradient(
+                                                                  colors: [
+                                                                    Colors
+                                                                        .orange,
+                                                                    Colors
+                                                                        .pinkAccent
+                                                                  ],
+                                                                ),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20)),
+                                                        margin: const EdgeInsets
+                                                            .only(top: 10),
+                                                        child: FlatButton(
+                                                          onPressed: () {},
+                                                          child: Text(
+                                                            'Donate',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 15),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           )),

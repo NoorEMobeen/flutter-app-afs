@@ -4,7 +4,7 @@ import 'package:afs_mobile_flutter/dashboard_Receiver.dart';
 import 'package:afs_mobile_flutter/requestForm.dart';
 import 'package:afs_mobile_flutter/student_form.dart';
 import 'package:afs_mobile_flutter/ui/signin.dart';
-import 'package:afs_mobile_flutter/receiver_account';
+import 'package:afs_mobile_flutter/receiver_account.dart';
 import 'package:flutter/material.dart';
 
 class CustomSidebarDrawer extends StatefulWidget {
@@ -57,7 +57,7 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
               );
             },
             leading: Icon(Icons.dashboard),
-            title: Text("Dashboard Receiever"),
+            title: Text("Dashboard "),
           ),
           Divider(
             height: 1,
@@ -101,7 +101,7 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
               );
             },
             leading: Icon(Icons.history),
-            title: Text("History & Transaction"),
+            title: Text("Transaction"),
           ),
           Divider(
             height: 1,

@@ -5,7 +5,7 @@ import 'package:afs_mobile_flutter/ui/signin.dart';
 import 'package:afs_mobile_flutter/ui/signup.dart';
 import 'package:afs_mobile_flutter/ui/splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:afs_mobile_flutter/custom_theme.dart';
+//import 'package:afs_mobile_flutter/custom_theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,10 +20,22 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      
+
       title: "Login",
-      theme:CustomTheme.lightTheme,
+      theme: ThemeData(
+        backgroundColor: Colors.transparent,
+
+        // ignore: deprecated_member_use
+        accentColorBrightness: Brightness.dark,
+        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.amber),
+
+        //CustomTheme.lightTheme,
+      ),
+
       // ThemeData(primaryColor: Colors.orange[200]),
       routes: <String, WidgetBuilder>{
         splashScreen: (BuildContext context) => SplashScreen(),

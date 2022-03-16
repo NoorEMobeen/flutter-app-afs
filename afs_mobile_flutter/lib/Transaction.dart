@@ -1,16 +1,14 @@
 import 'package:afs_mobile_flutter/ui/transactionData.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:afs_mobile_flutter/donor_sidebar_drawer.dart';
+import 'package:afs_mobile_flutter/receiver_sidebar_drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:foldable_sidebar/foldable_sidebar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:convert';
-import 'package:google_fonts/google_fonts.dart';
+//import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
-
   final List<String> list = List.generate(10, (index) => "Text $index");
   @override
   HomePageState createState() => HomePageState();
@@ -105,12 +103,8 @@ class Transaction extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-
         body: const TabBarView(
-          children: [
-            ChatsTab(),
-            ChatsTab()
-          ],
+          children: [ChatsTab(), ChatsTab()],
         ),
       ),
     );
@@ -122,22 +116,20 @@ class Transaction extends StatelessWidget {
 class ChatsTab extends StatelessWidget {
   const ChatsTab({Key? key}) : super(key: key);
 
-  final String url = 'http://192.168.10.55:5000/Student/Transaction';
+  final String url = 'http://10.102.136.97:5000/student/withdraws';
   getUserData() async {
     var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
 
     debugPrint(currentTok);
-    var response = await http.get(Uri.parse(url), headers: {'authorization': currentTok!});
+    var response =
+        await http.get(Uri.parse(url), headers: {'authorization': currentTok!});
     var data = jsonDecode(response.body);
 
     List<TransactionData> users = [];
     for (var v in data.values) {
       for (var u in v.values) {
-        TransactionData user = TransactionData(
-            u["from"],
-            u["amount"],
-            u["to"],
-            u["datetime"]);
+        TransactionData user =
+            TransactionData(u["from"], u["amount"], u["to"], u["datetime"]);
         users.add(user);
       }
     }
@@ -223,14 +215,14 @@ class ChatsTab extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: FutureBuilder(
             future: getUserData(),
-            builder: (context, snapshot){
+            builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return Center(child: Text('Error in loading Items'));
-              }
-              else if (snapshot.hasData) {
-                List<TransactionData> transData = snapshot.data! as List<TransactionData>;
+              } else if (snapshot.hasData) {
+                List<TransactionData> transData =
+                    snapshot.data! as List<TransactionData>;
                 return transData.length > 0
-                   ?   ListView.builder(
+                    ? ListView.builder(
                         itemBuilder: (context, i) {
                           return Center(
                             child: SingleChatWidget(
@@ -238,13 +230,13 @@ class ChatsTab extends StatelessWidget {
                               chatTitle: '${transData.elementAt(i).datetime}',
                             ),
                           );
-                      },
-                    )
+                        },
+                      )
                     : const Center(child: Text('No items'));
-                  }
+              }
               return Center(child: Text('No items'));
-                }),
-            ),
+            }),
+      ),
     );
   }
 }
