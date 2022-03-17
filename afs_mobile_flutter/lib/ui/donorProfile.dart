@@ -1,20 +1,17 @@
 //import 'package:afs_mobile_flutter/custom_sidebar_drawer.dart';
-//import 'dart:html';
-
-import 'package:afs_mobile_flutter/receiver_sidebar_drawer.dart';
+import 'package:afs_mobile_flutter/donor_sidebar_drawer.dart';
 import 'package:flutter/material.dart';
-
 import 'package:afs_mobile_flutter/profile_methods.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:foldable_sidebar/foldable_sidebar.dart';
 
-class Profile extends StatefulWidget {
+class DonorProfile extends StatefulWidget {
   @override
   ProfileState createState() => ProfileState();
 }
 
-class ProfileState extends State<Profile> {
+class ProfileState extends State<DonorProfile> {
   FSBStatus? _fsbStatus;
 
   // bool _enabled = false;
@@ -25,18 +22,6 @@ class ProfileState extends State<Profile> {
   void initState() {
     super.initState();
   }
-
-// // Get from gallery
-// _getFromGallery() async {
-//     PickedFile pickedFile = await ImagePicker().getImage(
-//         source: ImageSource.gallery,
-//         maxWidth: 1800,
-//         maxHeight: 1800,
-//     );
-//     if (pickedFile != null) {
-//         File imageFile = File(pickedFile.path);
-//     }
-// }
 
   @override
   Widget build(BuildContext context) {
@@ -257,7 +242,7 @@ class ProfilePage extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
                                     new Text(
-                                      'Website',
+                                      'Email ID',
                                       style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.bold),
@@ -275,7 +260,7 @@ class ProfilePage extends StatelessWidget {
                                 new Flexible(
                                   child: new TextField(
                                     decoration: const InputDecoration(
-                                        hintText: "Enter Website"),
+                                        hintText: "Enter Email ID"),
                                     enabled: !_status,
                                   ),
                                 ),

@@ -1,6 +1,6 @@
-import 'package:afs_mobile_flutter/UserProfile.dart';
 import 'package:afs_mobile_flutter/dashboard_donor.dart';
 import 'package:afs_mobile_flutter/donor_accounts.dart';
+import 'package:afs_mobile_flutter/ui/donorProfile.dart';
 import 'package:afs_mobile_flutter/ui/signin.dart';
 import 'package:flutter/material.dart';
 
@@ -26,81 +26,83 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
       color: Colors.white,
       width: mediaQuery.size.width * 0.60,
       height: mediaQuery.size.height,
-      child: Column(
-        children: <Widget>[
-          Container(
-              width: double.infinity,
-              height: 200,
-              color: Colors.grey.withAlpha(30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Image.asset(
-                    "assets/images/as.png",
-                    width: 100,
-                    height: 100,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text("Automated Fundraising System")
-                ],
-              )),
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DashboardDonor()),
-              );
-            },
-            leading: Icon(Icons.dashboard),
-            title: Text("Dashboard"),
-          ),
-          Divider(
-            height: 1,
-            color: Colors.grey,
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Profile()),
-              );
-            },
-            leading: Icon(Icons.person),
-            title: Text(
-              "My Profile",
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Container(
+                width: double.infinity,
+                height: 200,
+                color: Colors.grey.withAlpha(30),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset(
+                      "assets/images/as.png",
+                      width: 100,
+                      height: 100,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text("Automated Fundraising System")
+                  ],
+                )),
+            ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DashboardDonor()),
+                );
+              },
+              leading: Icon(Icons.dashboard),
+              title: Text("Dashboard"),
             ),
-          ),
-          Divider(
-            height: 1,
-            color: Colors.grey,
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DonorAccounts()),
-              );
-            },
-            leading: Icon(Icons.account_balance),
-            title: Text("Accounts"),
-          ),
-          Divider(
-            height: 1,
-            color: Colors.grey,
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SignInPage()),
-              );
-            },
-            leading: Icon(Icons.logout),
-            title: Text("Log out"),
-          ),
-        ],
+            Divider(
+              height: 1,
+              color: Colors.grey,
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DonorProfile()),
+                );
+              },
+              leading: Icon(Icons.person),
+              title: Text(
+                "Profile",
+              ),
+            ),
+            Divider(
+              height: 1,
+              color: Colors.grey,
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DonorAccounts()),
+                );
+              },
+              leading: Icon(Icons.account_balance),
+              title: Text("Accounts"),
+            ),
+            Divider(
+              height: 1,
+              color: Colors.grey,
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignInPage()),
+                );
+              },
+              leading: Icon(Icons.logout),
+              title: Text("Log out"),
+            ),
+          ],
+        ),
       ),
     );
   }
