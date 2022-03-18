@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:math';
 //import 'package:afs_mobile_flutter/student_form.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/receiver_sidebar_drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -20,12 +21,13 @@ class DashboardReceiver extends StatefulWidget {
 
 class _DashboardReceiverState extends State<DashboardReceiver> {
   FSBStatus? _fsbStatus;
-  final String url = 'http://10.102.136.97:5000/requests/active';
+  final String url = 'http://10.102.136.134:5000/requests/active';
   getUserData() async {
+    print("Inside recevier dashboard");
     var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
 
-    debugPrint(currentTok);
-    print("Hello");
+    //debugPrint(currentTok);
+    //print("Hello");
     var response =
         await http.get(Uri.parse(url), headers: {'authorization': currentTok!});
     var data = jsonDecode(response.body);
@@ -45,8 +47,7 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
         users.add(user);
       }
     }
-    print("Hello");
-    print(users[0].title);
+    print("User Title:"+ users[0].title);
     debugPrint(users.length.toString());
     return users;
   }

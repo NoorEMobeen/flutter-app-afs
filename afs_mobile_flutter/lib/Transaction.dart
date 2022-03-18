@@ -45,40 +45,7 @@ class HomePageState extends State<HomePage> {
 
           // leading: Icon(Icons.menu),
           title: Text('Transaction'),
-          actions: [
-            // Widget for the search
-            IconButton(
-              onPressed: () {
-                var widget;
-                showSearch(context: context, delegate: Search(widget.list));
-              },
-              icon: Icon(Icons.search),
-            ),
-            // Widget for implementing the three-dot menu
-            PopupMenuButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              itemBuilder: (context) {
-                return [
-                  // In this case, we need 5 popupmenuItems one for each option.
-                  const PopupMenuItem(child: Text('Settings')),
-                ];
-              },
-            ),
-          ],
           backgroundColor: Colors.redAccent,
-          /*bottom: const TabBar(
-            indicatorSize: TabBarIndicatorSize.tab,
-            indicatorColor: Colors.white,
-            tabs: [
-              Tab(
-                child:
-                    Text('TRANSACTIONS', style: TextStyle(color: Colors.white)),
-              ),
-            ],
-            labelColor: Colors.white,
-          ),*/
         ),
         body: FoldableSidebarBuilder(
           drawerBackgroundColor: Colors.cyan[100],
@@ -101,10 +68,10 @@ class Transaction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 1,
       child: Scaffold(
         body: const TabBarView(
-          children: [ChatsTab(), ChatsTab()],
+          children: [ChatsTab()],
         ),
       ),
     );
@@ -116,7 +83,7 @@ class Transaction extends StatelessWidget {
 class ChatsTab extends StatelessWidget {
   const ChatsTab({Key? key}) : super(key: key);
 
-  final String url = 'http://10.102.136.97:5000/student/withdraws';
+  final String url = 'http://192.168.56.1:5000/student/withdraws';
   getUserData() async {
     var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
 
@@ -139,76 +106,6 @@ class ChatsTab extends StatelessWidget {
   }
 
   @override
-  /*Widget  build(BuildContext context){
-    return MaterialApp(
-      home: Scaffold(
-        body: Column(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-
-                  )),
-                child: FutureBuilder(
-                  //future: getUserData(),
-                  builder: (context,snapshot){
-                    if (snapshot.hasError) {
-                      return Center(child: Text('Error in loading Items'));
-                    }
-                    else if (snapshot.hasData){
-                      List<TransactionData> transData = snapshot.data! as List<TransactionData>;
-                      return transData.length > 0
-                          ? ListView(
-
-                           // return Center(
-                           // child: Card(
-                              clipBehavior: //Clip.antiAlias,
-                              //shape: RoundedRectangleBorder(
-                                //borderRadius: //BorderRadius.only(
-                                //  bottomLeft: Radius.circular(20),
-                                  //  bottomRight: Radius.circular(20))
-                              //),
-                             // color: Colors.primaries[Random()
-                               //   .nextInt(Colors.primaries.length)],
-                              chil Container(
-                                width:
-                                MediaQuery.of(context).size.width,
-                                padding: EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                      child: ListView(
-                                        children: const[
-                                          SingleChatWidget(
-                                            chatTitle: '{transData.elementAt(i).from}',
-                                            chatMessage: '{transData.elementAt(i).amount',
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                )),
-                             //   ),
-                              //);
-                       // },
-                      )
-                      : const Center(child: Text('No items'));
-                    }
-                      return Center(child: Text('No items saffar'));
-                  }
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }*/
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
@@ -226,8 +123,9 @@ class ChatsTab extends StatelessWidget {
                         itemBuilder: (context, i) {
                           return Center(
                             child: SingleChatWidget(
-                              chatMessage: 'Rs 9,000/-',
-                              chatTitle: '${transData.elementAt(i).datetime}',
+                              chatTitle: '${transData.elementAt(i).from} - ${transData.elementAt(i).to}',
+                              chatMessage: '${transData.elementAt(i).datetime}/-',
+                              chatDate: '${transData.elementAt(i).amount}/-',
                             ),
                           );
                         },
@@ -241,87 +139,23 @@ class ChatsTab extends StatelessWidget {
   }
 }
 
-//Search bar Function
-class Search extends SearchDelegate {
-  String selectedResult = "";
-  List<String> recentList = ["Saffar", "Asad", "Saif", "Zohran", "Abbas"];
-  final List<String> listExample;
-  Search(this.listExample);
-
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    return <Widget>[
-      IconButton(
-        icon: Icon(Icons.close),
-        onPressed: () {
-          query = "";
-        },
-      ),
-    ];
-  }
-
-  @override
-  Widget buildLeading(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.arrow_back),
-      onPressed: () {
-        Navigator.pop(context);
-      },
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text(selectedResult),
-      ),
-    );
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    List<String> suggestionList = [];
-    query.isEmpty
-        ? suggestionList = recentList
-        : suggestionList
-            .addAll(listExample.where((element) => element.contains(query)));
-
-    return ListView.builder(
-        itemCount: suggestionList.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(
-              suggestionList[index],
-            ),
-            onTap: () {
-              selectedResult = suggestionList[index];
-              showResults(context);
-            },
-          );
-        });
-  }
-}
-
 // Widget to define how a single chat widget would look like
 class SingleChatWidget extends StatelessWidget {
   final String? chatMessage;
   final String? chatTitle;
+  final String? chatDate;
 
   const SingleChatWidget({
     Key? key,
     this.chatMessage,
     this.chatTitle,
+    this.chatDate
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // CircleAvatar(
-        //   radius: 30,
-        //   backgroundImage: NetworkImage(imageUrl!),
-        // ),
         Expanded(
           child: ListTile(
             title: Text('$chatTitle',
@@ -336,16 +170,17 @@ class SingleChatWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            trailing: Column(
-              children: const [
-                Padding(
-                  padding: EdgeInsets.only(top: 8.0),
+            trailing: Row(
+              children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 6.0),
                   child: Text(
-                    '21/10/2021',
+                    '$chatDate',
                   ),
                 ),
-              ],
-            ),
+              )
+            ]),
           ),
         ),
       ],
