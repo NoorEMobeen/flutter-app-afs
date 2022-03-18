@@ -853,7 +853,7 @@ class FinanceTabWidget extends State {
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                                       new Text(
-                                        'Income Prood Document',
+                                        'Income Prove Document',
                                         style: TextStyle(
                                             fontSize: 16.0,
                                             fontWeight: FontWeight.bold),
@@ -961,8 +961,9 @@ class FinanceTabWidget extends State {
                                 ],
                               )),
                           Padding(
-                              padding: EdgeInsets.only(
-                                  left: 25.0, right: 25.0, top: 25.0),
+                            padding: EdgeInsets.only(
+                                left: 25.0, right: 25.0, top: 25.0),
+                            child: SingleChildScrollView(
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
@@ -979,78 +980,82 @@ class FinanceTabWidget extends State {
                                     ],
                                   ),
                                 ],
-                              )),
+                              ),
+                            ),
+                          ),
                           Padding(
-                              padding: EdgeInsets.only(
-                                  left: 5.0, right: 0.0, top: 2.0),
-                              child: new Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: <Widget>[
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Radio(
-                                        value: 1,
-                                        groupValue: id,
-                                        onChanged: (val) {
-                                          setState(() {
-                                            radioButtonItem = 'Self Owned';
-                                            id = 1;
-                                          });
-                                        },
+                            padding: EdgeInsets.only(
+                                left: 5.0, right: 0.0, top: 2.0),
+                            child: new Flexible(
+                                child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Radio(
+                                      value: 1,
+                                      groupValue: id,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          radioButtonItem = 'Self Owned';
+                                          id = 1;
+                                        });
+                                      },
+                                    ),
+                                    Text(
+                                      'Self Owned',
+                                      style: new TextStyle(fontSize: 15.0),
+                                    ),
+                                    Radio(
+                                      value: 2,
+                                      groupValue: id,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          radioButtonItem = 'On Rent';
+                                          id = 2;
+                                        });
+                                      },
+                                    ),
+                                    Text(
+                                      'On Rent',
+                                      style: new TextStyle(
+                                        fontSize: 15.0,
                                       ),
-                                      Text(
-                                        'Self Owned',
-                                        style: new TextStyle(fontSize: 15.0),
-                                      ),
-                                      Radio(
-                                        value: 2,
-                                        groupValue: id,
-                                        onChanged: (val) {
-                                          setState(() {
-                                            radioButtonItem = 'On Rent';
-                                            id = 2;
-                                          });
-                                        },
-                                      ),
-                                      Text(
-                                        'On Rent',
-                                        style: new TextStyle(
-                                          fontSize: 15.0,
-                                        ),
-                                      ),
-                                      Radio(
-                                        value: 3,
-                                        groupValue: id,
-                                        onChanged: (val) {
-                                          setState(() {
-                                            radioButtonItem = 'Company Owned';
-                                            id = 3;
-                                          });
-                                        },
-                                      ),
-                                      Text(
-                                        'Company Owned',
-                                        style: new TextStyle(fontSize: 15.0),
-                                      ),
-                                      Radio(
-                                        value: 4,
-                                        groupValue: id,
-                                        onChanged: (val) {
-                                          setState(() {
-                                            radioButtonItem = 'No House';
-                                            id = 4;
-                                          });
-                                        },
-                                      ),
-                                      Text(
-                                        'No House',
-                                        style: new TextStyle(fontSize: 15.0),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )),
+                                    ),
+                                    Radio(
+                                      value: 3,
+                                      groupValue: id,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          radioButtonItem = 'Company Owned';
+                                          id = 3;
+                                        });
+                                      },
+                                    ),
+                                    Text(
+                                      'Company Owned',
+                                      style: new TextStyle(fontSize: 15.0),
+                                    ),
+                                    Radio(
+                                      value: 4,
+                                      groupValue: id,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          radioButtonItem = 'No House';
+                                          id = 4;
+                                        });
+                                      },
+                                    ),
+                                    Text(
+                                      'No House',
+                                      style: new TextStyle(fontSize: 15.0),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )),
+                          ),
                           Padding(
                               padding: EdgeInsets.only(
                                   left: 25.0, right: 25.0, top: 25.0),
@@ -1132,6 +1137,7 @@ class FinanceTabWidget extends State {
 
                                         if (picked != null) {
                                           print(picked.files.first.name);
+                                          Text(picked.files.first.name);
                                         }
                                       }),
 

@@ -65,7 +65,7 @@ class HomePageState extends State<HomePage> {
 }
 
 class Transaction extends StatelessWidget {
-  final String url = 'http://10.102.136.127:5000/student/withdraws';
+  final String url = 'http://10.102.136.50:5000/student/withdraws';
   getUserData() async {
     var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
     debugPrint(currentTok);
@@ -73,9 +73,9 @@ class Transaction extends StatelessWidget {
         await http.get(Uri.parse(url), headers: {'authorization': currentTok!});
     var data = json.decode(response.body);
     // print('tjiiis is data' + response.body);
-    print("Printed Data" + data);
+    print("Printed Data" + response.body);
     List<TransactionData> users = [];
-    for (var v in data) {
+    for(var v in data) {
       //for (var u in v.values) {
       print("VVVVV" + v);
       TransactionData user = TransactionData(
