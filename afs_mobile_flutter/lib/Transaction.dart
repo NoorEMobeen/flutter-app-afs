@@ -65,7 +65,7 @@ class HomePageState extends State<HomePage> {
 }
 
 class Transaction extends StatelessWidget {
-  final String url = 'http://192.168.10.42:5000/student/withdraws';
+  final String url = 'http://10.102.128.165:5000/student/withdraws';
   getUserData() async {
     var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
     debugPrint(currentTok);

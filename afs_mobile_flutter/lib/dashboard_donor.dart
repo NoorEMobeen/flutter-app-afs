@@ -19,7 +19,7 @@ class DashboardDonor extends StatefulWidget {
 
 class _DashboardDonorState extends State<DashboardDonor> {
   FSBStatus? _fsbStatus;
-  final String url = 'http://192.168.10.42:5000/requests/active';
+  final String url = 'http://10.102.128.165:5000/requests/active';
 
   getUserData() async {
     var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();

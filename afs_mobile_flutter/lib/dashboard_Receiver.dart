@@ -20,9 +20,9 @@ class DashboardReceiver extends StatefulWidget {
 
 class _DashboardReceiverState extends State<DashboardReceiver> {
   FSBStatus? _fsbStatus;
-  final String url = 'http://192.168.10.42:5000/requests/active';
-  final String urlPending = 'http://192.168.10.42:5000/requests/pending';
-  final String urlPaused = 'http://192.168.10.42:5000/requests/paused';
+  final String url = 'http://10.102.128.165:5000/requests/active';
+  final String urlPending = 'http://10.102.128.165:5000/requests/pending';
+  final String urlPaused = 'http://10.102.128.165:5000/requests/paused';
 
   getUserData() async {
     var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
