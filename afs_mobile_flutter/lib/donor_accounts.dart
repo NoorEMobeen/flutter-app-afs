@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/donor_sidebar_drawer.dart';
 //import 'pay.dart';
@@ -10,6 +12,7 @@ class DonorAccounts extends StatefulWidget {
 }
 
 class DonorAccountsState extends State<DonorAccounts> {
+  final _formKey = GlobalKey<FormState>();
   FSBStatus? _fsbStatus;
   @override
   Widget build(BuildContext context) {
@@ -40,119 +43,158 @@ class DonorAccountsState extends State<DonorAccounts> {
             });
           },
         ),
-        screenContents: null,
+        screenContents: accountScreen(),
         status: _fsbStatus,
       ),
     );
   }
-}
 
-class AccountsTab extends StatefulWidget {
-  @override
-  AccountsTabWidget createState() => AccountsTabWidget();
-}
-
-class AccountsTabWidget extends State {
-  String paymentID = "";
-  String orderId = "";
-  String transaction = "";
-
-  final _teAmount = TextEditingController();
-  final _teEmail = TextEditingController();
-
-  // void _pay() {
-  //   if (_teAmount.text.isNotEmpty && _teEmail.text.isNotEmpty) {
-  //     final result = Navigator.push(
-  //         context,
-  //         MaterialPageRoute(
-  //             builder: (BuildContext context) => Pay(
-  //                 _teAmount.text.trim(),
-  //                 _teEmail.text.trim(),
-  //                 "E4B73FEE-F492-4607-A38D-852B0EBC91C9", title: '',)));
-  //     result.then((result) {
-  //       transactionResult(result);
-  //     });
-  //   }
-  // }
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: getFormUI(),
+  Widget accountScreen() {
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+            // begin: Alignment.topLeft,
+            //  end: Alignment.bottomRight,
+            colors: [Colors.white10, Colors.pinkAccent]),
       ),
-    ));
-  }
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SingleChildScrollView(
+          child: Container(
+            child: Padding(
+              padding: EdgeInsets.only(
+                  left: 25.0, right: 25.0, top: 100.0, bottom: 50.0),
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey.withOpacity(0.4),
+                            spreadRadius: 2,
+                            blurRadius: 8)
+                      ],
+                      border: Border.all(
+                        color: Colors.black,
+                        //  width: 500,
+                      )),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                left: 25.0, right: 25.0, top: 70.0),
+                            child: new Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                new Text(
+                                  'Accounts',
+                                  style: TextStyle(
+                                      fontSize: 23.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const Divider(
+                          thickness: 3, // thickness of the line
+                          indent: 30,
+                          // empty space to the leading edge of divider.
+                          endIndent: 30,
+                          // empty space to the trailing edge of the divider.
+                          color: Colors
+                              .black, // The color to use when painting the line.
+                          // The divider's height extent.
+                        ),
+                        Padding(
+                            padding: EdgeInsets.only(
+                                left: 25.0, right: 45.0, top: 25.0),
+                            child: new Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                new Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    new Text(
+                                      'Required Amount',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )),
+                        Padding(
+                            padding: EdgeInsets.only(
+                                left: 85.0, right: 45.0, top: 10.0),
+                            child: new Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                new Flexible(
+                                  child: new Text('Rs 00/-'
 
-  Widget getFormUI() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        TextFormField(
-          controller: _teAmount,
-          decoration: InputDecoration(hintText: 'Amount'),
-          keyboardType: TextInputType.phone,
-          maxLength: 10,
+                                      // decoration: InputDecoration(
+                                      //   //border: OutlineInputBorder(),
+                                      //   hintText: 'Rs 00/-',
+                                      // ),
+                                      ),
+                                ),
+                              ],
+                            )),
+                        Padding(
+                            padding: EdgeInsets.only(
+                                left: 45.0, right: 45.0, top: 20.0),
+                            child: new Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: <Widget>[
+                                new Flexible(
+                                  child: new TextField(
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      hintText: '00',
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )),
+                        new Container(
+                          height: 50,
+                          width: 140,
+                          decoration: BoxDecoration(
+                              //color: Colors.grey,
+                              gradient: LinearGradient(
+                                colors: [Colors.blueGrey, Colors.blueAccent],
+                              ),
+                              borderRadius: BorderRadius.circular(20)),
+                          margin: const EdgeInsets.only(top: 50, bottom: 50),
+                          // padding: const EdgeInsets.only(
+                          //     left: 40.0, top: 40.0, bottom: 50),
+                          child: FlatButton(
+                            onPressed: () {},
+                            child: Text(
+                              'Donate',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+            ),
+          ),
         ),
-        TextFormField(
-          controller: _teEmail,
-          decoration: InputDecoration(hintText: 'Email'),
-          maxLength: 32,
-        ),
-        SizedBox(height: 15.0),
-        // ignore: deprecated_member_use
-        // RaisedButton(
-        // //  onPressed: _pay,
-        //   child: Text('Pay'),
-        // ),
-        SizedBox(height: 40.0),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(paymentID),
-        ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(orderId),
-        ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(transaction),
-        ),
-      ],
+      ),
     );
-  }
-
-  Widget buttonMedium(String buttonLabel, EdgeInsets margin, Color bgColor,
-      Color textColor, double textSize) {
-    var loginBtn = Container(
-      margin: margin,
-      padding: EdgeInsets.all(10.0),
-      alignment: FractionalOffset.center,
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.all(const Radius.circular(60.0)),
-      ),
-      child: Text(
-        buttonLabel,
-        style: TextStyle(
-            color: textColor, fontSize: textSize, fontWeight: FontWeight.bold),
-      ),
-    );
-    return loginBtn;
-  }
-
-  void transactionResult(String result) {
-    _teAmount.text = "";
-    _teEmail.text = "";
-
-    setState(() {
-      var transactionDetail = result.split(" ");
-
-      paymentID = "Payment Id: " + transactionDetail[0];
-      orderId = "OrderId: " + transactionDetail[1];
-      transaction = "Transaction Id: " + transactionDetail[2];
-    });
   }
 }

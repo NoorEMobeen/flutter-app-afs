@@ -1,9 +1,16 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: non_constant_identifier_names, duplicate_ignore
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'dart:async';
 import 'Transaction.dart';
 import 'package:afs_mobile_flutter/receiver_sidebar_drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:foldable_sidebar/foldable_sidebar.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RequestForm extends StatefulWidget {
   @override
@@ -29,19 +36,6 @@ class _RequestFormState extends State<RequestForm> {
         // leading: Icon(Icons.menu),
         title: Text('Fund Request'),
         backgroundColor: Colors.redAccent,
-        actions: [
-          PopupMenuButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            itemBuilder: (context) {
-              return [
-                // In this case, we need 5 popupmenuItems one for each option.
-                const PopupMenuItem(child: Text('Settings')),
-              ];
-            },
-          ),
-        ],
       ),
       body: FoldableSidebarBuilder(
         drawerBackgroundColor: Colors.cyan[100],
@@ -59,21 +53,89 @@ class _RequestFormState extends State<RequestForm> {
   }
 }
 
-// ignore: must_be_immutable
-class Form extends StatelessWidget {
-  DateTime selectedDate = DateTime.now();
+Future<void> fire(String ReTitle, String ReAmount, String DeadDay,
+    String DeadTime, String ReDetail) async {
+  CollectionReference users = FirebaseFirestore.instance.collection('requests');
+  FirebaseAuth auth = FirebaseAuth.instance;
+  users.add({
+    'RequestTitle': ReTitle,
+    'RequestAmount': ReAmount,
+    'DeadlineDay': DeadDay,
+    'DeadlineTime': DeadTime,
+    'ReasonDetail': ReDetail
+  });
+  return;
+}
 
-  _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2021),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
-      });
-  }
+// Future<Album> createAlbum(String ReTitle, String ReAmount, String DeadDay,String DeadTime, String ReDetail) async {
+//
+//   var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
+//
+//   final String url = 'http://10.102.140.118:5000/student/create/request';
+//   print("Body Data ReTitle: "+ReTitle);
+//   final response = await http.post(Uri.parse(url),
+//       headers:{
+//         'Content-Type': 'application/json; charset=UTF-8',
+//         'authorization': currentTok!,
+//       },
+//       body:jsonEncode(<String, String>{
+//         'RequestTitle':   ReTitle,
+//         'RequestAmount':  ReAmount,
+//         'DeadlineDay':    DeadDay,
+//         'DeadlineTime':   DeadTime,
+//         'ReasonDetail':   ReDetail,
+//         }),
+//       );
+//   print("Body Data: "+response.body);
+//   //print("Post Token: "+ currentTok!);
+//
+//   if (response.statusCode == 200) {
+//     print("IF Data: "+response.body);
+//     // If the server did return a 201 CREATED response,
+//     // then parse the JSON.
+//     return Album.fromJson(jsonDecode(response.body));
+//   } else {
+//     print("Else Data: "+response.body);
+//     // If the server did not return a 201 CREATED response,
+//     // then throw an exception.
+//     throw Exception('Failed to create album.');
+//   }
+// }
+// class Album {
+//   final String requestTitle;
+//   final String requestAmount;
+//   final String deadlineDay;
+//   final String deadlineTime;
+//   final String reasonDetail;
+//
+//   const Album({required this.requestTitle, required this.requestAmount,required this.deadlineDay, required this.deadlineTime,required this.reasonDetail});
+//
+//   factory Album.fromJson(Map<String, dynamic> json) {
+//     return Album(
+//       requestTitle:   json['RequestTitle'],
+//       requestAmount:  json['RequestAmount'],
+//       deadlineDay:    json['DeadlineDay'],
+//       deadlineTime:   json['DeadlineTime'],
+//       reasonDetail:   json['ReasonDetail'],
+//     );
+//   }
+// }
+
+//Second Class for Form Submission
+class Form extends StatefulWidget {
+  @override
+  _Form createState() => new _Form();
+}
+
+class _Form extends State<Form> {
+  TextEditingController RequestTitle = TextEditingController();
+  TextEditingController RequestAmount = TextEditingController();
+  TextEditingController DeadlineDay = TextEditingController();
+  TextEditingController DeadlineTime = TextEditingController();
+  TextEditingController ReasonDetail = TextEditingController();
+
+  DateTime selectedDate = DateTime.now();
+  TimeOfDay selectedTime = TimeOfDay.now();
 
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -107,6 +169,7 @@ class Form extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.only(left: 15, right: 15, top: 20),
                   child: TextFormField(
+                    controller: RequestTitle,
                     style: TextStyle(fontWeight: FontWeight.bold),
                     decoration: InputDecoration(
                       border: InputBorder.none,
@@ -131,6 +194,7 @@ class Form extends StatelessWidget {
                   padding:
                       EdgeInsets.only(left: 15, right: 15, top: 2, bottom: 10),
                   child: TextFormField(
+                    controller: RequestAmount,
                     style: TextStyle(fontWeight: FontWeight.bold),
                     decoration: InputDecoration(
                       border: InputBorder.none,
@@ -140,41 +204,80 @@ class Form extends StatelessWidget {
                 ),
               ),
             ),
-
             Padding(
-              padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  // ignore: deprecated_member_use
-                  RaisedButton(
-                    onPressed: () => _selectDate(context),
-                    child: Text('Select date',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ),
+              padding: const EdgeInsets.only(left: 40.0, right: 15.0, top: 20),
+              child: Center(
+                child: TextField(
+                  controller: DeadlineDay,
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.calendar_today), //icon of text field
+                      labelText: "Enter Date" //label text of field
+                      ),
+                  readOnly: true,
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                        context: context, //context of current state
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(
+                            2000), //DateTime.now() - not to allow to choose before today.
+                        lastDate: DateTime(2101));
+                    if (pickedDate != null) {
+                      print(
+                          pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                      String formattedDate =
+                          DateFormat('dd-MM-yyyy').format(pickedDate);
+                      print(
+                          formattedDate); //formatted date output using intl package =>  2021-03-16
 
-                  Text(
-                      "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  // ignore: deprecated_member_use
-                ],
+                      setState(() {
+                        DeadlineDay.text =
+                            formattedDate; //set output date to TextField value.
+                      });
+                    } else {
+                      print("Date is not selected");
+                    }
+                  },
+                ),
               ),
             ),
-            // ListTile(
-            //   leading: const Icon(Icons.today),
-            //   title: const Text(
-            //     'Deadline',
-            //     style: TextStyle(fontWeight: FontWeight.bold),
-            //   ),
-            //   subtitle: const Text(
-            //     'November 18, 2021',
-            //     style: TextStyle(fontWeight: FontWeight.bold),
-            //   ),
-            //   //trailing: const Icon(Icons.check_circle, color: Colors.green,),
-            // ),
+            Padding(
+              padding: const EdgeInsets.only(left: 40.0, right: 15.0, top: 20),
+              child: Center(
+                child: TextField(
+                  controller: DeadlineTime,
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.calendar_today), //icon of text field
+                      labelText: "Enter Time" //label text of field
+                      ),
+                  readOnly: true,
+                  onTap: () async {
+                    TimeOfDay? pickedTime = await showTimePicker(
+                      initialTime: TimeOfDay.now(),
+                      context: context, //context of current state
+                    );
+
+                    if (pickedTime != null) {
+                      print(pickedTime.format(context)); //output 10:51 PM
+                      DateTime parsedTime = DateFormat.jm()
+                          .parse(pickedTime.format(context).toString());
+                      //converting to DateTime so that we can further format on different pattern.
+                      print(parsedTime); //output 1970-01-01 22:53:00.000
+                      String formattedTime =
+                          DateFormat('HH:mm:ss').format(parsedTime);
+                      print(formattedTime); //output 14:59:00
+                      //DateFormat() is from intl package, you can format the time on any pattern you need.
+
+                      setState(() {
+                        DeadlineTime.text =
+                            formattedTime; //set the value of text field.
+                      });
+                    } else {
+                      print("Time is not selected");
+                    }
+                  },
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 20),
               child: Container(
@@ -187,6 +290,7 @@ class Form extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.only(left: 15, right: 15, top: 0),
                   child: TextFormField(
+                    controller: ReasonDetail,
                     style: TextStyle(fontWeight: FontWeight.bold),
                     minLines: 1,
                     maxLines: 5,
@@ -210,9 +314,36 @@ class Form extends StatelessWidget {
               margin: const EdgeInsets.only(top: 50),
               // ignore: deprecated_member_use
               child: FlatButton(
+                // onPressed: () {
+                //   final String title = RequestTitle.text;
+                //   final String amount = RequestAmount.text;
+                //   final String day = DeadlineDay.text;
+                //   final String time = DeadlineTime.text;
+                //   final String reason = ReasonDetail.text;
+                //
+                //   //final Album data = await createAlbum(title,amount, day, time, reason);
+                //
+                //    print("Title Data: "+ '${RequestTitle.text}');
+                //     print("Amount Data: "+ '${RequestAmount.text}');
+                //     print("Reason Data: "+ '${DeadlineDay.text}');
+                //
+                //     Map<String,dynamic> data = {
+                //       "RequestTitle": RequestTitle.text,
+                //       "RequestAmount": RequestAmount.text,
+                //       "Reasondetail": ReasonDetail.text,
+                //
+                //   },
+                //    setState(() {
+                //      print("saffar khan in setState");
+                //      //getUserData(title,amount, day, time, reason);
+                //     // _futureAlbum = data as Future<Album>?;
+                //    });
+                //   Navigator.push(
+                //       context, MaterialPageRoute(builder: (_) => HomePage()));
+                // },
                 onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => HomePage()));
+                  fire(RequestTitle.text, RequestAmount.text, DeadlineDay.text,
+                      DeadlineTime.text, ReasonDetail.text);
                 },
                 child: Text(
                   'Request',
@@ -225,6 +356,4 @@ class Form extends StatelessWidget {
       ),
     );
   }
-
-  setState(Null Function() param0) {}
 }
