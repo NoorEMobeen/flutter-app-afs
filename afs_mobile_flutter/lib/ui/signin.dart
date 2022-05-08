@@ -1,10 +1,14 @@
 import 'package:afs_mobile_flutter/dashboard_Receiver.dart';
 import 'package:afs_mobile_flutter/dashboard_donor.dart';
+import 'package:afs_mobile_flutter/ui/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/constants/constants.dart';
 import 'package:afs_mobile_flutter/ui/widgets/custom_shape.dart';
 import 'package:afs_mobile_flutter/ui/widgets/responsive_ui.dart';
+import 'package:http/http.dart' as http;
+
 //import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class SignInPage extends StatelessWidget {
@@ -180,7 +184,7 @@ class _SignInScreenState extends State<SignInScreen> {
         key: _key,
         child: Column(
           children: <Widget>[
-            roleTextFormField(),
+            //roleTextFormField(),
             SizedBox(height: _height / 40.0),
             emailTextFormField(),
             SizedBox(height: _height / 40.0),
@@ -191,24 +195,24 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  String selectedValue = "Student";
-  Widget roleTextFormField() {
-    return Container(
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            DropdownButton(
-                value: selectedValue,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    selectedValue = newValue!;
-                  });
-                },
-                hint: Text("Enter Role"),
-                items: dropdownRoles),
-          ]),
-    );
-  }
+  //String selectedValue = "Student";
+  // Widget roleTextFormField() {
+  //   return Container(
+  //     child: Column(
+  //         crossAxisAlignment: CrossAxisAlignment.center,
+  //         children: <Widget>[
+  //           DropdownButton(
+  //               value: selectedValue,
+  //               onChanged: (String? newValue) {
+  //                 setState(() {
+  //                   selectedValue = newValue!;
+  //                 });
+  //               },
+  //               hint: Text("Enter Role"),
+  //               items: dropdownRoles),
+  //         ]),
+  //   );
+  // }
 
   Widget emailTextFormField() {
     return Container(
@@ -256,7 +260,7 @@ class _SignInScreenState extends State<SignInScreen> {
           ),
           GestureDetector(
             onTap: () {
-              print("Routing");
+              //print("Routing");
             },
             child: Text(
               "Recover",
@@ -267,6 +271,17 @@ class _SignInScreenState extends State<SignInScreen> {
         ],
       ),
     );
+  }
+
+  final String url = 'http://192.168.10.2:5000/users/role';
+   // var storeRole = "";
+  getUserData() async {
+    var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
+    //print('saffar khan'+currentTok!);
+    var response = await http.get(Uri.parse(url),headers: {'authorization': currentTok!});
+    //storeRole = response as String;
+    //print("Response Body"+response.body);
+    return response.body;
   }
 
   Widget button() {
@@ -288,7 +303,6 @@ class _SignInScreenState extends State<SignInScreen> {
           final newUser = await _auth.signInWithEmailAndPassword(
               email: email, password: password);
 
-          print(newUser.toString());
           // ignore: unnecessary_null_comparison
           if (newUser != null) {
             final snackbar = SnackBar(
@@ -311,12 +325,21 @@ class _SignInScreenState extends State<SignInScreen> {
               showProgress = false;
             });
           }
-          if (selectedValue == "Student") {
+          //print("getUsers Data: "+getUserData());
+          final String url = 'http://192.168.10.2:5000/users/role';
+          //print("selected Value Data: "+selectedValue.toString());
+          var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
+          var response = await http.get(Uri.parse(url),headers: {'authorization': currentTok!});
+          print("response body data : "+response.body);
+
+          //print(SignUpScreen());
+          if (response.body=="student") {
+            print("inside IF selected Value Data: "+response.body);
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => DashboardReceiver()),
             );
-          } else {
+          } else if (response.body=="donor"){
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => DashboardDonor()),
@@ -376,7 +399,7 @@ class _SignInScreenState extends State<SignInScreen> {
           GestureDetector(
             onTap: () {
               Navigator.of(context).pushNamed(signUp);
-              print("Routing to Sign up screen");
+              //print("Routing to Sign up screen");
             },
             child: Text(
               "Sign up",

@@ -1,12 +1,10 @@
 // ignore_for_file: non_constant_identifier_names, duplicate_ignore
-
 import 'dart:convert';
 import 'package:afs_mobile_flutter/Album.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-//import 'Album.dart';
 import 'Transaction.dart';
 import 'package:afs_mobile_flutter/receiver_sidebar_drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -14,7 +12,6 @@ import 'package:foldable_sidebar/foldable_sidebar.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 
 class RequestForm extends StatefulWidget {
   @override
@@ -335,12 +332,6 @@ class _Form extends State<Form> {
                 // },
                 onPressed: () {
                   fire(RequestTitle.text,RequestAmount.text,DeadlineDay.text,DeadlineTime.text,ReasonDetail.text);
-                  // Map<String,dynamic> data = {
-                  //       "RequestTitle": RequestTitle.text,
-                  //       "RequestAmount": RequestAmount.text,
-                  //       "ReasonDetail": ReasonDetail.text,
-                  //   };
-                  // FirebaseFirestore.instance.collection("requests").add(data);
               },
                 child: Text(
                   'Request',

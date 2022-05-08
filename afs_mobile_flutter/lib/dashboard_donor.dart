@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'dart:math';
+import 'package:afs_mobile_flutter/donor_accounts.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/donor_sidebar_drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -19,14 +20,13 @@ class DashboardDonor extends StatefulWidget {
 
 class _DashboardDonorState extends State<DashboardDonor> {
   FSBStatus? _fsbStatus;
-  final String url = 'http://10.102.136.50:5000/requests/active';
+  final String url = 'http://10.102.128.123:5000/requests/active';
   getUserData() async {
     var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
 
     debugPrint(currentTok);
 
-    var response =
-        await http.get(Uri.parse(url), headers: {'authorization': currentTok!});
+    var response = await http.get(Uri.parse(url), headers: {'authorization': currentTok!});
     var data = jsonDecode(response.body);
 
     List<Person> users = [];
@@ -307,13 +307,19 @@ class _DashboardDonorState extends State<DashboardDonor> {
                                                         margin: const EdgeInsets
                                                             .only(top: 10),
                                                         child: FlatButton(
-                                                          onPressed: () {},
+                                                          onPressed: () {
+                                                            Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(builder: (context) => DonorAccounts()),
+                                                            );
+                                                          },
                                                           child: Text(
                                                             'Donate',
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .white,
                                                                 fontSize: 15),
+
                                                           ),
                                                         ),
                                                       ),

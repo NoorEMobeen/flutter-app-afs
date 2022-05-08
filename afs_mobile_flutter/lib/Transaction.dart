@@ -20,7 +20,7 @@ class HomePageState extends State<HomePage> {
     return PopupMenuButton(
       itemBuilder: (context) {
         return List.generate(
-            3,
+            2,
             (index) => const PopupMenuItem(
                   child: Text('Setting'),
                 ));
@@ -65,42 +65,25 @@ class HomePageState extends State<HomePage> {
 }
 
 class Transaction extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 1,
-      child: Scaffold(
-        body: const TabBarView(
-          children: [ChatsTab()],
-        ),
-      ),
-    );
-  }
-
-  setState(Null Function() param0) {}
-}
-
-class ChatsTab extends StatelessWidget {
-  const ChatsTab({Key? key}) : super(key: key);
-
-  final String url = 'http://10.102.136.50:5000/student/withdraws';
+  final String url = 'http://10.102.128.123:5000/student/withdraws';
   getUserData() async {
     var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
     debugPrint(currentTok);
     var response =
         await http.get(Uri.parse(url), headers: {'authorization': currentTok!});
-    var data = json.decode(response.body);
+    Iterable data = json.decode(response.body);
+
     // print('tjiiis is data' + response.body);
-    print("Printed Data" + response.body);
-    List<TransactionData> users = [];
-    for(var v in data) {
+    // print("Printed Data " + data.length.toString());
+    List<TransactionData> users = <TransactionData>[];
+    for (int i = 0; i < data.length; i++) {
       //for (var u in v.values) {
-      print("VVVVV" + v);
+      // print("VVVVV" + data.elementAt(i)["FullName"]);
       TransactionData user = TransactionData(
-        v["FullName"],
-        v["Amount"],
-        v["DeadlineDay"],
-        v["approved_at"],
+        data.elementAt(i)["FullName"].toString(),
+        data.elementAt(i)["Amount"].toString(),
+        data.elementAt(i)["DeadlineDay"].toString(),
+        data.elementAt(i)["approved_at"].toString(),
       );
       users.add(user);
       // print("WE are printing users HEREEEE: " + '$users');
@@ -108,39 +91,13 @@ class ChatsTab extends StatelessWidget {
     }
     //// print("Hello");
     //print("Hello this is User : " + users[0].FullName);
-    // debugPrint(users.length.toString());
+    print(users.length.toString());
     return users;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: FutureBuilder(
-            future: getUserData(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Center(child: Text('Error in loading Items'));
-              } else if (snapshot.hasData) {
-                List<TransactionData> transData =
-                    snapshot.data! as List<TransactionData>;
-                return transData.length > 0
-                    ? ListView.builder(
-                        itemBuilder: (context, i) {
-                          return Center(
-                            child: SingleChatWidget(
-                              chatTitle: '${transData.elementAt(i).from} - ${transData.elementAt(i).to}',
-                              chatMessage: '${transData.elementAt(i).datetime}/-',
-                              chatDate: '${transData.elementAt(i).amount}/-',
-                            ),
-                          );
-                        },
-                      )
-                    : const Center(child: Text('No items'));
-              }
-              return Center(child: Text('No items'));
-            }),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -149,34 +106,52 @@ class ChatsTab extends StatelessWidget {
               colors: [Colors.white10, Colors.pinkAccent]),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: FutureBuilder(
-              future: getUserData(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  //print('Saffar Khan');
-                  return Center(child: Text('Error in loading Items'));
-                } else if (snapshot.hasData) {
-                  List<TransactionData> transData =
-                      snapshot.data! as List<TransactionData>;
-                  return transData.length > 0
-                      ? ListView.builder(
-                          itemBuilder: (context, i) {
-                            return Center(
-                              child: SingleChatWidget(
-                                chatTitle: '${transData.elementAt(i).FullName}',
-                                chatMessage:
-                                    '${transData.elementAt(i).Amount}/-',
-                                chatDate:
-                                    '${transData.elementAt(i).DeadlineDay}',
-                              ),
-                            );
-                          },
-                        )
-                      : const Center(child: Text('No items'));
-                }
-                return Center(child: Text('No items'));
-              }),
+          padding: const EdgeInsets.only(top: 50.0, bottom: 150.0),
+          child: Container(
+            decoration: BoxDecoration(
+                // color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.grey.withOpacity(0.4),
+                      spreadRadius: 2,
+                      blurRadius: 8)
+                ],
+                border: Border.all(
+                  color: Colors.black,
+                  //  width: 500,
+                )),
+            child: FutureBuilder(
+                future: getUserData(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    //print('Saffar Khan');
+                    return Center(child: Text('Error in loading Items'));
+                  } else if (snapshot.hasData) {
+                    List<TransactionData> transData =
+                        snapshot.data! as List<TransactionData>;
+                    return transData.length > 0
+                        ? ListView.builder(
+                            itemCount: transData.length,
+                            itemBuilder: (context, i) {
+                              return Center(
+                                child: SingleChatWidget(
+                                  chatTitle:
+                                      '${transData.elementAt(i).FullName}',
+                                  chatMessage:
+                                      '${transData.elementAt(i).Amount}/-',
+                                  chatDate:
+                                      '${transData.elementAt(i).DeadlineDay}',
+                                  approvedAt:
+                                      '${transData.elementAt(i).Approved_at}',
+                                ),
+                              );
+                            },
+                          )
+                        : const Center(child: Text('No items'));
+                  }
+                  return Center(child: Text('No items'));
+                }),
+          ),
         ),
       ),
     );
@@ -313,7 +288,7 @@ class ChatsTab extends StatelessWidget {
 //       ),
 //     );
 //   }
-//
+//l
 //   @override
 //   Widget buildSuggestions(BuildContext context) {
 //     List<String> suggestionList = [];
@@ -344,13 +319,14 @@ class SingleChatWidget extends StatelessWidget {
   final String? chatMessage;
   final String? chatTitle;
   final String? chatDate;
+  final String? approvedAt;
 
   const SingleChatWidget({
     Key? key,
     this.chatMessage,
     this.chatTitle,
-    this.chatDate
     this.chatDate,
+    this.approvedAt,
   }) : super(key: key);
 
   @override
@@ -371,17 +347,6 @@ class SingleChatWidget extends StatelessWidget {
                 ),
               ),
             ]),
-            trailing: Row(
-              children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 6.0),
-                  child: Text(
-                    '$chatDate',
-                  ),
-                ),
-              )
-            ]),
             trailing: Column(
               children: [
                 Expanded(
@@ -390,11 +355,25 @@ class SingleChatWidget extends StatelessWidget {
                   child: Text(
                     '$chatDate',
                   ),
-                ))
+                )),
+                Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text('$approvedAt'),
+                )),
               ],
             ),
           ),
         ),
+        Divider(
+          thickness: 3, // thickness of the line
+          indent: 0,
+          // empty space to the leading edge of divider.
+          endIndent: 0, // empty space to the trailing edge of the divider.
+          color: Colors.black, // The color to use when painting the line.
+          // The divider's height extent.
+        ),
+        //),
       ],
     );
   }

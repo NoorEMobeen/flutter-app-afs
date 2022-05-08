@@ -6,6 +6,7 @@ import 'package:afs_mobile_flutter/ui/widgets/customappbar.dart';
 import 'package:afs_mobile_flutter/ui/widgets/responsive_ui.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+
 class SignUpScreen extends StatefulWidget {
   @override
   _SignUpScreenState createState() => _SignUpScreenState();

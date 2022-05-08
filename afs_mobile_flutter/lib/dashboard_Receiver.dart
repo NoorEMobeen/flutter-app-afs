@@ -3,7 +3,7 @@
 import 'dart:convert';
 import 'dart:math';
 //import 'package:afs_mobile_flutter/student_form.dart';
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/receiver_sidebar_drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -21,21 +21,24 @@ class DashboardReceiver extends StatefulWidget {
 
 class _DashboardReceiverState extends State<DashboardReceiver> {
   FSBStatus? _fsbStatus;
-  final String url = 'http://10.102.136.50:5000/student/requests/active';
-  final String urlPending =
-      'http://10.102.136.50:5000/student/requests/pending';
-  final String urlPaused = 'http://10.102.136.50:5000/student/requests/paused';
+  final String url = 'http://10.102.128.123:5000/requests/active';
+ // final String urlPending = 'http://10.102.128.165:5000/requests/pending';
+  //final String urlPaused = 'http://10.102.128.165:5000/requests/paused';
+
   getUserData() async {
-    print("Inside recevier dashboard");
+    // print("Inside recevier dashboard");
     var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
 
-    //debugPrint(currentTok);
+    debugPrint(currentTok);
     //print("Hello");
+
     var response =
         await http.get(Uri.parse(url), headers: {'authorization': currentTok!});
-    var data = jsonDecode(response.body);
-    print(response.body);
-    List<Person> users = [];
+    var data = json.decode(response.body);
+
+    //print(response.body)
+    List<Person> users = <Person>[];
+
     for (var v in data.values) {
       for (var u in v.values) {
         Person user = Person(
@@ -54,47 +57,48 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
 
 //for printing the pending requests
 
-    var response2 = await http
-        .get(Uri.parse(urlPending), headers: {'authorization': currentTok});
-    var data2 = jsonDecode(response2.body);
-    //  print(response2.body);
-    List<Person> pendingUsers = [];
-    for (var v in data2.values) {
-      for (var u in v.values) {
-        Person user = Person(
-            u["FullName"],
-            u["RequestTitle"],
-            u["RequestAmount"],
-            u["created_at"],
-            u["published_at"],
-            u["status"],
-            u["DeadlineTime"],
-            u["ReasonDetail"]);
-        pendingUsers.add(user);
-      }
-    }
+//     var response2 = await http
+//         .get(Uri.parse(urlPending), headers: {'authorization': currentTok});
+//     var data2 = jsonDecode(response2.body);
+//     //  print(response2.body);
+//     List<Person> pendingUsers = [];
+//     for (var v in data2.values) {
+//       for (var u in v.values) {
+//         Person user = Person(
+//             u["FullName"],
+//             u["RequestTitle"],
+//             u["RequestAmount"],
+//             u["created_at"],
+//             u["published_at"],
+//             u["status"],
+//             u["DeadlineTime"],
+//             u["ReasonDetail"]);
+//         pendingUsers.add(user);
+//       }
+//     }
 
-//printing paused users
-    var response3 = await http
-        .get(Uri.parse(urlPaused), headers: {'authorization': currentTok});
-    var data3 = jsonDecode(response3.body);
+// //printing paused users
+//     var response3 = await http
+//         .get(Uri.parse(urlPaused), headers: {'authorization': currentTok});
+//     var data3 = jsonDecode(response3.body);
 
-    List<Person> pauseUsers = [];
-    for (var v in data3.values) {
-      for (var u in v.values) {
-        Person user = Person(
-            u["FullName"],
-            u["RequestTitle"],
-            u["RequestAmount"],
-            u["created_at"],
-            u["published_at"],
-            u["status"],
-            u["DeadlineTime"],
-            u["ReasonDetail"]);
-        pauseUsers.add(user);
-      }
-    }
+//     List<Person> pauseUsers = [];
+//     for (var v in data3.values) {
+//       for (var u in v.values) {
+//         Person user = Person(
+//             u["FullName"],
+//             u["RequestTitle"],
+//             u["RequestAmount"],
+//             u["created_at"],
+//             u["published_at"],
+//             u["status"],
+//             u["DeadlineTime"],
+//             u["ReasonDetail"]);
+//         pauseUsers.add(user);
+//       }
+//     }
     print(users[0].title);
+
     debugPrint(users.length.toString());
 
     return users;
