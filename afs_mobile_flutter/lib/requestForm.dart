@@ -1,14 +1,14 @@
 // ignore_for_file: non_constant_identifier_names, duplicate_ignore
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'Transaction.dart';
+//import 'Transaction.dart';
 import 'package:afs_mobile_flutter/receiver_sidebar_drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:foldable_sidebar/foldable_sidebar.dart';
-import 'package:http/http.dart' as http;
+//import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -56,6 +56,7 @@ class _RequestFormState extends State<RequestForm> {
 Future<void> fire(String ReTitle, String ReAmount, String DeadDay,
     String DeadTime, String ReDetail) async {
   CollectionReference users = FirebaseFirestore.instance.collection('requests');
+  // ignore: unused_local_variable
   FirebaseAuth auth = FirebaseAuth.instance;
   users.add({
     'RequestTitle': ReTitle,

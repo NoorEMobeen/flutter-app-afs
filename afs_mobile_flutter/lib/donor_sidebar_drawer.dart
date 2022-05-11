@@ -1,5 +1,5 @@
 import 'package:afs_mobile_flutter/dashboard_donor.dart';
-import 'package:afs_mobile_flutter/donor_accounts.dart';
+//import 'package:afs_mobile_flutter/donor_accounts.dart';
 
 import 'package:afs_mobile_flutter/ui/donorProfile.dart';
 import 'package:afs_mobile_flutter/ui/signin.dart';
@@ -78,22 +78,22 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
               height: 1,
               color: Colors.grey,
             ),
-            ListTile(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => DonorAccounts()),
-                );
-              },
-              leading: Icon(Icons.account_box),
-              title: Text(
-                "Donate",
-              ),
-            ),
-            Divider(
-              height: 1,
-              color: Colors.grey,
-            ),
+            // ListTile(
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => DonorAccounts()),
+            //     );
+            //   },
+            //   leading: Icon(Icons.account_box),
+            //   title: Text(
+            //     "Donate",
+            //   ),
+            // ),
+            // Divider(
+            //   height: 1,
+            //   color: Colors.grey,
+            // ),
             ListTile(
               onTap: () {
                 Navigator.push(

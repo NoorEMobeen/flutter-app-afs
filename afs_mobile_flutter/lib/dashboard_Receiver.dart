@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:math';
 //import 'package:afs_mobile_flutter/student_form.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/receiver_sidebar_drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -11,6 +12,7 @@ import 'package:afs_mobile_flutter/Person.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:afs_mobile_flutter/constants/constants.dart';
 
 //import 'package:afs_mobile_flutter/ui/widgets/custom_shape.dart';
 class DashboardReceiver extends StatefulWidget {
@@ -20,11 +22,12 @@ class DashboardReceiver extends StatefulWidget {
 
 class _DashboardReceiverState extends State<DashboardReceiver> {
   FSBStatus? _fsbStatus;
-  final String url = 'http://10.102.128.165:5000/requests/active';
-  final String urlPending = 'http://10.102.128.165:5000/requests/pending';
-  final String urlPaused = 'http://10.102.128.165:5000/requests/paused';
+  final String url = '$server/requests/active';
+  final String urlPending = '$server/requests/pending';
+  final String urlPaused = '$server/requests/paused';
 
   getUserData() async {
+    // print("Inside recevier dashboard");
     var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
 
     debugPrint(currentTok);
@@ -152,10 +155,10 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
   Widget dashboardScreen() {
     // Colors.primaries[Random().nextInt(Colors.primaries.length)]
     return Container(
-      decoration: const BoxDecoration(gradient: LinearGradient(
-          // begin: Alignment.topLeft,
-          //  end: Alignment.bottomRight,
-          colors: [Colors.white10, Colors.pinkAccent])),
+      // decoration: const BoxDecoration(gradient: LinearGradient(
+      //     // begin: Alignment.topLeft,
+      //     //  end: Alignment.bottomRight,
+      //     colors: [Colors.white10, Colors.pinkAccent])),
       // debugShowCheckedModeBanner: false,
       child: Scaffold(
           backgroundColor: Colors.transparent,
