@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:afs_mobile_flutter/dashboard_Receiver.dart';
 import 'package:afs_mobile_flutter/dashboard_donor.dart';
 import 'package:afs_mobile_flutter/ui/signup.dart';
@@ -195,24 +197,24 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  //String selectedValue = "Student";
-  // Widget roleTextFormField() {
-  //   return Container(
-  //     child: Column(
-  //         crossAxisAlignment: CrossAxisAlignment.center,
-  //         children: <Widget>[
-  //           DropdownButton(
-  //               value: selectedValue,
-  //               onChanged: (String? newValue) {
-  //                 setState(() {
-  //                   selectedValue = newValue!;
-  //                 });
-  //               },
-  //               hint: Text("Enter Role"),
-  //               items: dropdownRoles),
-  //         ]),
-  //   );
-  // }
+  String selectedValue = "Student";
+  Widget roleTextFormField() {
+    return Container(
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            DropdownButton(
+                value: selectedValue,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedValue = newValue!;
+                  });
+                },
+                hint: Text("Enter Role"),
+                items: dropdownRoles),
+          ]),
+    );
+  }
 
   Widget emailTextFormField() {
     return Container(
@@ -273,7 +275,7 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  final String url = 'http://192.168.10.2:5000/users/role';
+  final String url = 'https://fierce-lowlands-36570.herokuapp.com/users/role';
    // var storeRole = "";
   getUserData() async {
     var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
@@ -325,21 +327,19 @@ class _SignInScreenState extends State<SignInScreen> {
               showProgress = false;
             });
           }
-          //print("getUsers Data: "+getUserData());
-          final String url = 'http://192.168.10.2:5000/users/role';
-          //print("selected Value Data: "+selectedValue.toString());
+          final String url = 'https://fierce-lowlands-36570.herokuapp.com/users/role';
           var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
           var response = await http.get(Uri.parse(url),headers: {'authorization': currentTok!});
-          print("response body data : "+response.body);
+          var data = jsonDecode(response.body);
+          print("data value "+data["role"].toString());
 
           //print(SignUpScreen());
-          if (response.body=="student") {
-            print("inside IF selected Value Data: "+response.body);
+          if (data["role"].toString()=="student") {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => DashboardReceiver()),
             );
-          } else if (response.body=="donor"){
+          } else if (data["role"].toString()=="donor"){
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => DashboardDonor()),

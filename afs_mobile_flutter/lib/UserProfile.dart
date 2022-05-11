@@ -1,10 +1,13 @@
 //import 'package:afs_mobile_flutter/custom_sidebar_drawer.dart';
 
+import 'dart:io';
+
 import 'package:afs_mobile_flutter/receiver_sidebar_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/profile_methods.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:foldable_sidebar/foldable_sidebar.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -84,6 +87,21 @@ class ProfileState extends State<Profile> {
 class ProfilePage extends StatelessWidget {
   bool _status = false;
 
+  late bool _large  = false;
+  late bool _medium = false;
+
+  late File _image;
+  final _picker = ImagePicker();
+  // Implementing the image picker
+  Future<void> _openImagePicker() async {
+    final XFile? pickedImage = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      setState(() {
+        _image = File(pickedImage.path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     //FSBStatus? _fsbStatus;
@@ -117,32 +135,51 @@ class ProfilePage extends StatelessWidget {
                             children: <Widget>[
                               new Container(
                                   width: 140.0,
-                                  height: 140.0,
+                                  height: 200.0,
                                   decoration: new BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                          spreadRadius: 0.0,
+                                          color: Colors.black26,
+                                          offset: Offset(1.0, 10.0),
+                                          blurRadius: 20.0),
+                                    ],
+                                    color: Colors.white,
                                     shape: BoxShape.circle,
-                                    image: new DecorationImage(
-                                      image: new ExactAssetImage(
-                                          'assets/images/as.png'),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  )),
+                                    // image: new DecorationImage(
+                                    //   image: new ExactAssetImage(
+                                    //       'assets/images/as.png'),
+                                    //   fit: BoxFit.cover,
+                                    // ),
+                                  ),
+                                child: GestureDetector(
+                                    onTap: () {
+                                    _openImagePicker();
+                                    print('Adding photo');
+                                    },
+                                    child: Icon(
+                                      Icons.add_a_photo,
+                                      size: _large ? 40 : (_medium ? 33 : 31),
+                                      color: Colors.orange[200],
+                                    )),
+                              ),
                             ],
                           ),
-                          Padding(
-                              padding: EdgeInsets.only(top: 90.0, right: 100.0),
-                              child: new Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  new CircleAvatar(
-                                    backgroundColor: Colors.red,
-                                    radius: 25.0,
-                                    child: new Icon(
-                                      Icons.camera_alt,
-                                      color: Colors.white,
-                                    ),
-                                  )
-                                ],
-                              )),
+                          // Padding(
+                          //     padding: EdgeInsets.only(top: 90.0, right: 100.0),
+                          //     child: new Row(
+                          //       mainAxisAlignment: MainAxisAlignment.center,
+                          //       children: <Widget>[
+                          //         new CircleAvatar(
+                          //           backgroundColor: Colors.red,
+                          //           radius: 25.0,
+                          //           child: new Icon(
+                          //             Icons.camera_alt,
+                          //             color: Colors.white,
+                          //           ),
+                          //         )
+                          //       ],
+                          //     )),
                         ]),
                       )
                     ],
@@ -185,22 +222,22 @@ class ProfilePage extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
-                                      new GestureDetector(
-                                        child: new CircleAvatar(
-                                          backgroundColor: Colors.red,
-                                          radius: 14.0,
-                                          child: new Icon(
-                                            Icons.edit,
-                                            color: Colors.white,
-                                            size: 16.0,
-                                          ),
-                                        ),
-                                        onTap: () {
-                                          setState(() {
-                                            _status = true;
-                                          });
-                                        },
-                                      )
+                                      // new GestureDetector(
+                                      //   child: new CircleAvatar(
+                                      //     backgroundColor: Colors.red,
+                                      //     radius: 14.0,
+                                      //     child: new Icon(
+                                      //       Icons.edit,
+                                      //       color: Colors.white,
+                                      //       size: 16.0,
+                                      //     ),
+                                      //   ),
+                                      //   onTap: () {
+                                      //     setState(() {
+                                      //       _status = true;
+                                      //     });
+                                      //   },
+                                      // )
                                     ])
                               ],
                             )),

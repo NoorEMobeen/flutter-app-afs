@@ -11,6 +11,34 @@ class _getActionState extends State<EditProfile> {
   bool _status = true;
   @override
   Widget build(BuildContext context) {
+
+    showAlertDialog() {
+      // set up the button
+      Widget okButton = TextButton(
+        child: Text("OK"),
+        onPressed: () {
+          Navigator.of(context, rootNavigator: true).pop();
+        }
+      );
+
+      // set up the AlertDialog
+      AlertDialog alert = AlertDialog(
+        title: Text("Data"),
+        content: Text("Your Data has been Saved."),
+        actions: [
+          okButton,
+        ],
+      );
+
+      // show the dialog
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+    }
+
     return Padding(
       padding: EdgeInsets.only(left: 25.0, right: 25.0, top: 45.0),
       child: new Row(
@@ -27,6 +55,7 @@ class _getActionState extends State<EditProfile> {
                 textColor: Colors.white,
                 color: Colors.green,
                 onPressed: () {
+                  showAlertDialog();
                   setState(() {
                     _status = false;
                     FocusScope.of(context).requestFocus(new FocusNode());
@@ -47,12 +76,11 @@ class _getActionState extends State<EditProfile> {
                 child: new Text("Cancel"),
                 textColor: Colors.white,
                 color: Colors.red,
-                onPressed: () {
-                  setState(() {
-                    _status = false;
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                  });
-                },
+                onPressed: () => Navigator.pop(context, false),
+                  // setState(() {
+                  //   _status = false;
+                  //   FocusScope.of(context).requestFocus(new FocusNode());
+                  // });
                 shape: new RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(20.0)),
               )),
