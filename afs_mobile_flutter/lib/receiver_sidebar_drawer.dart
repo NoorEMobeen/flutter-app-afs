@@ -4,7 +4,7 @@ import 'package:afs_mobile_flutter/dashboard_Receiver.dart';
 import 'package:afs_mobile_flutter/requestForm.dart';
 import 'package:afs_mobile_flutter/student_form.dart';
 import 'package:afs_mobile_flutter/ui/signin.dart';
-import 'package:afs_mobile_flutter/receiver_account.dart';
+//import 'package:afs_mobile_flutter/receiver_account.dart';
 import 'package:flutter/material.dart';
 
 class CustomSidebarDrawer extends StatefulWidget {
@@ -122,20 +122,20 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
               height: 1,
               color: Colors.grey,
             ),
-            ListTile(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ReceiverAccounts()),
-                );
-              },
-              leading: Icon(Icons.account_box),
-              title: Text("Accounts"),
-            ),
-            Divider(
-              height: 1,
-              color: Colors.grey,
-            ),
+            // ListTile(
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => ReceiverAccounts()),
+            //     );
+            //   },
+            //   leading: Icon(Icons.account_box),
+            //   title: Text("Accounts"),
+            // ),
+            // Divider(
+            //   height: 1,
+            //   color: Colors.grey,
+            // ),
             ListTile(
               onTap: () {
                 Navigator.push(

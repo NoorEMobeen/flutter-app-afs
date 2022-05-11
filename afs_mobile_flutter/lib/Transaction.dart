@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:convert';
 //import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:afs_mobile_flutter/constants/constants.dart';
 
 class HomePage extends StatefulWidget {
   final List<String> list = List.generate(10, (index) => "Text $index");
@@ -65,7 +66,7 @@ class HomePageState extends State<HomePage> {
 }
 
 class Transaction extends StatelessWidget {
-  final String url = 'http://10.102.128.123:5000/student/withdraws';
+  final String url = '$server/student/withdraws';
   getUserData() async {
     var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
     debugPrint(currentTok);

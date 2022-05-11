@@ -1,15 +1,14 @@
 // ignore_for_file: non_constant_identifier_names, duplicate_ignore
-import 'dart:convert';
-import 'package:afs_mobile_flutter/Album.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'Transaction.dart';
+//import 'Transaction.dart';
 import 'package:afs_mobile_flutter/receiver_sidebar_drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:foldable_sidebar/foldable_sidebar.dart';
-import 'package:http/http.dart' as http;
+//import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -17,6 +16,7 @@ class RequestForm extends StatefulWidget {
   @override
   _RequestFormState createState() => new _RequestFormState();
 }
+
 class _RequestFormState extends State<RequestForm> {
   FSBStatus? _fsbStatus;
 
@@ -53,10 +53,18 @@ class _RequestFormState extends State<RequestForm> {
   }
 }
 
-Future<void> fire(String ReTitle, String ReAmount,String DeadDay,String DeadTime, String ReDetail) async{
+Future<void> fire(String ReTitle, String ReAmount, String DeadDay,
+    String DeadTime, String ReDetail) async {
   CollectionReference users = FirebaseFirestore.instance.collection('requests');
+  // ignore: unused_local_variable
   FirebaseAuth auth = FirebaseAuth.instance;
-  users.add({'RequestTitle': ReTitle,'RequestAmount': ReAmount,'DeadlineDay': DeadDay,'DeadlineTime': DeadTime,'ReasonDetail': ReDetail});
+  users.add({
+    'RequestTitle': ReTitle,
+    'RequestAmount': ReAmount,
+    'DeadlineDay': DeadDay,
+    'DeadlineTime': DeadTime,
+    'ReasonDetail': ReDetail
+  });
   return;
 }
 
@@ -119,8 +127,8 @@ class Form extends StatefulWidget {
   @override
   _Form createState() => new _Form();
 }
-class _Form extends State<Form> {
 
+class _Form extends State<Form> {
   TextEditingController RequestTitle = TextEditingController();
   TextEditingController RequestAmount = TextEditingController();
   TextEditingController DeadlineDay = TextEditingController();
@@ -205,25 +213,28 @@ class _Form extends State<Form> {
                   decoration: InputDecoration(
                       icon: Icon(Icons.calendar_today), //icon of text field
                       labelText: "Enter Date" //label text of field
-                  ),
+                      ),
                   readOnly: true,
-                  onTap: () async{
+                  onTap: () async {
                     DateTime? pickedDate = await showDatePicker(
                         context: context, //context of current state
                         initialDate: DateTime.now(),
-                        firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
-                        lastDate: DateTime(2101)
-                    );
-                    if(pickedDate != null ){
-                      print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
-                      String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
-                      print(formattedDate); //formatted date output using intl package =>  2021-03-16
+                        firstDate: DateTime(
+                            2000), //DateTime.now() - not to allow to choose before today.
+                        lastDate: DateTime(2101));
+                    if (pickedDate != null) {
+                      print(
+                          pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                      String formattedDate =
+                          DateFormat('dd-MM-yyyy').format(pickedDate);
+                      print(
+                          formattedDate); //formatted date output using intl package =>  2021-03-16
 
                       setState(() {
-                        DeadlineDay.text = formattedDate; //set output date to TextField value.
+                        DeadlineDay.text =
+                            formattedDate; //set output date to TextField value.
                       });
-                    }
-                    else{
+                    } else {
                       print("Date is not selected");
                     }
                   },
@@ -238,29 +249,30 @@ class _Form extends State<Form> {
                   decoration: InputDecoration(
                       icon: Icon(Icons.calendar_today), //icon of text field
                       labelText: "Enter Time" //label text of field
-                  ),
+                      ),
                   readOnly: true,
-                  onTap: () async{
-                    TimeOfDay? pickedTime =  await showTimePicker(
+                  onTap: () async {
+                    TimeOfDay? pickedTime = await showTimePicker(
                       initialTime: TimeOfDay.now(),
                       context: context, //context of current state
                     );
 
-                    if(pickedTime != null ){
-                      print(pickedTime.format(context));   //output 10:51 PM
-                      DateTime parsedTime = DateFormat.jm().parse(pickedTime.format(context).toString());
+                    if (pickedTime != null) {
+                      print(pickedTime.format(context)); //output 10:51 PM
+                      DateTime parsedTime = DateFormat.jm()
+                          .parse(pickedTime.format(context).toString());
                       //converting to DateTime so that we can further format on different pattern.
                       print(parsedTime); //output 1970-01-01 22:53:00.000
-                      String formattedTime = DateFormat('HH:mm:ss').format(parsedTime);
+                      String formattedTime =
+                          DateFormat('HH:mm:ss').format(parsedTime);
                       print(formattedTime); //output 14:59:00
                       //DateFormat() is from intl package, you can format the time on any pattern you need.
 
-
                       setState(() {
-                        DeadlineTime.text = formattedTime; //set the value of text field.
+                        DeadlineTime.text =
+                            formattedTime; //set the value of text field.
                       });
-
-                    }else{
+                    } else {
                       print("Time is not selected");
                     }
                   },
@@ -331,8 +343,9 @@ class _Form extends State<Form> {
                 //       context, MaterialPageRoute(builder: (_) => HomePage()));
                 // },
                 onPressed: () {
-                  fire(RequestTitle.text,RequestAmount.text,DeadlineDay.text,DeadlineTime.text,ReasonDetail.text);
-              },
+                  fire(RequestTitle.text, RequestAmount.text, DeadlineDay.text,
+                      DeadlineTime.text, ReasonDetail.text);
+                },
                 child: Text(
                   'Request',
                   style: TextStyle(color: Colors.white, fontSize: 20),

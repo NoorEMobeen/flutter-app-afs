@@ -114,15 +114,16 @@ class ProfilePage extends StatelessWidget {
             Column(
               children: <Widget>[
                 new Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                        // begin: Alignment.topLeft,
-                        //  end: Alignment.bottomRight,
-                        colors: [Colors.white10, Colors.pinkAccent]),
-                  ),
+                  // decoration: const BoxDecoration(
+                  //   gradient: LinearGradient(
+                  //       // begin: Alignment.topLeft,
+                  //       //  end: Alignment.bottomRight,
+                  //       colors: [Colors.white10, Colors.pinkAccent]
+                  //       ),
+                  // ),
 
                   height: 250.0,
-                  //color: Colors.white,
+                  color: Colors.white12,
                   child: new Column(
                     children: <Widget>[
                       Padding(
@@ -187,12 +188,12 @@ class ProfilePage extends StatelessWidget {
                 ),
                 new Container(
                   // color: Color(0xffFFFFFF),
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                        // begin: Alignment.topLeft,
-                        //  end: Alignment.bottomRight,
-                        colors: [Colors.white10, Colors.pinkAccent]),
-                  ),
+                  // decoration: const BoxDecoration(
+                  //   gradient: LinearGradient(
+                  //       // begin: Alignment.topLeft,
+                  //       //  end: Alignment.bottomRight,
+                  //       colors: [Colors.white10, Colors.pinkAccent]),
+                  // ),
                   child: Padding(
                     padding: EdgeInsets.only(bottom: 25.0),
                     child: new Column(

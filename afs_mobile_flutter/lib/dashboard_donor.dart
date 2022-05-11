@@ -1,5 +1,4 @@
-// ignore_for_file: deprecated_member_use
-
+// ignore_for_file: deprecated_member_uses
 import 'dart:convert';
 import 'dart:math';
 import 'package:afs_mobile_flutter/donor_accounts.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/donor_sidebar_drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:foldable_sidebar/foldable_sidebar.dart';
+import 'package:afs_mobile_flutter/constants/constants.dart';
 import 'package:afs_mobile_flutter/Person.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,13 +20,15 @@ class DashboardDonor extends StatefulWidget {
 
 class _DashboardDonorState extends State<DashboardDonor> {
   FSBStatus? _fsbStatus;
-  final String url = 'http://10.102.128.123:5000/requests/active';
+  final String url = '$server/requests/active';
+
   getUserData() async {
     var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
 
     debugPrint(currentTok);
 
-    var response = await http.get(Uri.parse(url), headers: {'authorization': currentTok!});
+    var response =
+        await http.get(Uri.parse(url), headers: {'authorization': currentTok!});
     var data = jsonDecode(response.body);
 
     List<Person> users = [];
@@ -44,6 +46,7 @@ class _DashboardDonorState extends State<DashboardDonor> {
         users.add(user);
       }
     }
+
     print(users[0].title);
     debugPrint(users.length.toString());
     return users;
@@ -306,11 +309,15 @@ class _DashboardDonorState extends State<DashboardDonor> {
                                                                             20)),
                                                         margin: const EdgeInsets
                                                             .only(top: 10),
+                                                        // ignore: deprecated_member_use
                                                         child: FlatButton(
                                                           onPressed: () {
                                                             Navigator.push(
                                                               context,
-                                                              MaterialPageRoute(builder: (context) => DonorAccounts()),
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          DonorAccounts()),
                                                             );
                                                           },
                                                           child: Text(
@@ -319,7 +326,6 @@ class _DashboardDonorState extends State<DashboardDonor> {
                                                                 color: Colors
                                                                     .white,
                                                                 fontSize: 15),
-
                                                           ),
                                                         ),
                                                       ),

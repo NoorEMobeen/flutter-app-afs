@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/donor_sidebar_drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:foldable_sidebar/foldable_sidebar.dart';
+//import 'package:afs_mobile_flutter/constants/constants.dart';
 
 class ReceiverDetail extends StatefulWidget {
   @override

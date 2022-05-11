@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:afs_mobile_flutter/dashboard_Receiver.dart';
 import 'package:afs_mobile_flutter/dashboard_donor.dart';
-import 'package:afs_mobile_flutter/ui/signup.dart';
+//import 'package:afs_mobile_flutter/ui/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/constants/constants.dart';
 import 'package:afs_mobile_flutter/ui/widgets/custom_shape.dart';
@@ -280,7 +280,8 @@ class _SignInScreenState extends State<SignInScreen> {
   getUserData() async {
     var currentTok = await FirebaseAuth.instance.currentUser?.getIdToken();
     //print('saffar khan'+currentTok!);
-    var response = await http.get(Uri.parse(url),headers: {'authorization': currentTok!});
+    var response =
+        await http.get(Uri.parse(url), headers: {'authorization': currentTok!});
     //storeRole = response as String;
     //print("Response Body"+response.body);
     return response.body;
