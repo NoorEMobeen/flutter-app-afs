@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_uses
 import 'dart:convert';
 import 'dart:math';
+import 'package:afs_mobile_flutter/donor_accounts.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/donor_sidebar_drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -310,7 +311,15 @@ class _DashboardDonorState extends State<DashboardDonor> {
                                                             .only(top: 10),
                                                         // ignore: deprecated_member_use
                                                         child: FlatButton(
-                                                          onPressed: () {},
+                                                          onPressed: () {
+                                                            Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          DonorAccounts()),
+                                                            );
+                                                          },
                                                           child: Text(
                                                             'Donate',
                                                             style: TextStyle(

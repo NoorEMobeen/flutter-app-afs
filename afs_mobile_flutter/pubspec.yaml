@@ -36,10 +36,11 @@ dependencies:
   webview_flutter: ^2.0.13
   http: ^0.13.4
   google_fonts: ^2.3.1
+  cloud_firestore: ^1.0.0
+  datetime_picker_formfield: ^2.0.0
   image_picker: ^0.8.4+11
   cloud_firestore: ^3.1.10
   cloud_firestore_web: ^2.6.10
-
 
 
 
