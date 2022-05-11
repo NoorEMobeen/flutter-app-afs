@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:afs_mobile_flutter/ui/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/constants/constants.dart';
@@ -5,7 +6,7 @@ import 'package:afs_mobile_flutter/ui/widgets/custom_shape.dart';
 import 'package:afs_mobile_flutter/ui/widgets/customappbar.dart';
 import 'package:afs_mobile_flutter/ui/widgets/responsive_ui.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:image_picker/image_picker.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -13,7 +14,13 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  String dropdownvalue = 'Student';
+  List<DropdownMenuItem<String>> get dropdownRoles {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Student"), value: "Student"),
+      DropdownMenuItem(child: Text("Donor"), value: "Donor"),
+    ];
+    return menuItems;
+  }
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   get user => _auth.currentUser;
@@ -22,6 +29,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     'Student',
     'Donor',
   ];
+
 
   late bool checkBoxValue;
   late double _height;
@@ -64,6 +72,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  // late File _image;
+  // final _picker = ImagePicker();
+  // // Implementing the image picker
+  // Future<void> _openImagePicker() async {
+  //   final XFile? pickedImage = await _picker.pickImage(source: ImageSource.gallery);
+  //   if (pickedImage != null) {
+  //     setState(() {
+  //       _image = File(pickedImage.path);
+  //     });
+  //   }
+  // }
+
+  late File imageFile;
+  _getFromGallery() async {
+    PickedFile? pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      maxWidth: 180,
+      maxHeight: 180,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
+    }
   }
 
   Widget clipShape() {
@@ -115,8 +149,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
             color: Colors.white,
             shape: BoxShape.circle,
           ),
+          // child: Column(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: <Widget>[
+          //   RaisedButton(
+          //     color: Colors.greenAccent,
+          //     onPressed: (){
+          //         _openImagePicker();
+          //       },
+          //     child: Icon(
+          //         Icons.add_a_photo,
+          //         size: _large ? 40 : (_medium ? 33 : 31),
+          //         color: Colors.orange[200],
+          //       ),
+          //     ),
+          //   ],
+          // ),
           child: GestureDetector(
               onTap: () {
+                _getFromGallery();
                 print('Adding photo');
               },
               child: Icon(
@@ -152,7 +203,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
-
+  String dropdownvalue = "Student";
   Widget roleTextFormField() {
     return Container(
       child: Column(
@@ -160,15 +211,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
         children: [
           DropdownButton(
             value: dropdownvalue,
-            icon: Icon(Icons.keyboard_arrow_down),
-            items: items.map((String items) {
-              return DropdownMenuItem(value: items, child: Text(items));
-            }).toList(), onChanged: (String? value) {  },
+          onChanged: (String? newValue) {
+            setState(() {
+              dropdownvalue = newValue!;
+            });
+          },
+            // icon: Icon(Icons.keyboard_arrow_down),
+            // items: items.map((String items) {
+            //   return DropdownMenuItem(value: items, child: Text(items));
+            // }).toList(), onChanged: (String? value) {  },
             // onChanged: (String newValue) {
             //   setState(() {
             //     dropdownvalue = newValue;
             //   });
             // },
+            hint: Text("Enter Role"),
+            items: dropdownRoles
           ),
         ],
       ),

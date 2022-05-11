@@ -2,7 +2,7 @@
     package="com.example.afs_mobile_flutter">
    <application
         android:label="afs_mobile_flutter"
-        android:icon="@mipmap/ic_launcher">
+       android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
