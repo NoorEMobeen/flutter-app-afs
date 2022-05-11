@@ -34,8 +34,8 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Raleway',
         colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.amber),
         textTheme: Theme.of(context).textTheme.apply(
-              fontSizeFactor: 1.1,
-              fontSizeDelta: 2.0,
+              fontSizeFactor: 1.0,
+              fontSizeDelta: 1.0,
             ),
 
         //CustomTheme.lightTheme,
