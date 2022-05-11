@@ -49,13 +49,7 @@ class ProfileState extends State<Profile> {
 
         // leading: Icon(Icons.menu),
         title: Text('User Profile'),
-        actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Icon(Icons.search),
-          ),
-          Icon(Icons.more_vert),
-        ],
+
         backgroundColor: Colors.redAccent,
       ),
       body: FoldableSidebarBuilder(

@@ -23,15 +23,20 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      
 
       title: "Login",
+
       theme: ThemeData(
         backgroundColor: Colors.transparent,
 
         // ignore: deprecated_member_use
         accentColorBrightness: Brightness.dark,
+        fontFamily: 'Raleway',
         colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.amber),
+        textTheme: Theme.of(context).textTheme.apply(
+              fontSizeFactor: 1.1,
+              fontSizeDelta: 2.0,
+            ),
 
         //CustomTheme.lightTheme,
       ),
