@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, duplicate_ignore
+// ignore_for_file: non_constant_identifier_names, duplicate_ignore, deprecated_member_use
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:firebase_core/firebase_core.dart';
@@ -314,6 +314,7 @@ class _Form extends State<Form> {
                   borderRadius: BorderRadius.circular(20)),
               margin: const EdgeInsets.only(top: 50),
               // ignore: deprecated_member_use
+
               child: FlatButton(
                 // onPressed: () {
                 //   final String title = RequestTitle.text;
@@ -342,9 +343,21 @@ class _Form extends State<Form> {
                 //   Navigator.push(
                 //       context, MaterialPageRoute(builder: (_) => HomePage()));
                 // },
+
                 onPressed: () {
                   fire(RequestTitle.text, RequestAmount.text, DeadlineDay.text,
                       DeadlineTime.text, ReasonDetail.text);
+                  AlertDialog alert = AlertDialog(
+                    title: Text("Note"),
+                    content: Text("Your Request has been Received"),
+                  );
+
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return alert;
+                    },
+                  );
                 },
                 child: Text(
                   'Request',

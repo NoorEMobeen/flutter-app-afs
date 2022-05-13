@@ -6,7 +6,7 @@ import 'package:afs_mobile_flutter/ui/widgets/custom_shape.dart';
 import 'package:afs_mobile_flutter/ui/widgets/customappbar.dart';
 import 'package:afs_mobile_flutter/ui/widgets/responsive_ui.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:image_picker/image_picker.dart';
+//import 'package:image_picker/image_picker.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -29,7 +29,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     'Student',
     'Donor',
   ];
-
 
   late bool checkBoxValue;
   late double _height;
@@ -59,6 +58,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               children: <Widget>[
                 Opacity(opacity: 0.88, child: CustomAppBar()),
                 clipShape(),
+                welcomeTextRow(),
+                signUpTextRow(),
                 form(),
                 // acceptTermsTextRow(),
                 SizedBox(
@@ -87,18 +88,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
   // }
 
   late File imageFile;
-  _getFromGallery() async {
-    PickedFile? pickedFile = await ImagePicker().getImage(
-      source: ImageSource.gallery,
-      maxWidth: 180,
-      maxHeight: 180,
-    );
-    if (pickedFile != null) {
-      setState(() {
-        imageFile = File(pickedFile.path);
-      });
-    }
-  }
+  // late Future<PickedFile?> pickedFile = Future.value(null);
+  // _getFromGallery() async {
+  //   // ignore: deprecated_member_use
+  //   PickedFile? pickedFile = await ImagePicker()
+  //       // ignore: deprecated_member_use
+  //       .getImage(
+  //     source: ImageSource.gallery,
+  //     maxWidth: 180,
+  //     maxHeight: 180,
+  //   );
+  //   // ignore: unnecessary_null_comparison
+  //   if (imageFile != null) {
+  //     return Image.file(imageFile, width: 500, height: 500);
+  //   } else {
+  //     return Text("Please select an image");
+  //   }
+  //   // .whenComplete(() => {
+  //   //       setState(() {
+  //   //         imageFile =
+  //   //       })
+  //   //     });
+  // }
+
+  // Widget _setImageView() {
+
+  // }
 
   Widget clipShape() {
     return Stack(
@@ -136,46 +151,42 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         ),
         Container(
-          height: _height / 5.5,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                  spreadRadius: 0.0,
-                  color: Colors.black26,
-                  offset: Offset(1.0, 10.0),
-                  blurRadius: 20.0),
-            ],
-            color: Colors.white,
-            shape: BoxShape.circle,
-          ),
-          // child: Column(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: <Widget>[
-          //   RaisedButton(
-          //     color: Colors.greenAccent,
-          //     onPressed: (){
-          //         _openImagePicker();
-          //       },
-          //     child: Icon(
-          //         Icons.add_a_photo,
-          //         size: _large ? 40 : (_medium ? 33 : 31),
-          //         color: Colors.orange[200],
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          child: GestureDetector(
-              onTap: () {
-                _getFromGallery();
-                print('Adding photo');
-              },
-              child: Icon(
-                Icons.add_a_photo,
-                size: _large ? 40 : (_medium ? 33 : 31),
-                color: Colors.orange[200],
-              )),
-        ),
+            // child: Column(
+            //   children: <Widget>[
+            //     //_setImageView(),
+            //     GestureDetector(
+            //       onTap: () {
+            //         _getFromGallery();
+            //         print('Adding photo');
+            //       },
+            //     ),
+            //   ],
+            // ),
+            // height: _height / 5.5,
+
+            // child: Column(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: <Widget>[
+            //     RaisedButton(
+            //       color: Colors.greenAccent,
+            //       onPressed: () {
+            //         _openImagePicker();
+            //       },
+            //       child: Icon(
+            //         Icons.add_a_photo,
+            //         size: _large ? 40 : (_medium ? 33 : 31),
+            //         color: Colors.orange[200],
+            //       ),
+            //     ),
+            //   ],
+            // ),
+
+            // Icon(
+            //   Icons.add_a_photo,
+            //   size: _large ? 40 : (_medium ? 33 : 31),
+            //   color: Colors.orange[200],
+            // )
+            ),
       ],
     );
   }
@@ -203,6 +214,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
+
   String dropdownvalue = "Student";
   Widget roleTextFormField() {
     return Container(
@@ -210,23 +222,56 @@ class _SignUpScreenState extends State<SignUpScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           DropdownButton(
-            value: dropdownvalue,
-          onChanged: (String? newValue) {
-            setState(() {
-              dropdownvalue = newValue!;
-            });
-          },
-            // icon: Icon(Icons.keyboard_arrow_down),
-            // items: items.map((String items) {
-            //   return DropdownMenuItem(value: items, child: Text(items));
-            // }).toList(), onChanged: (String? value) {  },
-            // onChanged: (String newValue) {
-            //   setState(() {
-            //     dropdownvalue = newValue;
-            //   });
-            // },
-            hint: Text("Enter Role"),
-            items: dropdownRoles
+              value: dropdownvalue,
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownvalue = newValue!;
+                });
+              },
+              // icon: Icon(Icons.keyboard_arrow_down),
+              // items: items.map((String items) {
+              //   return DropdownMenuItem(value: items, child: Text(items));
+              // }).toList(), onChanged: (String? value) {  },
+              // onChanged: (String newValue) {
+              //   setState(() {
+              //     dropdownvalue = newValue;
+              //   });
+              // },
+              hint: Text("Enter Role"),
+              items: dropdownRoles),
+        ],
+      ),
+    );
+  }
+
+  Widget welcomeTextRow() {
+    return Container(
+      margin: EdgeInsets.only(left: _width / 20, top: _height / 100),
+      child: Row(
+        children: <Widget>[
+          Text(
+            "Welcome",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: _large ? 60 : (_medium ? 50 : 40),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget signUpTextRow() {
+    return Container(
+      margin: EdgeInsets.only(left: _width / 15.0),
+      child: Row(
+        children: <Widget>[
+          Text(
+            "Sign Up to your account",
+            style: TextStyle(
+              fontWeight: FontWeight.w200,
+              fontSize: _large ? 20 : (_medium ? 17.5 : 15),
+            ),
           ),
         ],
       ),

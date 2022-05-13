@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/receiver_sidebar_drawer.dart';
@@ -27,10 +29,10 @@ class StudentFormState extends State<StudentForm> {
           ),
 
           // leading: Icon(Icons.menu),
-          title: Text('Profile'),
-          actions: [
-            Icon(Icons.more_vert),
-          ],
+          title: Text('Student Form'),
+          // actions: [
+          //   Icon(Icons.more_vert),
+          // ],
           backgroundColor: Colors.redAccent,
 
           bottom: PreferredSize(
@@ -259,7 +261,6 @@ class PersonalTabWidget extends State {
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  // ignore: deprecated_member_use
                                   RaisedButton(
                                       child: Text('CHOOSE FILE'),
                                       onPressed: () async {
@@ -305,7 +306,6 @@ class PersonalTabWidget extends State {
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  // ignore: deprecated_member_use
                                   RaisedButton(
                                       child: Text('CHOOSE FILE'),
                                       onPressed: () async {
@@ -361,6 +361,43 @@ class PersonalTabWidget extends State {
                                   ),
                                 ],
                               )),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: 10.0, right: 10.0, top: 2.0),
+                            child: Container(
+                                height: 50,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.orange,
+                                        Colors.pinkAccent
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.circular(20)),
+                                margin:
+                                    const EdgeInsets.only(top: 30, left: 250),
+                                child: FlatButton(
+                                  onPressed: () {
+                                    AlertDialog alert = AlertDialog(
+                                      title: Text("Note"),
+                                      content: Text("Data is Saved"),
+                                    );
+
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return alert;
+                                      },
+                                    );
+                                  },
+                                  child: Text(
+                                    'Save',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 18),
+                                  ),
+                                )),
+                          ),
                         ],
                       ),
                     ),
@@ -501,7 +538,6 @@ class EducationTabWidget extends State {
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  // ignore: deprecated_member_use
                                   RaisedButton(
                                       child: Text('CHOOSE FILE'),
                                       onPressed: () async {
@@ -624,7 +660,6 @@ class EducationTabWidget extends State {
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  // ignore: deprecated_member_use
                                   RaisedButton(
                                       child: Text('CHOOSE FILE'),
                                       onPressed: () async {
@@ -743,7 +778,6 @@ class EducationTabWidget extends State {
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  // ignore: deprecated_member_use
                                   RaisedButton(
                                       child: Text('CHOOSE FILE'),
                                       onPressed: () async {
@@ -763,6 +797,43 @@ class EducationTabWidget extends State {
                                   // ),
                                 ],
                               )),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: 10.0, right: 10.0, top: 2.0),
+                            child: Container(
+                                height: 50,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.orange,
+                                        Colors.pinkAccent
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.circular(20)),
+                                margin:
+                                    const EdgeInsets.only(top: 30, left: 250),
+                                child: FlatButton(
+                                  onPressed: () {
+                                    AlertDialog alert = AlertDialog(
+                                      title: Text("Note"),
+                                      content: Text("Data is Saved"),
+                                    );
+
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return alert;
+                                      },
+                                    );
+                                  },
+                                  child: Text(
+                                    'Save',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 18),
+                                  ),
+                                )),
+                          ),
                         ],
                       ),
                     ),
@@ -868,7 +939,6 @@ class FinanceTabWidget extends State {
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  // ignore: deprecated_member_use
                                   RaisedButton(
                                       child: Text('CHOOSE FILE'),
                                       onPressed: () async {
@@ -986,7 +1056,6 @@ class FinanceTabWidget extends State {
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  // ignore: deprecated_member_use
                                   RaisedButton(
                                       child: Text('CHOOSE FILE'),
                                       onPressed: () async {
@@ -1032,7 +1101,6 @@ class FinanceTabWidget extends State {
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  // ignore: deprecated_member_use
                                   RaisedButton(
                                       child: Text('CHOOSE FILE'),
                                       onPressed: () async {
@@ -1059,7 +1127,6 @@ class FinanceTabWidget extends State {
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  // ignore: deprecated_member_use
                                   RaisedButton(
                                       child: Text('CHOOSE FILE'),
                                       onPressed: () async {
@@ -1085,7 +1152,6 @@ class FinanceTabWidget extends State {
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  // ignore: deprecated_member_use
                                   RaisedButton(
                                       child: Text('CHOOSE FILE'),
                                       onPressed: () async {
@@ -1131,7 +1197,6 @@ class FinanceTabWidget extends State {
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  // ignore: deprecated_member_use
                                   RaisedButton(
                                       child: Text('CHOOSE FILE'),
                                       onPressed: () async {
@@ -1157,7 +1222,6 @@ class FinanceTabWidget extends State {
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  // ignore: deprecated_member_use
                                   RaisedButton(
                                       child: Text('CHOOSE FILE'),
                                       onPressed: () async {
@@ -1183,7 +1247,6 @@ class FinanceTabWidget extends State {
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  // ignore: deprecated_member_use
                                   RaisedButton(
                                       child: Text('CHOOSE FILE'),
                                       onPressed: () async {
@@ -1229,7 +1292,6 @@ class FinanceTabWidget extends State {
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  // ignore: deprecated_member_use
                                   RaisedButton(
                                       child: Text('CHOOSE FILE'),
                                       onPressed: () async {
@@ -1255,7 +1317,6 @@ class FinanceTabWidget extends State {
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  // ignore: deprecated_member_use
                                   RaisedButton(
                                       child: Text('CHOOSE FILE'),
                                       onPressed: () async {
@@ -1281,7 +1342,6 @@ class FinanceTabWidget extends State {
                               child: new Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  // ignore: deprecated_member_use
                                   RaisedButton(
                                       child: Text('CHOOSE FILE'),
                                       onPressed: () async {
@@ -1301,6 +1361,43 @@ class FinanceTabWidget extends State {
                                   // ),
                                 ],
                               )),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: 10.0, right: 10.0, top: 2.0),
+                            child: Container(
+                                height: 50,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.orange,
+                                        Colors.pinkAccent
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.circular(20)),
+                                margin:
+                                    const EdgeInsets.only(top: 30, left: 250),
+                                child: FlatButton(
+                                  onPressed: () {
+                                    AlertDialog alert = AlertDialog(
+                                      title: Text("Note"),
+                                      content: Text("Data is Saved"),
+                                    );
+
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return alert;
+                                      },
+                                    );
+                                  },
+                                  child: Text(
+                                    'Save',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 18),
+                                  ),
+                                )),
+                          ),
                         ],
                       ),
                     ),
@@ -1648,6 +1745,43 @@ class FamilyTabWidget extends State {
                                   ),
                                 ],
                               )),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: 10.0, right: 10.0, top: 2.0),
+                            child: Container(
+                                height: 50,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.orange,
+                                        Colors.pinkAccent
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.circular(20)),
+                                margin:
+                                    const EdgeInsets.only(top: 30, left: 250),
+                                child: FlatButton(
+                                  onPressed: () {
+                                    AlertDialog alert = AlertDialog(
+                                      title: Text("Note"),
+                                      content: Text("Data is Saved"),
+                                    );
+
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return alert;
+                                      },
+                                    );
+                                  },
+                                  child: Text(
+                                    'Save',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 18),
+                                  ),
+                                )),
+                          ),
                         ],
                       ),
                     ),
@@ -1831,6 +1965,43 @@ class BankTabWidget extends State {
                                   ),
                                 ],
                               )),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: 10.0, right: 10.0, top: 2.0),
+                            child: Container(
+                                height: 50,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.orange,
+                                        Colors.pinkAccent
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.circular(20)),
+                                margin:
+                                    const EdgeInsets.only(top: 30, left: 250),
+                                child: FlatButton(
+                                  onPressed: () {
+                                    AlertDialog alert = AlertDialog(
+                                      title: Text("Note"),
+                                      content: Text("Data is Saved"),
+                                    );
+
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return alert;
+                                      },
+                                    );
+                                  },
+                                  child: Text(
+                                    'Save',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 18),
+                                  ),
+                                )),
+                          ),
                         ],
                       ),
                     ),
