@@ -22,9 +22,9 @@ class DashboardReceiver extends StatefulWidget {
 
 class _DashboardReceiverState extends State<DashboardReceiver> {
   FSBStatus? _fsbStatus;
-  final String url = '$server/requests/active';
-  final String urlPending = '$server/requests/pending';
-  final String urlPaused = '$server/requests/paused';
+  final String url = '$server/student/requests/active';
+  final String urlPending = '$server/student/requests/pending';
+  final String urlPaused = '$server/student/requests/paused';
 
   getUserData() async {
     // print("Inside recevier dashboard");
@@ -36,29 +36,23 @@ class _DashboardReceiverState extends State<DashboardReceiver> {
     var response =
         await http.get(Uri.parse(url), headers: {'authorization': currentTok!});
     var data = json.decode(response.body);
-
-    //print(response.body)
     List<Person> users = <Person>[];
-
-    for (var v in data.values) {
-      for (var u in v.values) {
-        Person user = Person(
-            u["FullName"],
-            u["RequestTitle"],
-            u["RequestAmount"],
-            u["created_at"],
-            u["published_at"],
-            u["status"],
-            u["DeadlineTime"],
-            u["ReasonDetail"]);
-        users.add(user);
-      }
+    // print(data[0]);
+    for (var u in data) {
+      // for (var u in v.values) {
+      print(u);
+      Person user = Person(
+          u["FullName"],
+          u["RequestTitle"],
+          u["RequestAmount"],
+          u["created_at"],
+          u["published_at"],
+          u["status"],
+          u["DeadlineTime"],
+          u["ReasonDetail"]);
+      users.add(user);
+      // }
     }
-    print("Hello");
-
-    print(users[0].title);
-
-    debugPrint("It is PRINTINGGGG L " + users.length.toString());
 
     return users;
   }

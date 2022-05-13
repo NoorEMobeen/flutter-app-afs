@@ -1,6 +1,7 @@
 import 'package:afs_mobile_flutter/Transaction.dart';
 import 'package:afs_mobile_flutter/UserProfile.dart';
 import 'package:afs_mobile_flutter/dashboard_Receiver.dart';
+import 'package:afs_mobile_flutter/receiver_account.dart';
 import 'package:afs_mobile_flutter/requestForm.dart';
 import 'package:afs_mobile_flutter/student_form.dart';
 import 'package:afs_mobile_flutter/ui/signin.dart';
@@ -68,27 +69,11 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Profile()),
-                );
-              },
-              leading: Icon(Icons.person),
-              title: Text(
-                "User Profile",
-              ),
-            ),
-            Divider(
-              height: 1,
-              color: Colors.grey,
-            ),
-            ListTile(
-              onTap: () {
-                Navigator.push(
-                  context,
                   MaterialPageRoute(builder: (context) => RequestForm()),
                 );
               },
               leading: Icon(Icons.request_page),
-              title: Text("Create Request"),
+              title: Text("Create Compaign"),
             ),
             Divider(
               height: 1,
@@ -102,12 +87,30 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
                 );
               },
               leading: Icon(Icons.history),
-              title: Text("Transaction"),
+              title: Text("Transactions"),
             ),
             Divider(
               height: 1,
               color: Colors.grey,
             ),
+
+            ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Profile()),
+                );
+              },
+              leading: Icon(Icons.person),
+              title: Text(
+                "Profile",
+              ),
+            ),
+            Divider(
+              height: 1,
+              color: Colors.grey,
+            ),
+
             ListTile(
               onTap: () {
                 Navigator.push(
@@ -116,7 +119,7 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
                 );
               },
               leading: Icon(Icons.info),
-              title: Text("Student Form"),
+              title: Text("Accounts"),
             ),
             Divider(
               height: 1,

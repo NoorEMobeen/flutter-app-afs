@@ -1,6 +1,6 @@
 //import 'package:afs_mobile_flutter/custom_sidebar_drawer.dart';
 
-//import 'dart:io';
+import 'dart:io';
 
 import 'package:afs_mobile_flutter/receiver_sidebar_drawer.dart';
 import 'package:afs_mobile_flutter/ui/widgets/custom_shape.dart';
@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:afs_mobile_flutter/profile_methods.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:foldable_sidebar/foldable_sidebar.dart';
-//import 'package:image_picker/image_picker.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -79,21 +79,30 @@ class ProfileState extends State<Profile> {
   }
 }
 
-// ignore: must_be_immutable
-class ProfilePage extends StatelessWidget {
-  bool _status = false;
+class ProfilePage extends StatefulWidget {
+  @override
+  ProfilePageState createState() => ProfilePageState();
+}
 
-  // late File _image;
-  // final _picker = ImagePicker();
-  // Implementing the image picker
-  // Future<void> _openImagePicker() async {
-  //   final XFile? pickedImage = await _picker.pickImage(source: ImageSource.gallery);
-  //   if (pickedImage != null) {
-  //     setState(() {
-  //       _image = File(pickedImage.path);
-  //     });
-  //   }
-  // }
+// ignore: must_be_immutable
+class ProfilePageState extends State<ProfilePage> {
+  bool _status = false;
+  bool imgflag = false;
+  var _image;
+  final _picker = ImagePicker();
+  //Implementing the image picker
+  Future<void> _openImagePicker() async {
+    // print('Image here: $_image');
+    final XFile? pickedImage = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      print('Comming here: ${pickedImage.path}');
+      setState(() {
+        imgflag = true;
+        _image = Image.memory(File(pickedImage.path).readAsBytesSync()).image;
+      });
+      print('Image here: $_image, $imgflag');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,79 +116,80 @@ class ProfilePage extends StatelessWidget {
             // clipShape(),
             Column(
               children: <Widget>[
-                // new Container(
-                //   // decoration: const BoxDecoration(
-                //   //   gradient: LinearGradient(
-                //   //       // begin: Alignment.topLeft,
-                //   //       //  end: Alignment.bottomRight,
-                //   //       colors: [Colors.white10, Colors.pinkAccent]
-                //   //       ),
-                //   // ),
+                new Container(
+                  // decoration: const BoxDecoration(
+                  //   gradient: LinearGradient(
+                  //       // begin: Alignment.topLeft,
+                  //       //  end: Alignment.bottomRight,
+                  //       colors: [Colors.white10, Colors.pinkAccent]
+                  //       ),
+                  // ),
 
-                //   height: 250.0,
-                //   color: Colors.white12,
-                //   child: new Column(
-                //     children: <Widget>[
-                //       Padding(
-                //         padding: EdgeInsets.only(top: 20.0),
-                //         child:
-                //             new Stack(fit: StackFit.loose, children: <Widget>[
-                //           new Row(
-                //             crossAxisAlignment: CrossAxisAlignment.center,
-                //             mainAxisAlignment: MainAxisAlignment.center,
-                //             children: <Widget>[
-                //               new Container(
-                //                 width: 140.0,
-                //                 height: 200.0,
-                //                 decoration: new BoxDecoration(
-                //                   boxShadow: [
-                //                     BoxShadow(
-                //                         spreadRadius: 0.0,
-                //                         color: Colors.black26,
-                //                         offset: Offset(1.0, 10.0),
-                //                         blurRadius: 20.0),
-                //                   ],
-                //                   color: Colors.white,
-                //                   shape: BoxShape.circle,
-                //                   // image: new DecorationImage(
-                //                   //   image: new ExactAssetImage(
-                //                   //       'assets/images/as.png'),
-                //                   //   fit: BoxFit.cover,
-                //                   // ),
-                //                 ),
-                //                 child: GestureDetector(
-                //                     onTap: () {
-                //                       //_openImagePicker();
-                //                       print('Adding photo');
-                //                     },
-                //                     child: Icon(
-                //                       Icons.add_a_photo,
-                //                       size: _large ? 40 : (_medium ? 33 : 31),
-                //                       color: Colors.orange[200],
-                //                     )),
-                //               ),
-                //             ],
-                //           ),
-                //           // Padding(
-                //           //     padding: EdgeInsets.only(top: 90.0, right: 100.0),
-                //           //     child: new Row(
-                //           //       mainAxisAlignment: MainAxisAlignment.center,
-                //           //       children: <Widget>[
-                //           //         new CircleAvatar(
-                //           //           backgroundColor: Colors.red,
-                //           //           radius: 25.0,
-                //           //           child: new Icon(
-                //           //             Icons.camera_alt,
-                //           //             color: Colors.white,
-                //           //           ),
-                //           //         )
-                //           //       ],
-                //           //     )),
-                //         ]),
-                //       )
-                //     ],
-                //   ),
-                // ),
+                  height: 250.0,
+                  color: Colors.white12,
+                  child: new Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(top: 20.0),
+                        child:
+                            new Stack(fit: StackFit.loose, children: <Widget>[
+                          new Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              new Container(
+                                width: 140.0,
+                                height: 200.0,
+                                decoration: new BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                        spreadRadius: 0.0,
+                                        color: Colors.black26,
+                                        offset: Offset(1.0, 10.0),
+                                        blurRadius: 20.0),
+                                  ],
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                  image: new DecorationImage(
+                                    image: !imgflag ? new ExactAssetImage(
+                                        'assets/images/as.png'):_image,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                child: GestureDetector(
+                                    onTap: () {
+                                      _openImagePicker();
+                                      print('Adding photo');
+                                    },
+                                    // child: Icon(
+                                    //   Icons.add_a_photo,
+                                    //  // size: _large ? 40 : (_medium ? 33 : 31),
+                                    //   color: Colors.orange[200],
+                                    // )
+                                   ),
+                              ),
+                            ],
+                          ),
+                          // Padding(
+                          //     padding: EdgeInsets.only(top: 90.0, right: 100.0),
+                          //     child: new Row(
+                          //       mainAxisAlignment: MainAxisAlignment.center,
+                          //       children: <Widget>[
+                          //         new CircleAvatar(
+                          //           backgroundColor: Colors.red,
+                          //           radius: 25.0,
+                          //           child: new Icon(
+                          //             Icons.camera_alt,
+                          //             color: Colors.white,
+                          //           ),
+                          //         )
+                          //       ],
+                          //     )),
+                        ]),
+                      )
+                    ],
+                  ),
+                ),
 
                 new Container(
                   // color: Color(0xffFFFFFF),
@@ -416,7 +426,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  setState(Null Function() param0) {}
+  //setState(Null Function() param0) {}
 }
 
 Widget clipShape() {
