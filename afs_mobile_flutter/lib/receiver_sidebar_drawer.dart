@@ -1,7 +1,7 @@
 import 'package:afs_mobile_flutter/Transaction.dart';
 import 'package:afs_mobile_flutter/UserProfile.dart';
 import 'package:afs_mobile_flutter/dashboard_Receiver.dart';
-import 'package:afs_mobile_flutter/receiver_account.dart';
+//import 'package:afs_mobile_flutter/receiver_account.dart';
 import 'package:afs_mobile_flutter/requestForm.dart';
 import 'package:afs_mobile_flutter/student_form.dart';
 import 'package:afs_mobile_flutter/ui/signin.dart';
